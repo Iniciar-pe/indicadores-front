@@ -1,0 +1,303 @@
+<div class="content-wrapper container-xxl p-0">
+  <div class="content-body">
+    <!-- page users view start -->
+    <section class="app-user-view">
+      <h4 class="card-title">Lista de Usuarios</h4>
+
+        <!-- User Card & Plan Starts -->
+      <div class="row">
+        <!-- User Card starts-->
+        <div class="col-xl-8 col-lg-8 col-md-7">
+          <div class="card user-card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-xl-6 col-lg-12 d-flex flex-column justify-content-between border-container-lg">
+                  <div class="user-avatar-section">
+                    <div class="d-flex justify-content-start">
+                      <!--*ngIf="data.avatar.length > 0; else customAvatar"-->
+                      <div >
+                        <img class="img-fluid rounded" [src]="rutaAvatar + user.avatar" height="104" width="104" alt="User avatar" />
+                      </div>
+                      <ng-template #customAvatar>
+                        <div class="mr-1 ml-0 ">
+                          <div class="rounded p-3 bg-light-success">
+                            <h2
+                              [ngClass]="{
+                                'text-success': user.status == 'A',
+                                'text-warning': user.status == 'I'
+                              }"
+                              class="m-0"
+                            >
+                              {{ user.name | initials }}
+                            </h2>
+                          </div>
+                        </div>
+                      </ng-template>
+                      <div class="d-flex flex-column ml-1">
+                        <div class="user-info mb-1">
+                          <h4 class="mb-0">{{ user.name }} {{ user.lastName }}</h4>
+                          <span class="card-text">{{ user.email }}</span>
+                        </div>
+                        <div class="d-flex flex-wrap">
+                          <div class="badge badge-pill badge-glow badge-primary" style="width: 150px;" *ngIf="user.status == 'A'">Activo</div>
+                          <div class="badge badge-pill badge-glow badge-warning" style="width: 150px;" *ngIf="user.status == 'I'">Inactivo</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="col-xl-6 col-lg-12 mt-2 mt-xl-0">
+                  <div class="user-info-wrapper">
+                    <div class="d-flex flex-wrap">
+                      <div class="user-info-title">
+                        <i data-feather="user" class="mr-1"></i>
+                        <span class="card-text user-info-title font-weight-bold mb-0">{{ user.name }}</span>
+                      </div>
+                      <p class="card-text mb-0">{{ user.lastName }}</p>
+                    </div>
+                    
+                    <div class="d-flex flex-wrap my-50">
+                      <div class="user-info-title">
+                        <i data-feather="star" class="mr-1"></i>
+                        <span class="card-text user-info-title font-weight-bold mb-0">Plan</span>
+                      </div>
+                      <p class="card-text mb-0">{{ user.description }}</p>
+                    </div>
+                    <div class="d-flex flex-wrap my-50">
+                      <div class="user-info-title">
+                        <i data-feather="flag" class="mr-1"></i>
+                        <span class="card-text user-info-title font-weight-bold mb-0">Licencias</span>
+                      </div>
+                      <p class="card-text mb-0">{{ user.countLicense }}</p>
+                    </div>
+                    <div class="d-flex flex-wrap">
+                      <div class="user-info-title">
+                        <i data-feather="calendar" class="mr-1"></i>
+                        <span class="card-text user-info-title font-weight-bold mb-0">Fecha Inicio</span>
+                      </div>
+                      <p class="card-text mb-0"> {{ history?.start | date: 'dd/MM/yyyy' }} </p>
+                    </div>
+                    <div class="d-flex flex-wrap">
+                      <div class="user-info-title">
+                        <i data-feather="calendar" class="mr-1"></i>
+                        <span class="card-text user-info-title font-weight-bold mb-0">Fecha Fin</span>
+                      </div>
+                      <p class="card-text mb-0">{{ history?.end | date: 'dd/MM/yyyy' }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group">
+                    <div class="d-flex mb-0">
+                      <h6 class="mr-1 mb-0">
+                        <div class="badge badge-pill badge-light-warning">Inactivo</div>
+                      </h6>
+                      <div class="custom-control custom-switch">
+                        <input
+                          type="checkbox"
+                          [(ngModel)]="statusUser"
+                          class="custom-control-input"
+                          id="priceSwitch"
+                          name="priceSwitch"
+                          [swal]="{
+                            title: titleMessage,
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#7367F0',
+                            cancelButtonColor: '#E42728',
+                            confirmButtonText: 'Si, aceptar',
+                            cancelButtonText: 'Cancelar',
+                            customClass: {
+                              confirmButton: 'btn btn-primary',
+                              cancelButton: 'btn btn-danger ml-1'
+                            }
+                          }"
+                          (confirm)="userActivate()"
+                        />
+                        <label class="custom-control-label" for="priceSwitch"></label>
+                      </div>
+                      <h6 class="ml-50 mb-0">
+                        <div class="badge badge-pill badge-light-success">Activo</div>
+                      </h6>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+              <div>
+          
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /User Card Ends-->
+
+        <!-- Plan Card starts-->
+        <div class="col-xl-3 col-lg-4 col-md-5">
+          <div class="card plan-card border-primary">
+            <div class="card-header d-flex justify-content-between align-items-center pt-75 pb-1">
+              <div class="d-flex align-items-center  text-right ">
+                <i data-feather="info" class="font-medium-3"></i>
+                <h4 class="mb-0 ml-75"><b>Plan contratado</b> </h4>
+                
+              </div>
+              <div class="d-flex align-items-center  text-right ">
+                <div class="badge badge-light-primary text-right">{{ user.description }}</div>
+              </div>
+            </div>
+            <div class="card-body">
+              
+              <ul class="list-unstyled my-1">
+                <li>
+                  <span class="align-middle" *ngIf="userCount != '1';else templateUser">{{ userCount }} Usuarios Asignados</span>
+                  <span class="align-middle" #templateUser>{{ userCount }} Usuario Asignado</span>
+                </li>
+                <li class="my-25">
+                  <span class="align-middle" *ngIf="userBusiness != '1';else templateBusiness">{{ userBusiness }} Empresas</span>
+                  <span class="align-middle" #templateBusiness>{{ userBusiness }} Empresa</span>
+                </li>
+                <li class="my-25">
+                  <span class="align-middle">{{ sinAsignate }} Sin asignar</span>
+                </li>
+              </ul>
+              <button class="btn btn-primary text-center btn-block" rippleEffect routerLink="/admin/planes">Ver Planes</button>
+            </div>
+          </div>
+        </div>
+        <!-- /Plan CardEnds -->
+      </div>
+  
+      <div class="row">
+        <div class="col-12">
+          <h4 class="card-title">Usuarios Asignados</h4>
+          <section id="ngx-datatable-kitchen-sink">
+  
+            
+            <div class="row">
+            
+              <div class="col-md-6 col-12">
+                <div class="d-flex justify-content-between align-items-center m-1">
+                  <label class="d-flex align-items-center"
+                    >Mostrar
+                    <select class="form-control mx-25" [(ngModel)]="basicSelectedOption">
+                      <option value="5">5</option>
+                      <option value="10">10</option>
+                      <option value="25">25</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                    </select>
+                    Usuarios</label
+                  >
+                </div>
+              </div>
+              <div class="col-md-6 col-12 d-flex justify-content-md-end">
+                <div class="d-flex align-items-center justify-content-end pr-1 pb-1 pl-1 pl-md-0 pb-md-0">
+                  <label class="d-flex align-items-center"
+                    >Buscar<input
+                      type="search"
+                      placeholder="Buscar"
+                      class="form-control ml-25"
+                      (keyup)="filterUpdate($event)"
+                      (search)="filterUpdate($event)"
+                  /></label>
+                </div>
+              </div>
+            </div>
+            <ngx-datatable
+            class="bootstrap core-bootstrap"
+            [headerHeight]="40"
+            [rowHeight]="58"
+            [limit]="basicSelectedOption"
+            [columnMode]="ColumnMode.force"
+            [footerHeight]="50"
+            [rows]="rows"
+            [scrollbarH]="true"
+            >
+              <ngx-datatable-column name="Nombres y Apellidos" prop="name" [width]="280">
+                <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+                  <div class="d-flex align-items-center">
+                    <div *ngIf="row?.avatar?.length > 0; else customAvatar">
+                      <img
+                        class="rounded-circle mr-1"
+                        [src]="rutaAvatar + row.avatar"
+                        height="32"
+                        width="32"
+                        alt="datatable-avatar"
+                      />
+                    </div>
+                    <ng-template #customAvatar>
+                      <div class="avatar mr-1 ml-0 bg-light-success" >
+                        <div class="avatar-content">{{ row.name | initials }}</div>
+                      </div>
+                    </ng-template>
+                    <div class="cell-line-height">
+                      <p class="font-medium-1 font-weight-bold line-height-1 mb-25">
+                        {{ row.name }} {{ user.lastName }}
+                      </p>
+                      
+                    </div>
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+  
+              <ngx-datatable-column name="Email" prop="email" [width]="250">
+                <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+                  <div class="d-flex align-items-center">
+                    <div class="cell-line-height">
+                      <p class="font-medium-1 font-weight-bold line-height-1 mb-25">
+                        {{ row.email }}
+                      </p>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+  
+         
+  
+              <ngx-datatable-column name="Empresa" prop="business" [width]="250">
+                <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+                  <div class="d-flex align-items-center">
+                    <p class="font-medium-1 font-weight-bold line-height-1 mb-25">
+                      {{ row.business }}
+                    </p>
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+  
+              <ngx-datatable-column name="Estado" prop="status" [width]="50">
+                <ng-template let-status="value" let-row="row" ngx-datatable-cell-template>
+                  <div 
+                    class="badge badge-pill"
+                    [ngClass]="{
+                      'badge-light-success': 'A' == row.status,
+                      'badge-light-warning': row.status == 'I'
+                    }"
+                  >
+                    {{
+                      row.status == 'A'
+                        ? 'Activo'
+                        : 'Inactivo'
+                    }}
+                    
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+              
+            </ngx-datatable>
+          
+        </section>
+        </div>
+      </div>
+
+    </section>
+    <!-- page users view end -->
+  </div>
+</div>
+
+
+
+

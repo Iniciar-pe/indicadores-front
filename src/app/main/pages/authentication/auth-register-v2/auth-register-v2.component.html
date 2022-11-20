@@ -1,0 +1,284 @@
+<div class="auth-wrapper auth-v2">
+  <div class="auth-inner row m-0">
+    <!-- Brand logo--><a class="brand-logo" href="javascript:void(0);">
+      <img src="{{ coreConfig.app.appLogocom }}" alt="brand-logo" height="70" />
+      </a>
+    <!-- /Brand logo-->
+    <!-- Left Text-->
+    <div class="d-none d-lg-flex col-lg-8 align-items-center p-5">
+      <div class="w-100 d-lg-flex align-items-center justify-content-center px-5">
+        <img
+          class="img-fluid"
+          [src]="
+            coreConfig.layout.skin === 'dark'
+              ? 'assets/images/pages/register-v2-dark.svg'
+              : 'assets/images/pages/register.png'
+          "
+          alt="Register V2"
+        />
+      </div>
+    </div>
+    <!-- /Left Text-->
+    <!-- Register-->
+    <div class="d-flex col-lg-4 align-items-center auth-bg px-2 p-lg-5">
+      <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
+        <div class="row">
+          <div class="col-6">
+            <b class="text-register">Registro</b>
+          </div>
+          <div class="col-6">
+            <img src="{{ coreConfig.app.appLogocom }}" alt="brand-logo" class="img-register" height="40" />
+          </div>
+        </div>
+        <hr>
+        <h4 class="font-weight-bold"><b>La aventura comienza aquí</b> &nbsp;<img src="../../../../../assets/images/icons/adn.png" width="25" alt=""></h4>
+        <p class="card-text">La gesti&oacute;n de su app f&aacute;cil y divertida!</p>
+        <form class="auth-register-form mt-2" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="register-email" class="form-label">E-mail</label>
+            <input
+              type="text"
+              formControlName="email"
+              class="form-control"
+              placeholder="john@example.com"
+              aria-describedby="register-email"
+              tabindex="2"
+              maxlength="100"
+              [ngClass]="{ 'is-invalid': submitted || f.email.errors && (f.email.dirty || f.email.touched) }"
+            />
+            <div *ngIf="f.email.errors && (f.email.dirty || f.email.touched)" class="invalid-feedback">
+              <div *ngIf="f.email.errors.required">El campo es requerido</div>
+              <div *ngIf="f.email.errors.email">El correo electrónico debe ser una dirección de correo electrónico válida</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="register-email" class="form-label">Nombre</label>
+            <input
+              type="text"
+              formControlName="name"
+              class="form-control"
+              placeholder="john"
+              aria-describedby="register-email"
+              tabindex="2"
+              maxlength="80"
+              [ngClass]="{ 'is-invalid': f.name.errors && (f.name.dirty || f.name.touched) }"
+            />
+            <div *ngIf="f.name.errors && (f.name.dirty || f.name.touched)" class="invalid-feedback">
+              <div *ngIf="f.name.errors.required">El campo es requerido</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="register-email" class="form-label">Apellidos</label>
+            <input
+              type="text"
+              formControlName="lastName"
+              class="form-control"
+              placeholder="Gutiérrez"
+              aria-describedby="register-email"
+              tabindex="2"
+              maxlength="80"
+              [ngClass]="{ 'is-invalid': f.lastName.errors && (f.lastName.dirty || f.lastName.touched) }"
+            />
+            <div *ngIf="f.lastName.errors && (f.lastName.dirty || f.lastName.touched)" class="invalid-feedback">
+              <div *ngIf="f.lastName.errors.required">El campo es requerido</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="register-email" class="form-label">Celular</label>
+            <input
+              type="number"
+              formControlName="phone"
+              class="form-control"
+              placeholder="999999999"
+              aria-describedby="register-email"
+              tabindex="2"
+              minlength="9"
+              maxlength="9"
+              oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+              [ngClass]="{ 'is-invalid': f.phone.errors && (f.phone.dirty || f.phone.touched) }"
+            />
+            <div *ngIf="f.phone.errors && (f.phone.dirty || f.phone.touched)" class="invalid-feedback">
+              <div *ngIf="f.phone.errors.required">El campo es requerido</div>
+              <div *ngIf="f.phone.errors.min || f.phone.errors.max">No es un celular valido</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="custom-control custom-switch custom-control-inline">
+              <input 
+                type="checkbox" 
+                class="custom-control-input" 
+                formControlName="businessExist"
+                id="customSwitch1" />
+              <label class="custom-control-label" for="customSwitch1">¿Tiene un negocio?</label>
+            </div>
+          </div>
+
+          <div class="form-group" *ngIf="f.businessExist.value">
+            <label for="register-email" class="form-label">Ruc</label>
+            <input
+              type="number"
+              formControlName="ruc"
+              class="form-control"
+              placeholder="20999999999"
+              aria-describedby="register-email"
+              tabindex="2"
+              maxlength="11"
+              oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+              [ngClass]="{ 'is-invalid': f.ruc.errors &&  (f.ruc.dirty || f.ruc.touched) }"
+            />
+            <div *ngIf="f.ruc.errors &&  (f.ruc.dirty || f.ruc.touched)" class="invalid-feedback">
+              <div *ngIf="f.ruc.errors.required">El campo es requerido</div>
+              <div *ngIf="f.ruc.errors.min || f.ruc.errors.max">Debe ser un RUC valido</div>
+            </div>
+          </div>
+
+          <div class="form-group" *ngIf="f.businessExist.value">
+            <label for="register-email" class="form-label">Nombre Empresa</label>
+            <input
+              type="text"
+              formControlName="business"
+              class="form-control"
+              placeholder="Nombre Empresa"
+              aria-describedby="register-email"
+              tabindex="2"
+              maxlength="80"
+              [ngClass]="{ 'is-invalid': f.business.errors && (f.business.dirty || f.business.touched) }"
+            />
+            <div *ngIf="f.business.errors && (f.business.dirty || f.business.touched)" class="invalid-feedback">
+              <div *ngIf="f.business.errors.required">El campo es requerido</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="register-password" class="form-label">Constraseña</label>
+
+            <div class="input-group input-group-merge form-password-toggle">
+              <input
+                [type]="passwordTextType ? 'text' : 'password'"
+                formControlName="password"
+                class="form-control form-control-merge"
+                placeholder="············"
+                aria-describedby="register-password"
+                tabindex="3"
+                minlength="8"
+                [ngClass]="{ 'is-invalid error': f.password.errors && (f.password.dirty || f.password.touched) }"
+              />
+              <div class="input-group-append">
+                <span class="input-group-text cursor-pointer"
+                  ><i
+                    class="feather font-small-4"
+                    [ngClass]="{
+                      'icon-eye-off': passwordTextType,
+                      'icon-eye': !passwordTextType
+                    }"
+                    (click)="togglePasswordTextType()"
+                  ></i
+                ></span>
+              </div>
+            </div>
+            
+            <div
+              *ngIf="f.password.errors && (f.password.dirty || f.password.touched)"
+              class="invalid-feedback"
+              [ngClass]="{ 'd-block': f.password.errors && (f.password.dirty || f.password.touched) }"
+            >
+              <div *ngIf="f.password.errors.required">El campo es requerido</div>
+              <div *ngIf="f.password.errors.hasNumber">Se requiere número</div>
+              <div *ngIf="f.password.errors.hasCapitalCase">Se requiere una letra mayuscula</div>
+              <div *ngIf="f.password.errors.hasSpecialCharacters">Se requiere un caracter especial</div>
+              <div *ngIf="f.password.errors.minlength">Minimo 8 caracteres</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+
+            <div class="input-group input-group-merge form-password-toggle">
+              <input
+                [type]="confirmPasswordTextType ? 'text' : 'password'"
+                formControlName="confirmPassword"
+                class="form-control form-control-merge"
+                placeholder="············"
+                aria-describedby="confirmPassword"
+                tabindex="3"
+                minlength="6"
+                [ngClass]="{ 'is-invalid error': (f.confirmPassword.errors || f.confirmPassword.hasError('NoPassswordMatch')) && (f.confirmPassword.dirty || f.confirmPassword.touched) }"
+              />
+              <div class="input-group-append">
+                <span class="input-group-text cursor-pointer"
+                  ><i
+                    class="feather font-small-4"
+                    [ngClass]="{
+                      'icon-eye-off': confirmPasswordTextType,
+                      'icon-eye': !confirmPasswordTextType
+                    }"
+                    (click)="toggleConfirmPasswordTextType()"
+                  ></i
+                ></span>
+              </div>
+            </div>
+            <div
+              *ngIf="(f.confirmPassword.errors || f.confirmPassword.hasError('NoPassswordMatch')) && (f.confirmPassword.dirty || f.confirmPassword.touched)"
+              class="invalid-feedback"
+              [ngClass]="{ 'd-block': (f.confirmPassword.errors || f.confirmPassword.hasError('NoPassswordMatch')) && (f.confirmPassword.dirty || f.confirmPassword.touched) }"
+            >
+              <div *ngIf="f.confirmPassword.errors.required">El campo es requerido</div>
+              <div *ngIf="f.confirmPassword.hasError('NoPassswordMatch')">La contraseña no coincide</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="custom-control custom-checkbox">
+              <input
+              class="custom-control-input" 
+              formControlName="policy" 
+              type="checkbox" 
+              id="register-privacy-policy" 
+              tabindex="4" 
+              [ngClass]="{ 'is-invalid error': submitted && f.policy.errors }" />
+              <label class="custom-control-label" for="register-privacy-policy">
+                Autorizo el uso de mis datos para comunicaciones
+              </label>
+            </div>
+            <div *ngIf="submitted && f.policy.errors" class="invalid-feedback">
+              <div *ngIf="f.policy.errors.required">El campo es requerido</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="custom-control custom-checkbox">
+              <input 
+              class="custom-control-input" 
+              type="checkbox" 
+              formControlName="data"  
+              id="register-privacy-data" 
+              tabindex="4" 
+              [ngClass]="{ 'is-invalid error': submitted && f.data.errors }"/>
+              <label class="custom-control-label" for="register-privacy-data">
+                Autorizo el uso de mis datos para recibir promosiones
+              </label>
+            </div>
+            <div *ngIf="submitted && f.data.errors" class="invalid-feedback">
+              <div *ngIf="f.data.errors.required">El campo es requerido</div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" [disabled]="registerForm.invalid" tabindex="5" rippleEffect>
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Aceptar
+          </button>
+        </form>
+        <p class="text-center mt-2">
+          <span>¿Ya tienes una cuenta?</span
+          ><a routerLink="/admin/login"><span>&nbsp;Iniciar sesión en su lugar</span></a>
+        </p>
+        <div class="divider my-2">
+          <div class="divider-text">o</div>
+        </div>
+        <div class="auth-footer-btn d-flex justify-content-center">
+          <a class="btn btn-facebook" href="javascript:void(0)"><i data-feather="facebook"></i></a
+          ><a class="btn btn-google" href="javascript:void(0)"><i data-feather="mail"></i></a
+          ><a class="btn btn-linkedin" href="javascript:void(0)"><i data-feather="linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <!-- /Register-->
+  </div>
+</div>

@@ -1,0 +1,200 @@
+<div class="content-wrapper container-xxl p-0">
+  <div class="content-body">
+    <!-- content-header component -->
+    <app-content-header [contentHeader]="contentHeader"></app-content-header>
+
+
+    
+    <div class="card">
+
+      <div class="card-body">
+        <section id="ngx-datatable-kitchen-sink" *ngIf="!userEdit">
+                  
+          <h4 class="card-title">Lista de Planes</h4>
+          <div class="row">
+            <div class="col-12 mb-50">
+              <button class="btn btn-primary ml-1" rippleEffect (click)= "indicatorAdd()">
+                <i data-feather="plus" class="mr-0 mr-sm-1"></i
+                ><span class="d-none d-sm-inline-block">Nuevo Plan</span>
+              </button>
+  
+              <!--<a csvLink [data]="exportCSVData" class="btn btn-outline-secondary float-right mr-1" rippleEffect
+                >Export CSV</a>-->
+  
+            </div>
+
+            <div class="col-md-6 col-12">
+              <div class="d-flex justify-content-between align-items-center m-1">
+                <label class="d-flex align-items-center"
+                  >Mostrar
+                  <select class="form-control mx-25" [(ngModel)]="basicSelectedOption">
+<option value="5">5</option>
+<option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                  </select>
+                  Planes</label
+                >
+              </div>
+            </div>
+            <div class="col-md-6 col-12 d-flex justify-content-md-end">
+              <div class="d-flex align-items-center justify-content-end pr-1 pb-1 pl-1 pl-md-0 pb-md-0">
+                <label class="d-flex align-items-center"
+                  >Buscar<input
+                    type="search"
+                    placeholder="Buscar"
+                    class="form-control ml-25"
+                    (keyup)="filterUpdate($event)"
+                    (search)="filterUpdate($event)"
+                /></label>
+              </div>
+            </div>
+          </div>
+          <ngx-datatable
+          class="bootstrap core-bootstrap"
+          [headerHeight]="40"
+          [rowHeight]="58"
+          [limit]="basicSelectedOption"
+          [columnMode]="ColumnMode.force"
+          [footerHeight]="50"
+          [rows]="rows"
+          [scrollbarH]="true"
+          >
+         
+
+            <ngx-datatable-column name="Descriptión" [width]="400" prop="descripcion">
+              <ng-template let-row="row" let-name="value"  ngx-datatable-cell-template>
+                <div class="d-flex align-items-center">
+                  <div class="cell-line-height">
+                    <p class="font-medium-1 font-weight-bold line-height-1 mb-25">
+                      {{ row.descripcion }}
+                    </p>
+                  </div>
+                </div>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Número" [width]="50" prop="numero">
+              <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+                <div class="d-flex align-items-center">
+                  <div class="cell-line-height">
+                    <p class="font-medium-1 font-weight-bold line-height-1 mb-25">
+                      {{ row.numero }}
+                    </p>
+                  </div>
+                </div>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Precio" [width]="50" prop="precio">
+              <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+                <div class="d-flex align-items-center">
+                  <div class="cell-line-height">
+                    <p class="font-medium-1 font-weight-bold line-height-1 mb-25">
+                      S/ {{ row.precio }}
+                    </p>
+                  </div>
+                </div>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Estado" prop="estado" [width]="50">
+              <ng-template let-status="value" ngx-datatable-cell-template>
+                <div 
+                  class="badge badge-pill"
+                  [ngClass]="{
+                    'badge-light-success': 'A' == status,
+                    'badge-light-warning': status != 'A'
+                  }"
+                >
+                  {{
+                    status == 'A'
+                      ? 'Activo'
+                      : 'Inactivo'
+                  }}
+                  
+                </div>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Unitaria" [width]="50" prop="tipo">
+              <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+                <div class="d-flex align-items-center">
+                  <div class="cell-line-height">
+                    <p class="font-medium-1 font-weight-bold line-height-1 mb-25">
+                      {{ row.tipo == 'S' ? 'SI' : 'NO' }}
+                    </p>
+                  </div>
+                </div>
+              </ng-template>
+            </ngx-datatable-column>
+
+
+            <ngx-datatable-column name="Acciones" [width]="10" [sortable]="false">
+              <ng-template ngx-datatable-cell-template let-row="row">
+                <div class="d-flex align-items-center">
+                  <div ngbDropdown container="body">
+                    <a
+                      ngbDropdownToggle
+                      href="javascript:void(0);"
+                      class="hide-arrow"
+                      id="dropdownBrowserState"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <i data-feather="more-vertical" class="text-primary cursor-pointer mr-50"></i>
+                    </a>
+                    <div ngbDropdownMenu class="dropdown-menu-right" aria-labelledby="dropdownBrowserState">
+                      <a  ngbDropdownItem class="d-flex align-items-center"
+                      (click)= "planEdit(row)" ><i data-feather="eye" class="mr-50"></i> Editar</a
+                      >
+                      <a  ngbDropdownItem class="d-flex align-items-center"
+                      [swal]="{
+                        title: '¿Está seguro de eliminar este registro?',
+                        text: 'Esta acción no se puede revertir.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#7367F0',
+                        cancelButtonColor: '#E42728',
+                        confirmButtonText: 'Si, eliminar',
+                        cancelButtonText: 'Cancelar',
+                        customClass: {
+                          confirmButton: 'btn btn-primary',
+                          cancelButton: 'btn btn-danger ml-1'
+                        }
+                      }"
+                      (confirm)="deleteFile(row)"
+                       rippleEffect><i data-feather="eye" class="mr-50"></i> Eliminar</a >
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+        
+      </section>
+      <!--/ Kitchen Sink Datatables -->
+
+
+      <section>
+        <app-plan-edit (back)="backUserEdit()" (submit)="submitPlan($event)" [validateType]="validateType" [plan]="planData" *ngIf="userEdit"></app-plan-edit>
+      </section>
+      </div>
+    </div>
+
+
+    
+
+
+
+    
+
+
+   
+
+
+  
+  </div>
+</div>

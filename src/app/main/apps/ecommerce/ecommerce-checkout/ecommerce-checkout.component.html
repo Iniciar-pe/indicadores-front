@@ -1,0 +1,337 @@
+<div class="content-wrapper container-xxl p-0">
+  <app-content-header [contentHeader]="contentHeader"></app-content-header>
+  <div class="content-body">
+    <div class="bs-stepper checkout-tab-steps" id="checkoutStepper">
+      <!-- Wizard starts -->
+      <div class="bs-stepper-header">
+        <div class="step" data-target="#step-cart">
+          <button type="button" class="step-trigger">
+            <span class="bs-stepper-box">
+              <i data-feather="shopping-cart" class="font-medium-3"></i>
+            </span>
+            <span class="bs-stepper-label">
+              <span class="bs-stepper-title">Carrito</span>
+              <span class="bs-stepper-subtitle">Los artículos de su carrito</span>
+            </span>
+          </button>
+        </div>
+        <div class="line">
+          <i data-feather="chevron-right" class="font-medium-2"></i>
+        </div>
+        <div class="step" data-target="#step-address">
+          <button type="button" class="step-trigger">
+            <span class="bs-stepper-box">
+              <i data-feather="home" class="font-medium-3"></i>
+            </span>
+            <span class="bs-stepper-label">
+              <span class="bs-stepper-title">Datos</span>
+              <span class="bs-stepper-subtitle">Ingrese sus datos</span>
+            </span>
+          </button>
+        </div>
+        <div class="line">
+          <i data-feather="chevron-right" class="font-medium-2"></i>
+        </div>
+        <div class="step" data-target="#step-payment">
+          <button type="button" class="step-trigger">
+            <span class="bs-stepper-box">
+              <i data-feather="credit-card" class="font-medium-3"></i>
+            </span>
+            <span class="bs-stepper-label">
+              <span class="bs-stepper-title">Pago</span>
+              <span class="bs-stepper-subtitle">Seleccionar método de pago</span>
+            </span>
+          </button>
+        </div>
+      </div>
+      <!-- Wizard ends -->
+
+      <div class="bs-stepper-content">
+        <!-- Checkout Place order starts -->
+        <div id="step-cart" class="content">
+          <div id="place-order" class="list-view product-checkout">
+            <!-- Checkout Place Order Left starts -->
+            <div class="checkout-items">
+              <ng-container *ngFor="let product of products">
+                <app-ecommerce-checkout-item
+                  [product]="product"
+                  *ngIf="product.isInCart === true"
+                ></app-ecommerce-checkout-item>
+              </ng-container>
+            </div>
+            <!-- Checkout Place Order Left ends -->
+
+            <!-- Checkout Place Order Right starts -->
+            <div class="checkout-options">
+              <div class="card">
+                <div class="card-body">
+                  <label class="section-label mb-1">Detalle</label>
+                  
+                  <hr />
+                  <div class="price-details">
+                    <h6 class="price-title">Detalles del precio</h6>
+                    <ul class="list-unstyled">
+                      <li class="price-detail">
+                        <div class="detail-title">Sub Total</div>
+                        <div class="detail-amt">S/ 8.47</div>
+                      </li>
+                      
+                      <li class="price-detail">
+                        <div class="detail-title">IGV</div>
+                        <div class="detail-amt">S/ 1.53</div>
+                      </li>
+                     
+                      
+                    </ul>
+                    <hr />
+                    <ul class="list-unstyled">
+                      <li class="price-detail">
+                        <div class="detail-title detail-total">Total</div>
+                        <div class="detail-amt font-weight-bolder">S/10.00</div>
+                      </li>
+                    </ul>
+                    <button
+                      type="button"
+                      class="btn btn-primary btn-block btn-next place-order"
+                      (click)="nextStep()"
+                      rippleEffect
+                    >
+                     Realizar pedido
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- Checkout Place Order Right ends -->
+            </div>
+          </div>
+          <!-- Checkout Place order Ends -->
+        </div>
+        <!-- Checkout Customer Address Starts -->
+        <div id="step-address" class="content">
+          <form
+            id="checkout-address"
+            class="list-view product-checkout"
+            (ngSubmit)="(addressForm.form.valid)"
+            #addressForm="ngForm"
+          >
+            <!-- Checkout Customer Address Left starts -->
+            <div class="card">
+              <div class="card-header flex-column align-items-start">
+                <h4 class="card-title">Agregar Datos de Pago</h4>
+                <p class="card-text text-muted mt-25">
+                  Asegurese que los datos sean reales.
+                </p>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6 col-sm-12">
+                    <div class="form-group mb-2">
+                      <label for="checkout-name">Nombre:</label>
+                      <input
+                        type="text"
+                        id="checkout-name"
+                        class="form-control"
+                        [class.error]="addressForm.submitted && fullNameRef.invalid"
+                        name="fullname"
+                        placeholder="John Doe"
+                        [(ngModel)]="address.fullNameVar"
+                        #fullNameRef="ngModel"
+                        required
+                      />
+                      <span *ngIf="addressForm.submitted && fullNameRef.invalid" class="invalid-form">
+                        <small class="form-text text-danger" *ngIf="fullNameRef.errors.required"
+                          >Este campo es obligatorio!</small
+                        >
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                    <div class="form-group mb-2">
+                      <label for="checkout-number">Teléfono:</label>
+                      <input
+                        type="number"
+                        id="checkout-number"
+                        class="form-control"
+                        [class.error]="addressForm.submitted && numberRef.invalid"
+                        name="mnumber"
+                        placeholder="0123456789"
+                        [(ngModel)]="address.numberVar"
+                        #numberRef="ngModel"
+                        required
+                      />
+                      <span *ngIf="addressForm.submitted && numberRef.invalid" class="invalid-form">
+                        <small class="form-text text-danger" *ngIf="numberRef.errors.required"
+                          >Este campo es obligatorio!</small
+                        >
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                    <div class="form-group mb-2">
+                      <label for="checkout-apt-number">Dirección:</label>
+                      <input
+                        type="number"
+                        id="checkout-apt-number"
+                        class="form-control"
+                        [class.error]="addressForm.submitted && flatRef.invalid"
+                        name="apt-number"
+                        placeholder="9447 Glen Eagles Drive"
+                        [(ngModel)]="address.flatVar"
+                        #flatRef="ngModel"
+                        required
+                      />
+                      <span *ngIf="addressForm.submitted && flatRef.invalid" class="invalid-form">
+                        <small class="form-text text-danger" *ngIf="flatRef.errors.required"
+                          >Este campo es obligatorio!</small
+                        >
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                    <div class="form-group mb-2">
+                      <label for="checkout-landmark">Departamento:</label>
+                      <select class="form-control" id="add-type">
+                        <option>Seleccione</option>
+                        <option>Lima</option>
+                      </select>
+                      
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                    <div class="form-group mb-2">
+                      <label for="checkout-city">Provincia:</label>
+                      <select class="form-control" id="add-type">
+                        <option>Seleccione</option>
+                        <option>Lima</option>
+                      </select>
+                    
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                    <div class="form-group mb-2">
+                      <label for="checkout-pincode">Distrito:</label>
+                      <select class="form-control" id="add-type">
+                        <option>Seleccione</option>
+                        <option>Lima</option>
+                      </select>
+                     
+                    </div>
+                  </div>
+            
+                  <div class="col-12">
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-next delivery-address"
+                      (click)="nextStep()"
+                      rippleEffect
+                    >
+                      Ir a Pagos
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Checkout Customer Address Left ends -->
+
+            <!-- Checkout Customer Address Right starts -->
+            <div class="customer-card">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Gian Carlos</h4>
+                </div>
+                <div class="card-body actions">
+                  <p class="card-text mb-0">Av 5 los jirazoles 520</p>
+                  <p class="card-text">Lima - Lima - Lima</p>
+                  <p class="card-text">+51 986-555-140</p>
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-block btn-next delivery-address mt-2"
+                    (click)="nextStep()"
+                    rippleEffect
+                  >
+                    Ir a pagos
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Checkout Customer Address Right ends -->
+          </form>
+        </div>
+        <!-- Checkout Customer Address Ends -->
+
+        <!-- Checkout Payment Starts -->
+        <div id="step-payment" class="content">
+          <form id="checkout-payment" class="list-view product-checkout" onsubmit="return false;">
+            <div class="payment-type">
+              <div class="card">
+                <div class="card-header flex-column align-items-start">
+                  <h4 class="card-title">Opciones de pago</h4>
+                  <p class="card-text text-muted mt-25">Asegúrese de hacer clic en la opción de pago correcta</p>
+                </div>
+                <div class="card-body">
+                  <h6 class="card-holder-name my-75">Gian Carlos</h6>
+                 
+                  
+                  <hr class="my-2" />
+                  <ul class="other-payment-options list-unstyled">
+                    <li class="py-50">
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="customColorRadio2" name="paymentOptions" class="custom-control-input" />
+                        <label class="custom-control-label" for="customColorRadio2"> Tarjeta de crédito/débito </label>
+                      </div>
+                    </li>
+                    <li class="py-50">
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="customColorRadio3" name="paymentOptions" class="custom-control-input" />
+                        <label class="custom-control-label" for="customColorRadio3"> Tranferencia Bancaria </label>
+                      </div>
+                    </li>
+                    
+                  </ul>
+                  <hr class="my-2" />
+                  
+                </div>
+              </div>
+            </div>
+            <div class="amount-payable checkout-options">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Detalles del precio</h4>
+                </div>
+                <div class="card-body">
+                  <ul class="list-unstyled price-details">
+                    <li class="price-detail">
+                      <div class="details-title">Precio de 1 producto</div>
+                      <div class="detail-amt">
+                        <strong>S/ 10</strong>
+                      </div>
+                    </li>
+                    
+                  </ul>
+                  <hr />
+                  <ul class="list-unstyled price-details">
+                    <li class="price-detail">
+                      <div class="details-title">Total Pagar</div>
+                      <div class="detail-amt font-weight-bolder">S/ 10</div>
+                    </li>
+                  </ul>
+                  <br>
+                    <button
+                    style="width: 100%;"
+                      type="submit"
+                      class="btn btn-primary btn-next delivery-address"
+                      (click)="nextStep()"
+                      rippleEffect
+                    >
+                      Pagar
+                    </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- Checkout Payment Ends -->
+      </div>
+    </div>
+  </div>
+</div>

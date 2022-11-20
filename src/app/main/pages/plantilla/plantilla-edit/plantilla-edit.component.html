@@ -1,0 +1,118 @@
+<!-- app-content-header start -->
+<ng-container >
+  <div class="content-header row">
+    <div class="content-header-left col-12 mb-2">
+      <div class="row breadcrumbs-top">
+        <div class="col-12">
+          <!-- app-breadcrumb component -->
+          <div class="col-12 mb-50">
+            
+            <div class="row match-height">
+              <div class="col-12 col-md-10 mb-2">
+                <b  *ngIf="template.id_plantilla" >Editar {{ template.descripcion }}</b>
+                <b  *ngIf="!template.id_plantilla" >Nueva Plantilla </b>
+              </div>
+              <div class="col-12 col-md-2 mb-2 text-right">
+                <div class="badge badge-pill badge-info">ID: {{ template.id_plantilla ? template.id_plantilla : '' }}</div>
+              </div>
+              <form class="form-horizontal" [formGroup]="form" (ngSubmit)="submit()">
+              <div class="col-12">
+                <div class="form-group">
+                  <div class="d-flex align-items-end justify-content-end mb-0">
+                    <h6 class="mr-1 mb-0">
+                      <div class="badge badge-pill badge-light-warning">Inactivo</div>
+                    </h6>
+                    <div class="custom-control custom-switch">
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        id="status"
+                        name="status"
+                        formControlName="status"
+                      />
+                      <label class="custom-control-label" for="status"></label>
+                    </div>
+                    <h6 class="ml-50 mb-0">
+                      <div class="badge badge-pill badge-light-success">Activo</div>
+                    </h6>
+                  </div>
+                  
+                </div>
+              </div>
+
+                    <div class="col-12">
+                      
+                        <div class="row">
+                          <div class="col-12 col-lg-8">
+                            <div class="form-group">
+                              <label class="form-control-label" for="TDdesc">Descripción:</label>
+                              <input
+                              class="form-control input-md" 
+                              id="description" 
+                              name="description"
+                              type="text" 
+                              [ngClass]="{ 'is-invalid': submitted && f.description.errors }"
+                              placeholder="Descripción "
+                              formControlName="description"
+                              maxlength = "250">
+                              <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                                <div *ngIf="f.description.errors.required">El campo es requerido</div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 " *ngIf="template.nombre_documento">
+                            <label for="basicInputFile">Documento actual:  </label>
+                            <div class="form-group">
+                              
+                                <div class="badge badge-secondary" >
+                                  <a href="{{ url }}/app/{{ template.nombre_documento }}" download>
+                                    <span [data-feather]="'link'" [class]="'mr-25'"></span>
+                                    <span>{{ template.nombre_documento }}</span>
+                                  </a>
+                                </div>
+                            </div>
+                          </div>
+
+
+                          <div class="col-12">
+                            <div class="form-group">
+                              <label for="basicInputFile">Cargar documento:  </label>
+                                <input
+                                type="file"
+                                class="form-control-file" 
+                                [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+                                placeholder="Nombre Documento: "
+                                id="name" 
+                                name="name"
+                                maxlength = "250"
+                                (change)="uploadFile($event)" 
+                                accept=".doc,.docx"/>
+                                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                                  <div *ngIf="f.name.errors.required">El campo es requerido</div>
+                                </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12">
+                            <button type="submit" class="btn btn-primary mt-2 mr-1" rippleEffect>
+                              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Guardar cambios</button>
+                            <button type="reset" class="btn btn-outline-secondary mt-2" rippleEffect (click)="backUserEdit()">Cancelar</button>
+                          </div>
+                          
+                        </div>
+                        
+                     
+              </div>
+              </form>
+            </div>
+  
+
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</ng-container>
+<!-- app-content-header end -->

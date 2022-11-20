@@ -1,0 +1,235 @@
+<!-- app-content-header start -->
+<ng-container >
+  <div class="content-header row">
+    <div class="content-header-left col-12 mb-2">
+      <div class="row breadcrumbs-top">
+        <div class="col-12">
+          <!-- app-breadcrumb component -->
+          <div class="col-12 mb-50">
+            
+            <div class="row match-height">
+              <div class="col-12 col-md-10 mb-2">
+                <b *ngIf="indicatorData.id_indicador">Editar - {{ indicatorData.descripcion }}</b>
+                <b *ngIf="!indicatorData.id_indicador">Nuevo Indicador </b>
+              </div>
+              <div class="col-12 col-md-2 mb-2 text-right">
+                <div class="badge badge-pill badge-info">ID: {{ indicatorData.id_indicador }}</div>
+              </div>
+              <form class="form-horizontal" [formGroup]="form" (ngSubmit)="submitIndicator()">
+              <div class="col-12">
+                <div class="form-group">
+                  <div class="d-flex align-items-end justify-content-end mb-0">
+                    <h6 class="mr-1 mb-0">
+                      <div class="badge badge-pill badge-light-warning">Inactivo</div>
+                    </h6>
+                    <div class="custom-control custom-switch">
+                      <input
+                        type="checkbox"
+                        formControlName="status"
+                        class="custom-control-input"
+                        id="status"
+                        name="status"
+                      />
+                      <label class="custom-control-label" for="status"></label>
+                    </div>
+                    <h6 class="ml-50 mb-0">
+                      <div class="badge badge-pill badge-light-success">Activo</div>
+                    </h6>
+                  </div>
+                  
+                </div>
+              </div>
+
+                    <div class="col-12">
+                      
+                        <div class="row">
+                          <div class="col-12 col-lg-4">
+                            <div class="form-group">
+                              <label class="form-control-label" for="name">Nombre:</label>
+                              <input 
+                                class="form-control input-md" 
+                                id="name" 
+                                name="name"
+                                formControlName="name"
+                                type="text" 
+                                placeholder="Nombre"
+                                maxlength="100"
+                                [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                                  <div *ngIf="f.name.errors.required">El campo es requerido</div>
+                                </div>
+                            </div>
+                          </div>
+                          
+                          <div class="col-lg-3 col-12">
+                            <div class="form-group">
+                              <label 
+                              class="form-control-label" 
+                              for="public"
+                              >Manejo:</label>
+                                <select 
+                                  class="form-control input-md"
+                                  formControlName="public"
+                                  name="public"
+                                  id="public"
+                                  [ngClass]="{ 'is-invalid': submitted && f.public.errors }"   >
+                                  <option value="">Seleccione</option>
+                                  <option value="1">Público</option>
+                                  <option value="2">Licenciado</option>
+                                </select>
+                                <div *ngIf="submitted && f.public.errors" class="invalid-feedback">
+                                  <div *ngIf="f.public.errors.required">El campo es requerido</div>
+                                </div>
+                            </div>
+                          </div>
+
+                          <div class="col-lg-3 col-12">
+                            <div class="form-group">
+                              <label class="form-control-label" for="type">Tipo:</label>
+                                <select 
+                                  class="form-control input-md"
+                                  formControlName="type"
+                                  name="type"
+                                  id="type"
+                                  name="type"
+                                  [ngClass]="{ 'is-invalid': submitted && f.type.errors }"  >
+                                  <option value="">Seleccione</option>
+                                  <option value="1">Ingreso neto del Flujo Monetario</option>
+                                  <option value="2">Razones Financieras</option>
+                                </select>
+                                <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
+                                  <div *ngIf="f.type.errors.required">El campo es requerido</div>
+                                </div>
+                            </div>
+                          </div>
+                          
+                          
+
+                          <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                              <label class="form-control-label" for="TDdesc">Descripción:</label>
+                              <input 
+                                class="form-control input-md"
+                                id="description"
+                                name="description"
+                                formControlName="description"
+                                [ngClass]="{ 'is-invalid': submitted && f.description.errors }"
+                                type="text"
+                                maxlength="200"
+                                placeholder="Descripción">
+                              <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                                <div *ngIf="f.description.errors.required">El campo es requerido</div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!--<div class="col-lg-4 col-12">
+                            <div class="form-group">
+                              <label class="form-control-label" for="id_plantilla">Plantilla:</label>
+                                <select
+                                class="form-control input-md"  
+                                formControlName="id_plantilla"
+                                [ngClass]="{ 'is-invalid': submitted && f.id_plantilla.errors }" >
+                                  <option value="">Seleccione</option>
+                                  <option [value]="item.id_plantilla" *ngFor="let item of template">{{ item.descripcion }}</option>
+                                </select>
+                                <div *ngIf="submitted && f.id_plantilla.errors" class="invalid-feedback">
+                                  <div *ngIf="f.id_plantilla.errors.required">El campo es requerido</div>
+                                </div>
+                            </div>
+                          </div>-->
+
+                          <div class="col-12 col-lg-2">
+                            <div class="form-group">
+                              <label class="form-control-label" for="TDdesc">Orden:</label>
+                              <core-touchspin [size]="'lg'" [numberValue]="numberValue" (onChange)="countChange($event)" [button]="true"></core-touchspin>
+                            </div>
+                          </div>
+
+                          <div class="col-lg-3 col-12">
+                            <div class="form-group">
+                              <label
+                                class="form-control-label"
+                                for="expressed"
+                                >Valores:</label>
+                                <select 
+                                class="form-control input-md" 
+                                formControlName="expressed"
+                                name="expressed"
+                                id="expressed"
+                                [ngClass]="{ 'is-invalid': submitted && f.expressed.errors }"  >
+                                  <option value="">Seleccione</option>
+                                  <option value="1">Número</option>
+                                  <option value="2">Porcentaje</option>
+                                </select>
+                                <div *ngIf="submitted && f.expressed.errors" class="invalid-feedback">
+                                  <div *ngIf="f.expressed.errors.required">El campo es requerido</div>
+                                </div>
+                            </div>
+                          </div>
+
+                          
+
+                          
+
+                          <div class="col-12">
+                            <div class="form-group">
+                              <label class="form-control-label" for="formula">Fórmula:</label>
+                            
+                                <fieldset class="form-group">
+                                  <textarea 
+                                    class="form-control" 
+                                    id="formula" 
+                                    name="formula"
+                                    formControlName="formula"
+                                    [ngClass]="{ 'is-invalid': submitted && f.formula.errors }"
+                                    type="text"
+                                    maxlength="450"
+                                    placeholder="Fórmula"></textarea>
+                                </fieldset>
+                                <div *ngIf="submitted && f.formula.errors" class="invalid-feedback">
+                                  <div *ngIf="f.formula.errors.required">El campo es requerido</div>
+                                </div>
+                           
+                            </div>
+                          </div>
+
+                          
+
+                          <!--
+                            <div class="col-lg-3 col-12">
+                            <div class="form-group">
+                              <label class="form-control-label" for="TDEmail">Uso:</label>
+                                <select class="form-control input-md"   >
+                                  <option value="">Seleccione</option>
+                                  <option value="1">Público</option>
+                                  <option value="2">Licenciado</option>
+                                </select>
+                            
+                            </div>
+                          </div>
+                          -->
+
+                          <div class="col-12">
+                            <button type="submit" class="btn btn-primary mt-2 mr-1" rippleEffect>
+                              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Guardar cambios</button>
+                            <button type="reset" class="btn btn-outline-secondary mt-2" rippleEffect (click)="backIndicators()">Cancelar</button>
+                          </div>
+                          
+                        </div>
+                        
+                     
+              </div>
+            </form>
+            </div>
+            
+           
+
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</ng-container>
+<!-- app-content-header end -->

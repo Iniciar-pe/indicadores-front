@@ -1,0 +1,112 @@
+ <!-- Modal Form and scrolling start 
+ <section id="form-and-scrolling-components">
+  <div class="row">
+    <div class="col-12">
+    
+        <h4 class="card-title">Form & Scrolling Modals</h4>
+
+        <div class="card-body">
+          <div class="demo-inline-spacing">
+            <div class="login-form">
+              <button type="button" (click)="modalOpenForm(modalForm)" class="btn btn-outline-primary" rippleEffect>
+                Login Form
+              </button>
+
+            
+            </div>
+           
+            
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</section>
+ Modal Form and scrolling end -->
+
+   <!-- Modal -->
+   <ng-template #modalForm let-modal>
+    
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+
+      <!-- Profile Card -->
+      
+        <div class="card card-profile">
+          <img src="assets/images/banner/mas_licencias_v01.jpg" style="height: 220px;" class="img-fluid card-img-top" alt="Profile Cover Photo" />
+          <div class="card-body">
+            <div class="profile-image-wrapper">
+              <div class="profile-image">
+                <div class="avatar">
+                  <img src="assets/images/portrait/small/avatar-s-11.jpg" alt="Profile Picture" />
+                </div>
+              </div>
+            </div>
+            <h3>Jhon Stone</h3>
+            <h6 class="text-muted">jhon@gmail.com</h6>
+            
+            <hr class="mb-2" />
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <h6 class="text-muted font-weight-bolder">Paquete</h6>
+                  <select 
+                  class="form-control"
+                  (change)="paqueteChange($event)"
+                  >
+                    <option value="">Seleccione</option>
+                    <option value="Plan 1 - 5 Licencias - S/ 45.00">plan 1</option>
+                    <option value="Plan 2 - 10 Licencias - S/ 80.00">plan 2</option>
+                  </select>
+                  <small
+                    class="form-text text-secundary"
+                    >{{ paqueteSelected }} &nbsp;</small
+                  >
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <h6 class="text-muted font-weight-bolder">Periodo</h6>
+                  <select class="form-control" id="account-company" name="company" >
+                    <option value="Importe: S/ 10.00">1 meses</option>
+                    <option value="Importe: S/ 20.00">2 meses</option>
+                    <option value="Importe: S/ 30.00">3 meses</option>
+                    <option value="Importe: S/ 40.00">4 meses</option>
+                    <option value="Importe: S/ 50.00">5 meses</option>
+                    <option value="Importe: S/ 60.00">6 meses</option>
+                    <option value="Importe: S/ 70.00">7 meses</option>
+                    <option value="Importe: S/ 80.00">8 meses</option>
+                    <option value="Importe: S/ 90.00">9 meses</option>
+                    <option value="Importe: S/ 90.00">10 meses</option>
+                    <option value="Importe: S/ 90.00">11 meses</option>
+                    <option value="Importe: S/ 90.00">12 meses </option>
+                    <option value="Importe: S/ 90.00">24 meses </option>
+                  </select>
+                  
+                </div>
+              </div>
+            </div>
+          
+            
+          </div>
+        
+
+          <div class="row">
+            <div class="col">
+              <h3 class="mb-75 mt-0 pt-50">
+                <a href="javascript:void(0);">S/ 90.00</a> </h3>
+            </div>
+            <div class="col">
+              <a style="width: 60%;"
+              routerLink="/apps/comercio/verificar"(click)="modal.close('Accept click')"  class="btn btn-primary"  rippleEffect>
+                Ir a Pagar
+            </a>
+            </div>
+          </div>
+          
+
+        </div>
+      
+        
+    </div>
+  </ng-template>
+  <!-- / Modal -->

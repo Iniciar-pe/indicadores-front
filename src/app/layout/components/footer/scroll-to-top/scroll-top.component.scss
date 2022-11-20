@@ -1,0 +1,32 @@
+.scroll-to-top {
+  position: fixed;
+  bottom: 5%;
+  right: 30px;
+  
+ 
+}
+
+.show-scroll-to-top {
+  display: block;
+  
+}
+
+
+.dropdown-menu{
+  position: fixed !important;
+}
+
+img{
+  width: 100%;
+}
+
+a{
+  width: 100px;
+  border-radius: 150px;
+}
+
+.waves-float {
+  -webkit-mask-image: none;
+  box-shadow: none;
+  transition: all 300ms;
+}
