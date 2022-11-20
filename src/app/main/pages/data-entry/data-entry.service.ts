@@ -15,7 +15,7 @@ export class DataEntryService {
     }
 
     addEntryData(data) {
-      return this._http.post(`${environment.apiUrl}/api/entry-data/add`, data);
+      return this._http.post<any>(`${environment.apiUrl}/api/entry-data/add`, data);
     }
 
     getBusiness() {

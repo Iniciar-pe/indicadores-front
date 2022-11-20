@@ -10,8 +10,12 @@ export class EntryOfValuesService {
 
     constructor(private _http: HttpClient) {}
     
-    getValues() {
-      return this._http.get<ValuesRequest>(`${environment.apiUrl}/api/entry-data/get-values`);
+    getValues(criterion) {
+      return this._http.get<ValuesRequest>(`${environment.apiUrl}/api/entry-data/get-values?criterion=${criterion}`);
+    }
+
+    addValues(data) {
+      return this._http.post<any>(`${environment.apiUrl}/api/entry-data/add-values`, data);
     }
   
 }

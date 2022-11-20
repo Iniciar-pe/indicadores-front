@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ColumnMode, DatatableComponent, SelectionType } from '@swimlane/ngx-datatable';
 import { EntryOfValuesService } from './entry-of-values.service';
 
@@ -19,6 +19,8 @@ export class EntryOfValuesComponent implements OnInit {
   public rows: any;
   public ColumnMode = ColumnMode;
   public selected: number = 5;
+  @Input() criterion: string;
+  @Output() next = new EventEmitter<boolean>();
   
   constructor(private _entryOfValuesService: EntryOfValuesService) {
    
@@ -55,11 +57,27 @@ export class EntryOfValuesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._entryOfValuesService.getValues().subscribe(response => {
+
+    
+  }
+
+  getValues(criterion) {
+    this._entryOfValuesService.getValues(criterion).subscribe(response => {
       this.rows = response.values;
       this.tempData = this.rows;
     })
-    
+  }
+
+  addValues() {
+
+    const data = {
+      values: this.rows,
+      criterion: this.criterion,
+    }
+
+    this._entryOfValuesService.addValues(data).subscribe(data => {
+      this.next.emit(true);
+    })
   }
 
 

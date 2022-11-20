@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Stepper from 'bs-stepper';
 import { Observable } from 'rxjs';
@@ -13,6 +13,7 @@ import { DataEntryService } from './data-entry.service';
 })
 export class DataEntryComponent implements OnInit {
  
+  @ViewChild("childRef") childRef: any;
   @ViewChild('modalForm') modalForm;
   public contentHeader: object;
   public businesslist: any[] = [];;
@@ -20,8 +21,10 @@ export class DataEntryComponent implements OnInit {
   public business;
   public indicator;
   public loading = false;
+  public loadingSecond = false;
   private horizontalWizardStepper: Stepper;
   public dataEntry: DataEntry;
+  public criterion = '';
   public data: RequestDataEntry = {
     period: '1',
     month: '01',
@@ -82,15 +85,24 @@ export class DataEntryComponent implements OnInit {
       this._dataEntryService.addEntryData(this.data).subscribe(response => {
         this.horizontalWizardStepper.next();
         this.loading = false;
+        this.criterion = response.criterion;
+        this.childRef.getValues(response.criterion);
       }, err => {
         this.loading = false;
       })
     }
     
     if(opcion == 2) {
-      this.horizontalWizardStepper.next();
+      this.loadingSecond = true;
+      this.childRef.addValues();
+      //this.horizontalWizardStepper.next();
     }
     
+  }
+
+  next() {
+    this.loadingSecond = false;
+    this.horizontalWizardStepper.next();
   }
 
 
