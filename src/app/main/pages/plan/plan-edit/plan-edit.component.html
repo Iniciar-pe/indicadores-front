@@ -1,0 +1,147 @@
+<!-- app-content-header start -->
+<ng-container >
+  <div class="content-header row">
+    <div class="content-header-left col-12 mb-2">
+      <div class="row breadcrumbs-top">
+        <div class="col-12">
+          <!-- app-breadcrumb component -->
+          <div class="col-12 mb-50">
+            
+            <div class="row match-height">
+              <div class="col-12 col-md-10 mb-2">
+                <b  *ngIf="plan.id_plan" >Editar {{ plan.descripcion }}</b>
+                <b  *ngIf="!plan.id_plan" >Nuevo Plan </b>
+              </div>
+              <div class="col-12 col-md-2 mb-2 text-right">
+                <div class="badge badge-pill badge-info">ID: {{ plan.id_plan ? plan.id_plan : '' }}</div>
+              </div>
+              <form class="form-horizontal" [formGroup]="form" (ngSubmit)="submitPlan()" >
+              <div class="col-12">
+                <div class="form-group">
+                  <div class="d-flex align-items-end justify-content-end mb-0">
+                    <h6 class="mr-1 mb-0">
+                      <div class="badge badge-pill badge-light-warning">Inactivo</div>
+                    </h6>
+                    <div class="custom-control custom-switch">
+                      <!--
+                        [checked]="Monthly"
+                        [(ngModel)]="Monthly"
+                      -->
+                      <input
+                        type="checkbox"
+                        formControlName="status"
+                        class="custom-control-input"
+                        id="priceSwitch"
+                        name="priceSwitch"
+                      />
+                      <label class="custom-control-label" for="priceSwitch"></label>
+                    </div>
+                    <h6 class="ml-50 mb-0">
+                      <div class="badge badge-pill badge-light-success">Activo</div>
+                    </h6>
+                  </div>
+                  
+                </div>
+              </div>
+
+                    <div class="col-12">
+                      
+                        <div class="row">
+                         
+                          <div class="col-12 col-lg-8">
+                            <div class="form-group">
+                              <label class="form-control-label" for="description">Descripción:</label>
+                              <input
+                              class="form-control input-md"
+                              formControlName="description"
+                              id="description" name="description"
+                              [ngClass]="{ 'is-invalid': submitted && f.description.errors }"
+                              type="text"
+                              placeholder="Descripción "
+                              maxlength = "250">
+                              <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                                <div *ngIf="f.description.errors.required">El campo es requerido</div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-lg-3">
+                            <div class="form-group">
+                              <label class="form-control-label" for="type">Lincencia Unitaria:</label>
+                              <select class="form-control"
+                              id="type" 
+                              formControlName="type" 
+                              name="type"
+                              [ngClass]="{ 'is-invalid': submitted && f.type.errors }">
+                                <option value="N">No</option>
+                                <option value="S">Si</option>
+                              </select>
+                              <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
+                                <div *ngIf="f.type.errors.required">El campo es requerido</div>
+                              </div>
+                            </div>
+                          </div>
+
+
+
+                          <div class="col-12 col-lg-3">
+                            <div class="form-group">
+                              <label class="form-control-label" for="number">Número de Licencias</label>
+                              <input class="form-control input-md" 
+                              formControlName="number" 
+                              id="number" 
+                              name="number"
+                              type="number"
+                              maxlength = "3"
+                              oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                              placeholder="Número de Licencias "
+                              [ngClass]="{ 'is-invalid': submitted && f.number.errors }">
+                              <div *ngIf="submitted && f.number.errors" class="invalid-feedback">
+                                <div *ngIf="f.number.errors.required">El campo es requerido</div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-lg-3">
+                            <div class="form-group">
+                              <label class="form-control-label" for="TDdesc">Precio por Mes</label>
+                              <input class="form-control input-md"
+                              formControlName="price" 
+                              id="price"
+                              name="price"
+                              type="number"
+                              maxlength = "10"
+                              oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                              placeholder="Precio por Mes"
+                              [ngClass]="{ 'is-invalid': submitted && f.number.errors }">
+                              <div *ngIf="submitted && f.number.errors" class="invalid-feedback">
+                                <div *ngIf="f.number.errors.required">El campo es requerido</div>
+                              </div>
+                            </div>
+                          </div>
+
+
+
+                          <div class="col-12">
+                            <button type="submit" class="btn btn-primary mt-2 mr-1" rippleEffect>
+                              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Guardar cambios
+                            </button>
+                            <button type="reset" class="btn btn-outline-secondary mt-2" rippleEffect (click)="backUserEdit()">Cancelar</button>
+                          </div>
+                          
+                        </div>
+                        
+                      
+              </div>
+            </form>
+            </div>
+  
+
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</ng-container>
+<!-- app-content-header end -->

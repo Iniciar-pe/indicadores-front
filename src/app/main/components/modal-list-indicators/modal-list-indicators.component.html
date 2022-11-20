@@ -1,0 +1,93 @@
+<!-- Modal -->
+   <ng-template #modalForm let-modal>
+
+    <div class="modal-header">
+      <h4 *ngIf="correlativo" class="modal-title" id="myModalLabel1">Seleccionar Principales Indicadores <span *ngIf="correlativo">(4)</span></h4>
+      <h4 *ngIf="!correlativo" class="modal-title" id="myModalLabel1">Definir Orden <span *ngIf="correlativo">(4)</span></h4>
+      <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+
+      <!-- Profile Card -->
+      
+       
+<ul class="list-group" dragula="basic-list-group" id="basic-list-group">
+  
+  <li class="list-group-item draggable">
+    <div class="media">
+      <div class="avatar bg-light-success mr-2">
+        <div class="avatar-content">{{ 'Razón Corriente' | initials }}</div>
+      </div>
+      <div class="media-body">
+        <h5 style="margin-top: 5px;" >
+          Razón Corriente
+          <span *ngIf="correlativo" class="float-right badge badge-info badge-pill ng-star-inserted">1</span>
+        </h5>
+        
+        
+      </div>
+    </div>
+  </li>
+  <li class="list-group-item draggable">
+    <div class="media">
+      <div class="avatar bg-light-success mr-2">
+        <div class="avatar-content">{{ 'Prueba Ácida' | initials }}</div>
+      </div>
+      <div class="media-body">
+        <h5 style="margin-top: 5px;">Prueba Ácida
+          <span *ngIf="correlativo" class="float-right badge badge-info badge-pill ng-star-inserted">2</span>
+        </h5>
+      </div>
+    </div>
+  </li>
+  <li class="list-group-item draggable">
+    <div class="media">
+      <div class="avatar bg-light-primary mr-2">
+        <div class="avatar-content">{{ 'Período Promedio de Cobro' | initials }}</div>
+      </div>
+      <div class="media-body">
+        <h5 style="margin-top: 5px;">Período Promedio de Cobro 
+          <span *ngIf="correlativo" class="float-right badge badge-info badge-pill ng-star-inserted">3</span>
+        </h5>
+      </div>
+    </div>
+  </li>
+  <li class="list-group-item draggable">
+    <div class="media">
+      <div class="avatar bg-light-primary mr-2">
+        <div class="avatar-content">{{ 'Período Promedio de Pago' | initials }}</div>
+      </div>
+      <div class="media-body">
+        <h5 style="margin-top: 5px;">Período Promedio de Pago 
+          <span *ngIf="correlativo" class="float-right badge badge-info badge-pill ng-star-inserted">4</span>
+        </h5>
+      </div>
+    </div>
+  </li>
+  <li class="list-group-item draggable">
+    <div class="media">
+      <div class="avatar bg-light-primary mr-2">
+        <div class="avatar-content">{{ 'Rotación de Inventarios' | initials }}</div>
+      </div>
+      <div class="media-body">
+        <h5 style="margin-top: 5px;">Rotación de Inventarios</h5>
+      </div>
+    </div>
+  </li>
+</ul>
+  
+      
+        
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="modal.close('Accept click')" rippleEffect>
+        Guardar Cambios
+      </button>
+    </div>
+
+  </ng-template>
+  <!-- / Modal -->

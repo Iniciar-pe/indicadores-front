@@ -1,0 +1,140 @@
+<div class="content-wrapper container-xxl p-0">
+  <div class="row">
+
+    <div class="col-md-6 col-12">
+      <div class="d-flex justify-content-between align-items-center m-1">
+        <label class="d-flex align-items-center"
+          >Mostrar
+          <select class="form-control mx-25" [(ngModel)]="selected">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+          rubros</label
+        >
+      </div>
+      </div>
+      <div class="col-md-6 col-12 d-flex justify-content-md-end">
+        <div class="d-flex align-items-center justify-content-end pr-1 pb-1 pl-1 pl-md-0 pb-md-0">
+          <label class="d-flex align-items-center"
+            >Buscar<input
+              type="search"
+              placeholder="Buscar"
+              class="form-control ml-25"
+              (keyup)="filterUpdate($event)"
+              (search)="filterUpdate($event)"
+          /></label>
+        </div>
+      </div>
+    </div>
+
+                <ngx-datatable
+              class="bootstrap core-bootstrap"
+              [headerHeight]="80"
+              [rowHeight]="58"
+              [limit]="selected"
+              [columnMode]="ColumnMode.force"
+              [footerHeight]="50"
+              [rows]="rows"
+              [scrollbarH]="true"
+              >
+              <ngx-datatable-column [width]="280" name="Rubro" prop="description">
+                <ng-template let-column="column" ngx-datatable-header-template> 
+                  <div class="container">
+                    <p style="text-align: center;"><b>Rubros</b></p>
+                    <span>*Expresado en soles</span>
+                  </div>
+                </ng-template>
+                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                  <div class="d-flex align-items-center">
+                    <div class="mr-1 ml-0 text-info">
+                      <span
+                        rippleEffect
+                        placement="right"
+                        [ngbTooltip]="row.note"
+                        tooltipClass="tooltip-indez"
+                        triggers="manual"
+                        #methodOpen="ngbTooltip" (click)="methodOpen.open()"
+                      > <i data-feather="alert-circle" class="align-middle ml-sm-25 ml-0" ></i>
+                    </span>
+                      
+                    </div>
+                    
+                      <div class="avatar mr-1 ml-0 bg-light-primary">
+                        <div class="avatar-content">{{ row.description | initials }}</div>
+                      </div>
+                    
+                    <div class="cell-line-height">
+                      <p class="font-medium-1 font-weight-bold line-height-1 mb-25">
+                        {{ row.description }}
+                      </p>
+                      
+                    </div>
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column [width]="50" name="Trimestre anterior" prop="age">
+                <ng-template let-column="column" ngx-datatable-header-template> 
+                  <div>
+                    <p style="text-align: center;"><b>Trimestre anterior</b></p>
+                    <div style="text-align: center;">1 - Oct 2021 al 31 - Dic - 2021</div>
+                  </div>
+                </ng-template>
+                <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
+                  <div *ngIf="row.previousEdit == 'N'">
+                    No llenar
+                  </div>
+                  <div
+                    title="Doble para editar"
+                    (dblclick)="editingAge[rowIndex + '-previousPeriod'] = true"
+                    *ngIf="!editingAge[rowIndex + '-previousPeriod'] && row.previousEdit == 'S'"
+                  >
+                    {{ row.previousPeriod ? row.previousPeriod : '0' }}
+                  </div>
+                  <input
+                    autofocus
+                    class="form-control form-control-sm"
+                    (blur)="inlineEditingUpdateAge($event, 'previousPeriod', rowIndex)"
+                    *ngIf="editingAge[rowIndex + '-previousPeriod']"
+                    type="text"
+                    [value]="row.previousPeriod"
+                  />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column [width]="100" name="Trimeste actual o del analisis" prop="salary">
+                <ng-template let-column="column" ngx-datatable-header-template> 
+                  <div>
+                    <p style="text-align: center;"><b>Trimeste actual o del analisis</b></p>
+                    <div style="text-align: center;">1 - Oct 2021 al 31 - Dic - 2021</div>
+                  </div>
+                </ng-template>
+                <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
+                  <div *ngIf="row.currentEdit == 'N'">
+                    No llenar
+                  </div>
+                  <div
+                    title="Double click to edit"
+                    (dblclick)="editingSalary[rowIndex + '-currentPeriod'] = true"
+                    *ngIf="!editingSalary[rowIndex + '-currentPeriod'] && row.currentEdit == 'S'"
+                  >
+                  {{ row.currentPeriod ? row.currentPeriod : '0' }}
+                  </div>
+                  <input
+                    autofocus
+                    class="form-control form-control-sm"
+                    (blur)="inlineEditingUpdateSalary($event, 'currentPeriod', rowIndex)"
+                    *ngIf="editingSalary[rowIndex + '-currentPeriod']"
+                    type="text"
+                    [value]="row.currentPeriod"
+                  />
+                </ng-template>
+              </ngx-datatable-column>
+
+              </ngx-datatable>
+
+  
+
+  <div>
+</div>

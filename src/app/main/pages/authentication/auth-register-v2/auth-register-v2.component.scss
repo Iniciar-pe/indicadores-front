@@ -1,0 +1,14 @@
+@import '@core/scss/base/bootstrap-extended/include'; // Bootstrap includes
+@import '@core/scss/base/pages/page-auth.scss';
+
+
+.text-register{
+    color: $primary;
+    bottom: 0px;
+    position: absolute;
+    font-size: 1.2rem;
+}
+
+.img-register{
+    float: right;
+}

@@ -1,0 +1,427 @@
+<div class="content-wrapper container-xxl p-0">
+  <div class="content-body">
+    <!-- content-header component -->
+    <app-content-header [contentHeader]="contentHeader"></app-content-header>
+
+    <!-- account setting page -->
+    <section id="page-account-settings">
+      <div class="row nav-vertical d-flex">
+        <div class="col-md-3 mb-2 mb-md-0">
+          <ul ngbNav #navVertical="ngbNav" class="nav nav-pills flex-column nav-left">
+            <li class="nav-item" ngbNavItem>
+              <a
+                ngbNavLink
+                class="nav-link d-flex py-75"
+                id="account-pill-general"
+                data-toggle="pill"
+                href="#account-vertical-general"
+                aria-expanded="true"
+              >
+                <i data-feather="user" class="font-medium-3 mr-1"></i>
+                <span class="font-weight-bold">General</span>
+              </a>
+              <ng-template ngbNavContent>
+                <div class="card">
+                  <div class="card-body">
+                    <!-- header media -->
+                    <div class="media">
+                      <a href="javascript:void(0);" class="mr-25">
+                        <img [src]="avatarImage" class="rounded mr-50" alt="profile image" height="76" width="80" />
+                      </a>
+                      <!-- upload and reset button -->
+                      <div class="media-body mt-75 ml-1">
+                        <button
+                          (click)="file.click()"
+                          for="account-upload"
+                          class="btn btn-sm btn-primary mb-75 mr-75"
+                          rippleEffect
+                        >
+                        Subir
+                        </button>
+                        <input
+                          type="file"
+                          #file
+                          id="account-upload"
+                          hidden
+                          accept="image/*"
+                          (change)="uploadImage($event)"
+                        />
+                       
+                        <p>Permitido JPG, GIF o PNG. Tamaño máximo de 800kB</p>
+                      </div>
+                      <!--/ upload and reset button -->
+                    </div>
+                    <!--/ header media -->
+
+                    <!-- form -->
+                    <form class="validate-form mt-2" [formGroup]="form" (ngSubmit)="submit()" >
+                      <div class="row">
+                        <div class="col-12 col-sm-6">
+                          <div class="form-group">
+                            <label for="account-e-mail">E-mail</label>
+                            <input
+                              type="email"
+                              class="form-control"
+                              formControlName="email"
+                              id="email" 
+                              name="email"
+                              [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                              type="text"
+                              placeholder="E-mail "
+                              maxlength = "100"
+                              readonly
+                            />
+                            <div *ngIf="submitted && f.user.errors" class="invalid-feedback">
+                              <div *ngIf="f.user.errors.required">El campo es requerido</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                          <div class="form-group">
+                            <label for="account-nombres">Nombres</label>
+                            <input
+                            class="form-control"
+                            formControlName="nombres"
+                            id="nombres" 
+                            name="nombres"
+                            [ngClass]="{ 'is-invalid': submitted && f.nombres.errors }"
+                            type="text"
+                            placeholder="nombres"
+                            maxlength = "80"
+                            />
+                            <div *ngIf="submitted && f.user.errors" class="invalid-feedback">
+                              <div *ngIf="f.user.errors.required">El campo es requerido</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                          <div class="form-group">
+                            <label for="account-apellidos">Apellido</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              formControlName="apellidos"
+                              id="apellidos" 
+                              name="apellidos"
+                              [ngClass]="{ 'is-invalid': submitted && f.apellidos.errors }"
+                              type="text"
+                              placeholder="Last Name"
+                              maxlength = "80"
+                            />
+                            <div *ngIf="submitted && f.user.errors" class="invalid-feedback">
+                              <div *ngIf="f.user.errors.required">El campo es requerido</div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="col-12 col-sm-6">
+                          <div class="form-group">
+                            <label for="account-movil">Movil</label>
+                            <input
+                              class="form-control"
+                              formControlName="movil"
+                              id="movil" 
+                              name="movil"
+                              [ngClass]="{ 'is-invalid': submitted && f.movil.errors }"
+                              type="text"
+                              placeholder="Movil phone"
+                              maxlength = "9"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                          <div class="form-group">
+                            <label for="account-birth-date">Fecha Nacimiento</label>
+                            <input
+                              id="account-birth-date"
+                              name="account-birth-date"
+                              placeholder="June 18, 2021"
+                              
+                              class="form-control"
+                              formControlName="fecha_nacimiento"
+                              [ngClass]="{ 'is-invalid': submitted && f.fecha_nacimiento.errors }"
+                              type="date"
+
+                              maxlength = "250"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                          <div class="form-group">
+                            <label for="account-gender">Sexo</label>
+                            <select class="form-control" formControlName="sexo"
+                             id="account-gender" name="account-gender">
+                              <option value="null">Seleccione</option>
+                              <option value="1">Masculino</option>
+                              <option value="2">Femenino</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="col-12 col-sm-4">
+                          <div class="form-group">
+                            <label for="account-pais">País</label>
+                            <input
+                              class="form-control"
+                              formControlName="pais"
+                              id="pais" 
+                              name="pais"
+                              [ngClass]="{ 'is-invalid': submitted && f.pais.errors }"
+                              type="text"
+                              placeholder="Ingrese país"
+                              maxlength = "11"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-12 col-sm-4">
+                          <div class="form-group">
+                            <label for="account-ciudad">Ciudad</label>
+                            <input
+                              class="form-control"
+                              formControlName="ciudad"
+                              id="ciudad" 
+                              name="ciudad"
+                              [ngClass]="{ 'is-invalid': submitted && f.ciudad.errors }"
+                              type="text"
+                              placeholder="Ingrese ciudad"
+                              maxlength = "11"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-12 col-sm-4">
+                          <div class="form-group">
+                            <label for="account-ubi_codigo">Código Postal</label>
+                            <input
+                              class="form-control"
+                              formControlName="ubi_codigo"
+                              id="ubi_codigo" 
+                              name="ubi_codigo"
+                              [ngClass]="{ 'is-invalid': submitted && f.ubi_codigo.errors }"
+                              type="text"
+                              placeholder="Ingrese Código Postal"
+                              maxlength = "11"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="col-12">
+                          <div class="form-group">
+                            <label for="account-direccion">Dirección</label>
+                            <input
+                              class="form-control"
+                              formControlName="direccion"
+                              id="direccion" 
+                              name="direccion"
+                              [ngClass]="{ 'is-invalid': submitted && f.direccion.errors }"
+                              type="text"
+                              placeholder="Ingrese direccion"
+                              maxlength = "120"
+                            />
+                          </div>
+                        </div>
+                        
+                        <!--<div class="col-12 mt-75">
+                          <div class="alert alert-warning mb-50" role="alert">
+                            <h4 class="alert-heading">Su correo electrónico no está confirmado. Por favor, revise su bandeja de entrada.</h4>
+                            <div class="alert-body">
+                              <a href="javascript: void(0);" class="alert-link">Confirmación de reenvío</a>
+                            </div>
+                          </div>
+                        </div>-->
+                        <div class="col-12">
+                          <button type="submit" class="btn btn-primary mt-2 mr-1" rippleEffect>
+                            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                            Guardar cambios</button>
+                          <!--<button type="reset" class="btn btn-outline-secondary mt-2" rippleEffect>Cancelar</button>-->
+                        </div>
+                      </div>
+                    </form>
+                    <!--/ form -->
+                  </div>
+                </div>
+              </ng-template>
+            </li>
+            <li class="nav-item" ngbNavItem>
+              <a
+                ngbNavLink
+                class="nav-link d-flex py-75"
+                id="account-pill-password"
+                data-toggle="pill"
+                href="#account-vertical-password"
+                aria-expanded="false"
+              >
+                <i data-feather="lock" class="font-medium-3 mr-1"></i>
+                <span class="font-weight-bold">Cambiar contraseña</span>
+              </a>
+              <ng-template ngbNavContent>
+                <div class="card">
+                  <div class="card-body">
+                    <!-- form -->
+                    <form class="validate-form" [formGroup]="formPassword" (ngSubmit)="submitPassword()">
+                      <div class="row">
+                        <div class="col-12 col-sm-6">
+                          <div class="form-group">
+                            <label for="account-old-password">Contraseña anterior</label>
+                            <div class="input-group form-password-toggle input-group-merge">
+                              <input
+                                [type]="passwordTextTypeOld ? 'text' : 'password'"
+                                class="form-control"
+                                id="account-old-password"
+                                name="password"
+                                placeholder="Contraseña anterior"
+                                [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                                formControlName="passwordPrevious"
+                                maxlength="20"
+                              />
+                              <div class="input-group-append">
+                                <span class="input-group-text cursor-pointer"
+                                  ><i
+                                    class="feather font-small-4"
+                                    [ngClass]="{
+                                      'icon-eye-off': passwordTextTypeOld,
+                                      'icon-eye': !passwordTextTypeOld
+                                    }"
+                                    (click)="togglePasswordTextTypeOld()"
+                                  ></i
+                                ></span>
+                              </div>
+                            </div>
+                            <div *ngIf="submittedPassword && fP.passwordPrevious.errors" class="invalid-feedback">
+                              <div *ngIf="fP.passwordPrevious.errors.required">El campo es requerido</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-12 col-sm-6">
+                          <div class="form-group">
+                            <label for="account-new-password">Nueva contraseña</label>
+                            <div class="input-group form-password-toggle input-group-merge">
+                              <input
+                                [type]="passwordTextTypeNew ? 'text' : 'password'"
+                                id="account-new-password"
+                                name="new-password"
+                                class="form-control"
+                                placeholder="Nueva contraseña"
+                                maxlength="20"
+                                formControlName="password"
+                                [ngClass]="{ 'is-invalid error': (fP.confirmPassword.errors || fP.confirmPassword.hasError('NoPassswordMatch')) && (fP.confirmPassword.dirty || fP.confirmPassword.touched) }"
+                              />
+                              <div class="input-group-append">
+                                <span class="input-group-text cursor-pointer"
+                                  ><i
+                                    class="feather font-small-4"
+                                    [ngClass]="{
+                                      'icon-eye-off': passwordTextTypeNew,
+                                      'icon-eye': !passwordTextTypeNew
+                                    }"
+                                    (click)="togglePasswordTextTypeNew()"
+                                  ></i
+                                ></span>
+                              </div>
+                            </div>
+                            <div *ngIf="submittedPassword && fP.passwordNext.errors" class="invalid-feedback">
+                              <div *ngIf="fP.passwordNext.errors.required">El campo es requerido</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                          <div class="form-group">
+                            <label for="account-retype-new-password">Reescriba nueva contraseña</label>
+                            <div class="input-group form-password-toggle input-group-merge">
+                              <input
+                                [type]="passwordTextTypeRetype ? 'text' : 'password'"
+                                class="form-control"
+                                id="account-retype-new-password"
+                                name="confirm-new-password"
+                                placeholder="Nueva contraseña"
+                                maxlength="20"
+                                formControlName="confirmPassword"
+                                [ngClass]="{ 'is-invalid error': (fP.confirmPassword.errors || fP.confirmPassword.hasError('NoPassswordMatch')) && (fP.confirmPassword.dirty || fP.confirmPassword.touched) }"
+                              />
+                              <div class="input-group-append">
+                                <span class="input-group-text cursor-pointer"
+                                  ><i
+                                    class="feather font-small-4"
+                                    [ngClass]="{
+                                      'icon-eye-off': passwordTextTypeRetype,
+                                      'icon-eye': !passwordTextTypeRetype
+                                    }"
+                                    (click)="togglePasswordTextTypeRetype()"
+                                  ></i
+                                ></span>
+                              </div>
+                            </div>
+                            
+                            <div
+                              *ngIf="(fP.confirmPassword.errors || fP.confirmPassword.hasError('NoPassswordMatch')) && (fP.confirmPassword.dirty || fP.confirmPassword.touched)"
+                              class="invalid-feedback"
+                              [ngClass]="{ 'd-block': (fP.confirmPassword.errors || fP.confirmPassword.hasError('NoPassswordMatch')) && (fP.confirmPassword.dirty || fP.confirmPassword.touched) }"
+                            >
+                              <div *ngIf="fP.confirmPassword.errors.required">El campo es requerido</div>
+                              <div *ngIf="fP.confirmPassword.hasError('NoPassswordMatch')">La contraseña no coincide</div>
+                            </div>
+                            
+                          </div>
+                        </div>
+                        <div class="col-12">
+                          <button type="submit" class="btn btn-primary mr-1 mt-1" rippleEffect [disabled]="formPassword.invalid">
+                            <span *ngIf="loadingPassword" class="spinner-border spinner-border-sm mr-1"></span>
+                            Guardar cambios</button>
+                         
+                          </div>
+                      </div>
+                    </form>
+                    <!--/ form -->
+                  </div>
+                </div>
+              </ng-template>
+            </li>
+            <!--d
+            <li class="nav-item" ngbNavItem>
+              <a
+                ngbNavLink
+                class="nav-link d-flex py-75"
+                id="account-pill-social"
+                data-toggle="pill"
+                href="#account-vertical-social"
+                aria-expanded="false"
+              >
+                <i data-feather="check-circle" class="font-medium-3 mr-1"></i>
+                <span class="font-weight-bold">Licencias</span>
+              </a>
+              <ng-template ngbNavContent>
+
+                <app-licenses [rubro]="'SI'"></app-licenses>
+                
+              </ng-template>
+            </li>
+            <li class="nav-item" ngbNavItem>
+              <a
+                ngbNavLink
+                class="nav-link d-flex py-75"
+                id="account-pill-info"
+                data-toggle="pill"
+                href="#account-vertical-info"
+                aria-expanded="false"
+              >
+                <i data-feather="layers" class="font-medium-3 mr-1"></i>
+                <span class="font-weight-bold">Empresas</span>
+              </a>
+              <ng-template ngbNavContent>
+                <app-business [rubro]="'SI'"></app-business>
+              </ng-template>
+            </li>
+          -->
+            
+
+            
+          </ul>
+        </div>
+        <div [ngbNavOutlet]="navVertical" class="col-12 col-md-9"></div>
+      </div>
+    </section>
+    <!--/ account setting page -->
+  </div>
+</div>

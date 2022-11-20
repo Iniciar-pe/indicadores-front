@@ -1,0 +1,24 @@
+@import '@core/scss/angular/libs/datatables.component.scss';
+
+.datatable-scroll {
+  width: auto !important;
+}
+
+.datatable-header {
+  height: unset !important;
+}
+
+.datatable-body-cell-label { 
+  width: 100%;
+  text-align: center;
+}
+
+
+.waves-float {
+  box-shadow: unset;
+}
+
+.tooltip-index {
+  top: 10px !important;
+}
+
