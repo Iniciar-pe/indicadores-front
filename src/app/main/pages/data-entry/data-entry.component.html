@@ -9,6 +9,25 @@
               <div class="form-group">
                 
                   <label>Empresa</label>
+                  <ng-select [(ngModel)]="business">
+                    <ng-option 
+                      *ngFor="let business of businesslist" 
+                      
+                      [value]="business.id">{{business.name}}</ng-option>
+                 </ng-select>
+                  
+<!--/ 
+  [disabled]="business.isActive"
+  <select class="form-control" [(ngModel)]="business">
+                    <option *ngFor="let business of businesslist" 
+                    [disabled]="business.isActive"
+                    [value]="business.id">{{business.name}}</option>
+                  </select>
+
+
+                  
+
+
                 <ng-select
                   [items]="businesslist"
                   [multiple]="false"
@@ -25,7 +44,7 @@
                     <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
                   </ng-template>
                 </ng-select>
-                <!--/ Select Multi with group -->
+                Select Multi with group -->
               </div>
     
             </div>

@@ -63,7 +63,18 @@ export class EntryOfValuesComponent implements OnInit {
 
   getValues(criterion) {
     this._entryOfValuesService.getValues(criterion).subscribe(response => {
-      this.rows = response.values;
+      this.rows = response.values.map(res => {
+        return {
+          id: res.id,
+          description: res.description,
+          name: res.name,
+          currentPeriod: res.currentPeriod ? res.currentPeriod : '0',
+          previousPeriod: res.previousPeriod ? res.previousPeriod : '0',
+          previousEdit: res.previousEdit,
+          currentEdit: res.currentEdit,
+          note: res.note,
+        }
+      });
       this.tempData = this.rows;
     })
   }

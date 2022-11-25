@@ -116,8 +116,10 @@ export class DataEntryComponent implements OnInit {
         return {
           chill: res.chill,
           id: res.id,
-          name: res.chill != null ? '👉 ' + res.name : res.name,
+          name: res.type === '3' ? '- ' + res.name : res.name,
           ruc: res.ruc,
+          type: res.type,
+          isActive: res.id === Number(res.default) ? false : true,
         };
       })
     })

@@ -91,7 +91,7 @@
                     (dblclick)="editingAge[rowIndex + '-previousPeriod'] = true"
                     *ngIf="!editingAge[rowIndex + '-previousPeriod'] && row.previousEdit == 'S'"
                   >
-                    {{ row.previousPeriod ? row.previousPeriod : '0' }}
+                    {{ row.previousPeriod | currency }}
                   </div>
                   <input
                     autofocus
@@ -99,7 +99,7 @@
                     (blur)="inlineEditingUpdateAge($event, 'previousPeriod', rowIndex)"
                     *ngIf="editingAge[rowIndex + '-previousPeriod']"
                     type="text"
-                    [value]="row.previousPeriod"
+                    [value]="row.previousPeriod ? row.previousPeriod : 0"
                   />
                 </ng-template>
               </ngx-datatable-column>
@@ -119,7 +119,7 @@
                     (dblclick)="editingSalary[rowIndex + '-currentPeriod'] = true"
                     *ngIf="!editingSalary[rowIndex + '-currentPeriod'] && row.currentEdit == 'S'"
                   >
-                  {{ row.currentPeriod ? row.currentPeriod : '0' }}
+                  {{ row.currentPeriod | currency }}
                   </div>
                   <input
                     autofocus
@@ -127,7 +127,7 @@
                     (blur)="inlineEditingUpdateSalary($event, 'currentPeriod', rowIndex)"
                     *ngIf="editingSalary[rowIndex + '-currentPeriod']"
                     type="text"
-                    [value]="row.currentPeriod"
+                    [value]="row.previousPeriod ? row.previousPeriod : 0"
                   />
                 </ng-template>
               </ngx-datatable-column>

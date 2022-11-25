@@ -38,6 +38,9 @@ export interface Business {
   id: number;
   name: string;
   ruc: string;
+  type: string;
+  default: string;
+  isActive: boolean,
 }
 
 export interface Criterion {
