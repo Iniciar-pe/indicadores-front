@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ColumnMode, DatatableComponent, SelectionType } from '@swimlane/ngx-datatable';
+import { DatePeriod } from 'app/main/pages/data-entry/data-entry.model';
 import { EntryOfValuesService } from './entry-of-values.service';
 
 @Component({
@@ -18,22 +19,35 @@ export class EntryOfValuesComponent implements OnInit {
   public editingSalary = {};
   public rows: any;
   public ColumnMode = ColumnMode;
-  public selected: number = 5;
-  
+  public selected = 5;
+  public money: string;
+  @Input() criterion: string;
+  @Output() next = new EventEmitter<boolean>();
+  @Input('datePeriod') datePeriod: DatePeriod;
+  @Input('business') business;
+  @Input('currency') currency;
+
   constructor(private _entryOfValuesService: EntryOfValuesService) {
-   
+
   }
 
-  inlineEditingUpdateAge(event, cell, rowIndex) {
+
+  get businessType() {
+    return this.business?.type;
+  }
+
+  inlineEditingUpdateAge(event, cell, rowIndex, row) {
     this.editingAge[rowIndex + '-' + cell] = false;
     this.rows[rowIndex][cell] = event.target.value;
     this.rows = [...this.rows];
+    this.addValues(row);
   }
 
-  inlineEditingUpdateSalary(event, cell, rowIndex) {
+  inlineEditingUpdateSalary(event, cell, rowIndex, row) {
     this.editingSalary[rowIndex + '-' + cell] = false;
     this.rows[rowIndex][cell] = event.target.value;
     this.rows = [...this.rows];
+    this.addValues(row);
   }
 
 
@@ -47,7 +61,7 @@ export class EntryOfValuesComponent implements OnInit {
     const val = event.target.value.toLowerCase();
 
     const temp = this.tempData.filter(function (d) {
-      return d.descripcion.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.description.toLowerCase().indexOf(val) !== -1 || !val;
     });
 
     this.rows = temp;
@@ -55,11 +69,29 @@ export class EntryOfValuesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._entryOfValuesService.getValues().subscribe(response => {
+
+    
+  }
+
+  getValues(criterion) {
+    this._entryOfValuesService.getValues(criterion).subscribe(response => {
       this.rows = response.values;
       this.tempData = this.rows;
-    })
-    
+    });
+  }
+
+  addValues(row) {
+
+    const data = {
+      value: row.id,
+      criterion: this.criterion,
+      currentPeriod: row.currentPeriod,
+      previousPeriod: row.previousPeriod,
+    };
+
+    this._entryOfValuesService.addValues(data).subscribe(data => {
+      // this.next.emit(true);
+    });
   }
 
 

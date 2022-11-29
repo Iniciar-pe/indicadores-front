@@ -7,10 +7,11 @@ import { InitialsPipe } from '@core/pipes/initials.pipe';
 import { SafePipe } from '@core/pipes/safe.pipe';
 import { StripHtmlPipe } from '@core/pipes/stripHtml.pipe';
 import { NameMonth } from '@core/pipes/name-month';
+import { NamePeriod } from './name-period';
 
 @NgModule({
-  declarations: [InitialsPipe, FilterPipe, StripHtmlPipe, SafePipe, NameMonth],
+  declarations: [InitialsPipe, FilterPipe, StripHtmlPipe, SafePipe, NameMonth, NamePeriod],
   imports: [],
-  exports: [InitialsPipe, FilterPipe, StripHtmlPipe, SafePipe, NameMonth]
+  exports: [InitialsPipe, FilterPipe, StripHtmlPipe, SafePipe, NameMonth, NamePeriod]
 })
 export class CorePipesModule {}

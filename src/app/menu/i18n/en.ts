@@ -12,6 +12,11 @@ export const locale = {
         SECTION: 'Licencias',
         SHOPPING: 'Comprar',
         DISTRIBUTION: 'Distribución',
+        UX: {
+          BUSINESS_I: 'Empresas Individuales',
+          BUSINESS_S: 'Empresas con sucursales',
+          DONE: 'Para donar'
+        }
       },
       DATA: {
         SECTION: 'Ingreso de datos',

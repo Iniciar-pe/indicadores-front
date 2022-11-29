@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Stepper from 'bs-stepper';
-import { Observable } from 'rxjs';
-import { DataEntry, RequestDataEntry } from './data-entry.model';
+import { Business, DataEntry, RequestDataEntry, DatePeriod } from './data-entry.model';
 import { DataEntryService } from './data-entry.service';
+import moment from 'moment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user',
@@ -12,36 +13,47 @@ import { DataEntryService } from './data-entry.service';
   encapsulation: ViewEncapsulation.None
 })
 export class DataEntryComponent implements OnInit {
- 
+
+  @ViewChild('childRef') childRef: any;
   @ViewChild('modalForm') modalForm;
   public contentHeader: object;
-  public businesslist: any[] = [];;
+  public businesslist: any[] = [];
   public year = 2022;
-  public business;
+  public business: Business;
   public indicator;
   public loading = false;
+  public loadingSecond = false;
+  public existCriterion = true;
   private horizontalWizardStepper: Stepper;
   public dataEntry: DataEntry;
+  public criterion = '';
+  public criterionResponse;
+
+  public datePeriod: DatePeriod;
+
   public data: RequestDataEntry = {
     period: '1',
     month: '01',
     currency: '1',
     year: '2022',
   };
-  
+
+
+  get businessType() {
+    return this.business?.type;
+  }
+
   constructor(
     private _dataEntryService: DataEntryService,
     private modalService: NgbModal
     ) {
-    
-   
+
   }
- 
+
   ngOnInit() {
-    this.getEntryData();
     this.getBusiness();
     this.horizontalWizardStepper = new Stepper(document.querySelector('#stepper1'), {});
-    
+
     // content header
     this.contentHeader = {
       headerTitle: 'Ingreso de datos',
@@ -60,15 +72,24 @@ export class DataEntryComponent implements OnInit {
   }
 
   getEntryData() {
-    this._dataEntryService.getEntryData().subscribe((response: DataEntry) => {
+
+    this._dataEntryService.getEntryData(this.business).subscribe((response: DataEntry) => {
       this.dataEntry = response;
-      this.data.period = response.criterion?.period;
-      this.data.month = response.criterion?.startMonth;
-      this.data.year = response.criterion?.startYear;
-      this.data.currency = response.criterion?.currency;
-      this.business = response?.business
-      this.indicator = response?.indicator
-    })
+      this.criterionResponse = response.criterion;
+      if (response.criterion) {
+        this.data.period = response.criterion?.period;
+        this.data.month = response.criterion?.startMonth;
+        this.data.year = response.criterion?.startYear;
+        this.data.currency = response.criterion?.currency;
+        this.existCriterion = false;
+      }
+      this.childRef.getValues(response.criterion?.id);
+      this.setPeriod();
+/*
+      // this.indicator = response?.indicator;
+      // this.getBusiness(response?.business);
+*/
+    });
   }
 
   horizontalWizardStepperPrevious() {
@@ -76,51 +97,116 @@ export class DataEntryComponent implements OnInit {
   }
 
   horizontalWizardStepperNext(opcion: number) {
-    if(opcion == 1) {
-      this.loading = true;
-      this.data.business = String(this.business);
-      this._dataEntryService.addEntryData(this.data).subscribe(response => {
+    if (opcion === 1) {
+
+      if (this.businessType !== '3') {
+        this.loading = true;
+        this.data.business = String(this.business.id);
+        this.data.startMonth = moment(this.datePeriod.startMonth).format('YYYY-MM-DD');
+        this.data.endMonth = moment(this.datePeriod.endMonth).format('YYYY-MM-DD');
+        this.data.startMonthPeriod = moment(this.datePeriod.startMonthPeriod).format('YYYY-MM-DD');
+        this.data.endMonthPeriod = moment(this.datePeriod.endMonthPeriod).format('YYYY-MM-DD');
+        this.data.countDays = this.datePeriod.countDays;
+        this._dataEntryService.addEntryData(this.data).subscribe(response => {
+          this.horizontalWizardStepper.next();
+          this.loading = false;
+          this.criterion = response.criterion;
+          this.childRef.getValues(response.criterion);
+        }, err => {
+          this.loading = false;
+        });
+      } else {
         this.horizontalWizardStepper.next();
-        this.loading = false;
-      }, err => {
-        this.loading = false;
-      })
+        this.childRef.getValues(this.data);
+      }
     }
-    
-    if(opcion == 2) {
+
+    if (opcion === 2) {
+      this.loadingSecond = true;
+      // this.childRef.addValues(this.criterionResponse.id);
       this.horizontalWizardStepper.next();
     }
-    
+
+  }
+
+  next() {
+    this.loadingSecond = false;
+    this.horizontalWizardStepper.next();
   }
 
 
   countChange(value) {
     this.data.year = value;
+    this.setPeriod();
   }
 
   getBusiness() {
     this._dataEntryService.getBusiness().subscribe(response => {
+
       this.businesslist = response.business.map(res => {
         return {
           chill: res.chill,
           id: res.id,
-          name: res.chill != null ? '👉 ' + res.name : res.name,
+          name: res.type === '3' ? '- ' + res.name : res.name,
           ruc: res.ruc,
+          type: res.type,
+          user: res.user,
+          isActive: response?.default.filter(e => e.business === res.id).length > 0,
         };
-      })
-    })
+      });
+      this.business = this.businesslist.filter(e => e.id === response?.default[0].business)[0];
+      this.getEntryData();
+      
+    });
   }
 
   modalOpenSLCIM(modalSLCIM) {
     this.modalService.open(modalSLCIM, { scrollable: true });
   }
 
-  endDateMonth(year, month) {
-    var date = new Date(year + '-'+ month +'-01');
-    var primerDia = new Date(date.getFullYear(), date.getMonth(), 1);
-    var ultimoDia = new Date(date.getFullYear(), date.getMonth(), 0);
-    
+  endDateMonth(date) {
+    // let primerDia = new Date(date.getFullYear(), date.getMonth(), 1);
+    const ultimoDia = new Date(date.getFullYear(), date.getMonth(), 0);
     return ultimoDia.getDate();
+  }
+
+  setBusiness(event) {
+    this.business = event;
+    this.getEntryData();
+    
+  }
+
+  setPeriod() {
+    const period = this.dataEntry?.period.filter(e => e.id === Number(this.data.period))[0].count;
+
+    const startMonth = new Date(Number(this.data.year), Number(this.data.month) - 1, 1);
+    const endMonth = new Date(Number(
+        moment(startMonth).add(period, 'month').format('YYYY')),
+        Number(moment(startMonth).add(period, 'month').format('MM')) - 1,
+        0);
+    const startMonthPeriod = new Date(
+      Number(moment(startMonth).subtract(period, 'month').format('YYYY')),
+      Number(moment(startMonth).subtract(period, 'month').format('MM')) - 1,
+      1);
+    const endMonthPeriod = new Date(
+      Number(moment(startMonth).subtract(period, 'month').format('YYYY')),
+      Number(moment(startMonth).subtract(1, 'month').format('MM')),
+      0);
+
+    this.datePeriod = {
+      startMonth: startMonth,
+      endMonth: endMonth,
+      startMonthPeriod: startMonthPeriod,
+      endMonthPeriod: endMonthPeriod,
+      period: this.data.period,
+      countDays: String((endMonth.getTime() - startMonth.getTime())/(1000*60*60*24)),
+    };
+
+  }
+
+  changePeriod() {
+    this.setPeriod();
+    
   }
 
 }

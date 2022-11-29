@@ -10,12 +10,12 @@ export class DataEntryService {
 
     constructor(private _http: HttpClient) {}
 
-    getEntryData() {
-      return this._http.get(`${environment.apiUrl}/api/entry-data/get`);
+    getEntryData(data) {
+      return this._http.post(`${environment.apiUrl}/api/entry-data/get`, data);
     }
 
     addEntryData(data) {
-      return this._http.post(`${environment.apiUrl}/api/entry-data/add`, data);
+      return this._http.post<any>(`${environment.apiUrl}/api/entry-data/add`, data);
     }
 
     getBusiness() {

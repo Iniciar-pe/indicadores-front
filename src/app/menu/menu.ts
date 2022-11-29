@@ -58,9 +58,35 @@ export const menu: CoreMenu[] = [
         id: 'DISTRIBUTION',
         title: 'Distribución',
         translate: 'MENU.LICENCIAS.DISTRIBUTION',
-        type: 'item',
+        type: 'collapsible',
         icon: 'layout',
-        url: '#'
+        children: [
+          {
+            id: 'components-alerts',
+            title: 'Empresa Individuales',
+            translate: 'MENU.LICENCIAS.UX.BUSINESS_I',
+            type: 'item',
+            icon: 'circle',
+            url: '#'
+          },
+          {
+            id: 'components-avatar',
+            title: 'Empresa con sucursales',
+            translate: 'MENU.LICENCIAS.UX.BUSINESS_S',
+            type: 'item',
+            icon: 'circle',
+            url: '#'
+          },
+     
+          {
+            id: 'components-avatar',
+            title: 'Para Donar',
+            translate: 'MENU.LICENCIAS.UX.DONE',
+            type: 'item',
+            icon: 'circle',
+            url: '#'
+          },
+        ]
       },
     ]
   },
