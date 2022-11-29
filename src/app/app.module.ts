@@ -80,7 +80,7 @@ const appRoutes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/inicio',
+    redirectTo: '/admin/entrada-de-datos',
     pathMatch: 'full'
   },
   {

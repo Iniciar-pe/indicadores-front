@@ -16,11 +16,13 @@ export class CoreTouchspinComponent implements OnInit {
   @Input('maxValue') maxValue: number = 9999;
   @Input('minValue') minValue: number = 0;
   @Input('button') button: boolean = false;
+  @Input('disabledValueIncrement') disabledValueIncrement: boolean = false;
+  @Input('disabledValueDecrement') disabledValueDecrement: boolean = false;
   @Output() onChange = new EventEmitter<number>();
-
+/*
   public disabledValueIncrement = false;
   public disabledValueDecrement = false;
-
+*/
   constructor() {}
 
   inputChange(inputValue: number) {

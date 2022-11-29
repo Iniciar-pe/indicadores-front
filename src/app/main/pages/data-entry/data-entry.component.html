@@ -1,123 +1,11 @@
 <div class="content-wrapper container-xxl p-0">
   <div class="content-body">
-      <div class="row">
-
-        <div class="col-sm-4 col-12">
-          <div class="card" style="padding-bottom: 0px;">
-
-            <div class="card-body">
-              <div class="form-group">
-                
-                  <label>Empresa</label>
-                  <ng-select [(ngModel)]="business">
-                    <ng-option 
-                      *ngFor="let business of businesslist" 
-                      
-                      [value]="business.id">{{business.name}}</ng-option>
-                 </ng-select>
-                  
-<!--/ 
-  [disabled]="business.isActive"
-  <select class="form-control" [(ngModel)]="business">
-                    <option *ngFor="let business of businesslist" 
-                    [disabled]="business.isActive"
-                    [value]="business.id">{{business.name}}</option>
-                  </select>
-
-
-                  
-
-
-                <ng-select
-                  [items]="businesslist"
-                  [multiple]="false"
-                  [closeOnSelect]="true"
-                  [searchable]="true"
-                  bindLabel="name"
-                  bindValue="id" 
-                  placeholder="Empresa"
-                  [(ngModel)]="business"
-                  [selectOnTab]="true"
-                >
-                  <ng-template ng-label-tmp let-item="item" let-clear="clear">
-                    <span class="ng-value-label"> {{ item?.name }}</span>
-                    <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
-                  </ng-template>
-                </ng-select>
-                Select Multi with group -->
-              </div>
-    
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-8 col-12">
-          <div class="card" style="padding-bottom: 0px;background: #68c5ff;color: white;">
-
-            <div class="card-body">
-              
-              <div class="row">
-                <div class="col-3">
-
-                </div>
-                <div class="col">
-                  <div class="row">
-                
-                    <div class="col-12">
-                      <span>Período seleccionado</span>
-                    </div>
-    
-                    <div class="col">
-                      <span>Trimestre actual o del análisis</span>
-                      <div class="row">
-                        <div class="col-4">
-                          <span>Desde</span>
-                        </div>
-        
-                        <div class="col" style="text-align: right;">
-                          <span>1 - {{ dataEntry?.criterion?.startMonth | nameMonth }} - {{ dataEntry?.criterion?.startYear }}</span>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-4">
-                          <span>Hasta</span>
-                        </div>
-        
-                        <div class="col" style="text-align: right;">
-                          <span>{{ endDateMonth(dataEntry?.criterion?.endYear, dataEntry?.criterion?.endMonth) }} - {{ dataEntry?.criterion?.endMonth | nameMonth }} - {{ dataEntry?.criterion?.endYear }}</span>
-                        </div>
-                      </div>
-                    </div>
-    
-                    <div class="col" style="border-left: 1px solid #f8f8f8;">
-                      <span>Trimestre anterior</span>
-                      <div class="row">
-                        <div class="col-4">
-                          <span>Desde</span>
-                        </div>
-        
-                        <div class="col" style="text-align: right;">
-                          <span>1 - {{ dataEntry?.criterion?.startMonthPeriod | nameMonth }} - {{ dataEntry?.criterion?.startYearPeriod }}</span>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-4">
-                          <span>Hasta</span>
-                        </div>
-        
-                        <div class="col" style="text-align: right;">
-                          <span>{{ endDateMonth(dataEntry?.criterion?.endYearPeriod, dataEntry?.criterion?.endMonthPeriod) }} - {{ dataEntry?.criterion?.endMonthPeriod | nameMonth }} - {{ dataEntry?.criterion?.endYearPeriod }}</span>
-                        </div>
-                      </div>
-                    </div>
-                    
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <header-business
+        [businesslist]="businesslist"
+        [business]="business"
+        (getBusiness)="setBusiness($event)"
+        [datePeriod]="datePeriod"
+      ></header-business>
 <br>
         <div class="row">
           <div class="col">
@@ -169,15 +57,30 @@
                       <div class="row">
                         <div class="form-group col-md-6">
                           <label class="form-label" for="periodo">Periodo de analisis</label>
-                          <select name="periodo" id="periodo" class="form-control" [(ngModel)]="data.period" [disabled]="indicator == null">
-                            <option [value]="item.id" *ngFor="let item of dataEntry?.period">{{ item.name }}</option>
+                          <select 
+                            name="periodo" 
+                            id="periodo" 
+                            class="form-control" 
+                            [(ngModel)]="data.period" 
+                            [disabled]="businessType === '3'"
+                            (change)="changePeriod()">
+                            <option 
+                              [value]="item.id" 
+                              *ngFor="let item of dataEntry?.period"
+                              >{{ item.name }}</option>
                           </select>
                         </div>
                       </div>
                       <div class="row">
                         <div class="form-group col-md-4">
                           <label class="form-label" for="month">Mes inicial </label>
-                          <select name="month" id="month" class="form-control" [(ngModel)]="data.month"  [disabled]="indicator == null">
+                          <select 
+                            name="month" 
+                            id="month" 
+                            class="form-control" 
+                            [(ngModel)]="data.month"  
+                            [disabled]="businessType === '3'"
+                            (change)="changePeriod()">
                             <option value="01">Enero</option>
                             <option value="02">Febrero</option>
                             <option value="03">Marzo</option>
@@ -194,13 +97,23 @@
                         </div>
                         <div class="form-group col-md-4">
                           <label class="form-label" style="padding-left:25px" for="year">Año inicial </label><br>
-                          <core-touchspin [button]="true" (onChange)="countChange($event)"  [disable]="indicator != null" [numberValue]="year" [stepValue]="1" [minValue]="2000" [maxValue]="2100"></core-touchspin>
+                          <core-touchspin
+                            [button]="true" 
+                            (onChange)="countChange($event)"  
+                            [disable]="businessType === '3'" 
+                            [numberValue]="year" 
+                            [stepValue]="1" 
+                            [minValue]="2000" 
+                            [maxValue]="2100"
+                            [disabledValueIncrement]="businessType === '3'"
+                            [disabledValueDecrement]="businessType === '3'"
+                            ></core-touchspin>
                         </div>
                       </div>
                       <div class="row">
                         <div class="form-group form-password-toggle col-md-4">
                           <label class="form-label" for="currency">Moneda </label>
-                          <select name="currency" id="currency" class="form-control" [(ngModel)]="data.currency"  [disabled]="indicator == null">
+                          <select name="currency" id="currency" class="form-control" [(ngModel)]="data.currency"  [disabled]="businessType === '3'">
                             <option [value]="item.id" *ngFor="let item of dataEntry?.currency">{{ item.symbol + ' - ' + item.description }}</option>
                           </select>
                         </div>
@@ -223,6 +136,7 @@
                           type="submit"
                           class="btn btn-primary btn-next"
                           rippleEffect
+                          [disabled]="existCriterion && businessType === '3'"
                         >
                         <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                           <span class="align-middle d-sm-inline-block d-none">Siguiente</span>
@@ -237,13 +151,28 @@
                   
                       
                        
-                        <entry-of-values #childRef [criterion]="criterion" (next)="next()"></entry-of-values>
+                        <entry-of-values 
+                          #childRef 
+                          [criterion]="criterion" 
+                          (next)="next()"
+                          [datePeriod]="datePeriod"
+                          [business]="business"
+                          [currency]="data.currency"
+                        ></entry-of-values>
                       
                     
       
                       <div class="container">
                         <div class="d-flex justify-content-between">
-                          <div class="btn-prev"></div>
+                          <button
+                            type="button"
+                            (click)="horizontalWizardStepperPrevious()"
+                            class="btn btn-primary btn-prev"
+                            rippleEffect
+                          >
+                            <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
+                            <span class="align-middle d-sm-inline-block d-none">Anterior</span>
+                          </button>
                           <button
                             (click)="horizontalWizardStepperNext(2)"
                             class="btn btn-primary btn-next"

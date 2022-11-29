@@ -3,7 +3,7 @@ export interface DataEntry {
   currency: Currency[];
   status: string;
   criterion: Criterion;
-  business: number;
+  business: any[];
   indicator: string;
 }
 
@@ -11,6 +11,7 @@ export interface Period {
   id: number;
   name: string;
   status: string;
+  count: number;
 }
 
 export interface Currency {
@@ -26,11 +27,17 @@ export interface RequestDataEntry {
   month?: string;
   year?: string;
   business?: string;
+  startMonth?: string;
+  endMonth?: string;
+  startMonthPeriod?: string;
+  endMonthPeriod?: string;
+  countDays?: string;
 }
 
 export interface RequestBusiness {
   status: string;
   business: Business[];
+  default: Default[];
 }
 
 export interface Business {
@@ -40,7 +47,8 @@ export interface Business {
   ruc: string;
   type: string;
   default: string;
-  isActive: boolean,
+  isActive: boolean;
+  user: number;
 }
 
 export interface Criterion {
@@ -71,4 +79,19 @@ export interface Values {
   previousEdit: string;
   currentEdit: string;
   note: string;
+}
+
+export interface Default {
+  user: number;
+  business: number;
+  id: number;
+}
+
+export interface DatePeriod {
+  startMonth: Date;
+  endMonth: Date;
+  startMonthPeriod: Date;
+  endMonthPeriod: Date;
+  period: string;
+  countDays: string;
 }

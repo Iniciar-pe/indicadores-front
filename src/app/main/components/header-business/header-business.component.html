@@ -1,0 +1,91 @@
+<div class="row">
+
+  <div class="col-sm-4 col-12">
+    <div class="card" style="padding-bottom: 0px;height: 100%;">
+
+      <div class="card-body">
+        <div class="form-group">
+          
+            <label>Empresa</label>
+            <ng-select 
+              [(ngModel)]="business"
+              (change)="setBusiness()">
+              <ng-option 
+                *ngFor="let item of businesslist" 
+                [disabled]="!item.isActive"
+                [value]="item"
+                >{{item.name}}</ng-option>
+           </ng-select>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-8 col-12">
+    <div class="card" style="padding-bottom: 0px;background: #0f86b5;color: white;">
+
+      <div class="card-body">
+        
+        <div class="row">
+          <div class="col-3">
+            <img src="assets/images/pages/libros.png" alt="" style="width: 100%">
+          </div>
+          <div class="col">
+            <div class="row">
+          
+              <div class="col-12">
+                <span>Período seleccionado</span>
+              </div>
+
+              <div class="col">
+                <span>{{ datePeriod?.period | namePeriod }} actual o del análisis</span>
+                <div class="row">
+                  <div class="col-4">
+                    <span>Desde</span>
+                  </div>
+  
+                  <div class="col" style="text-align: right;">
+                    <span>{{ datePeriod?.startMonth | nameMonth }}</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-4">
+                    <span>Hasta</span>
+                  </div>
+  
+                  <div class="col" style="text-align: right;">
+                    <span>{{ datePeriod?.endMonth | nameMonth }} </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col" style="border-left: 1px solid #f8f8f8;">
+                <span>{{ datePeriod?.period | namePeriod }} anterior</span>
+                <div class="row">
+                  <div class="col-4">
+                    <span>Desde</span>
+                  </div>
+  
+                  <div class="col" style="text-align: right;">
+                    <span>{{ datePeriod?.startMonthPeriod | nameMonth }}</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-4">
+                    <span>Hasta</span>
+                  </div>
+  
+                  <div class="col" style="text-align: right;">
+                    <span>{{ datePeriod?.endMonthPeriod | nameMonth }} </span>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

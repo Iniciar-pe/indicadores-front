@@ -22,3 +22,12 @@
   top: 10px !important;
 }
 
+
+.let p {
+  text-transform: lowercase;
+}
+
+.let p:first-letter {
+  text-transform: uppercase;
+
+}

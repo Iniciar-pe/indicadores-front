@@ -11,9 +11,9 @@ import { AuthGuard } from 'app/auth/helpers/auth.guards';
 import { DataEntryComponent } from './data-entry.component';
 import { DataEntryService } from './data-entry.service';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { NgSelectModule } from '@ng-select/ng-select';
 import { CoreTouchspinModule } from '@core/components/core-touchspin/core-touchspin.module';
 import { EntryOfValuesModule } from 'app/main/components/entry-of-values/entry-of-values.module';
+import { HeaderBusinessModule } from 'app/main/components/header-business/header-business.module';
 
 
 const routes: Routes = [
@@ -32,9 +32,9 @@ const routes: Routes = [
     TranslateModule,
     CoreCommonModule,
     ContentHeaderModule,
-    NgSelectModule,
     CoreTouchspinModule,
     EntryOfValuesModule,
+    HeaderBusinessModule,
     SweetAlert2Module.forRoot()
   ],
   providers: [DataEntryService],
