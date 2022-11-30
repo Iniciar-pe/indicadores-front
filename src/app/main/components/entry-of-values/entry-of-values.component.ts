@@ -21,7 +21,7 @@ export class EntryOfValuesComponent implements OnInit {
   public ColumnMode = ColumnMode;
   public selected = 5;
   public money: string;
-  @Input() criterion: string;
+  public criterion: string;
   @Output() next = new EventEmitter<boolean>();
   @Input('datePeriod') datePeriod: DatePeriod;
   @Input('business') business;
@@ -74,8 +74,12 @@ export class EntryOfValuesComponent implements OnInit {
   }
 
   getValues(criterion) {
+    this.criterion = criterion;
     this._entryOfValuesService.getValues(criterion).subscribe(response => {
       this.rows = response.values;
+      this.tempData = this.rows;
+    }, err => {
+      this.rows = [];
       this.tempData = this.rows;
     });
   }

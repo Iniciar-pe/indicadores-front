@@ -85,6 +85,7 @@ export interface Default {
   user: number;
   business: number;
   id: number;
+  default: string;
 }
 
 export interface DatePeriod {
