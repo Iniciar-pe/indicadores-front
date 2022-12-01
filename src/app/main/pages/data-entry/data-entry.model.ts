@@ -27,6 +27,7 @@ export interface RequestDataEntry {
   month?: string;
   year?: string;
   business?: string;
+  type?: string;
   startMonth?: string;
   endMonth?: string;
   startMonthPeriod?: string;
@@ -85,6 +86,7 @@ export interface Default {
   user: number;
   business: number;
   id: number;
+  default: string;
 }
 
 export interface DatePeriod {

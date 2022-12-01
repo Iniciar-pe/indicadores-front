@@ -107,6 +107,7 @@ export class DataEntryComponent implements OnInit {
         this.data.startMonthPeriod = moment(this.datePeriod.startMonthPeriod).format('YYYY-MM-DD');
         this.data.endMonthPeriod = moment(this.datePeriod.endMonthPeriod).format('YYYY-MM-DD');
         this.data.countDays = this.datePeriod.countDays;
+        this.data.type = String(this.business.type);
         this._dataEntryService.addEntryData(this.data).subscribe(response => {
           this.horizontalWizardStepper.next();
           this.loading = false;
@@ -117,7 +118,7 @@ export class DataEntryComponent implements OnInit {
         });
       } else {
         this.horizontalWizardStepper.next();
-        this.childRef.getValues(this.data);
+        // this.childRef.getValues(this.data);
       }
     }
 
@@ -154,7 +155,7 @@ export class DataEntryComponent implements OnInit {
           isActive: response?.default.filter(e => e.business === res.id).length > 0,
         };
       });
-      this.business = this.businesslist.filter(e => e.id === response?.default[0].business)[0];
+      this.business = this.businesslist.filter(e => e.id === response?.default.filter(i => i.default == 'S')[0].business)[0];
       this.getEntryData();
       
     });
