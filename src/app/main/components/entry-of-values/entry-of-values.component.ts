@@ -75,7 +75,7 @@ export class EntryOfValuesComponent implements OnInit {
 
   getValues(criterion) {
     this.criterion = criterion;
-    this._entryOfValuesService.getValues(criterion).subscribe(response => {
+    this._entryOfValuesService.getValues(criterion, this.business.id).subscribe(response => {
       this.rows = response.values;
       this.tempData = this.rows;
     }, err => {
@@ -91,6 +91,7 @@ export class EntryOfValuesComponent implements OnInit {
       criterion: this.criterion,
       currentPeriod: row.currentPeriod,
       previousPeriod: row.previousPeriod,
+      business: this.business.id
     };
 
     this._entryOfValuesService.addValues(data).subscribe(data => {

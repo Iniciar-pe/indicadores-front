@@ -107,6 +107,7 @@ export class DataEntryComponent implements OnInit {
         this.data.startMonthPeriod = moment(this.datePeriod.startMonthPeriod).format('YYYY-MM-DD');
         this.data.endMonthPeriod = moment(this.datePeriod.endMonthPeriod).format('YYYY-MM-DD');
         this.data.countDays = this.datePeriod.countDays;
+        this.data.type = String(this.business.type);
         this._dataEntryService.addEntryData(this.data).subscribe(response => {
           this.horizontalWizardStepper.next();
           this.loading = false;

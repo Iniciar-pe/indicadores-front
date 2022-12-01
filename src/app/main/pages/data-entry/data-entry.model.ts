@@ -27,6 +27,7 @@ export interface RequestDataEntry {
   month?: string;
   year?: string;
   business?: string;
+  type?: string;
   startMonth?: string;
   endMonth?: string;
   startMonthPeriod?: string;
