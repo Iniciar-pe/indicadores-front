@@ -23,6 +23,9 @@ import { PlantillaModule } from './plantilla/plantilla.module';
 import { TableComponentModule } from './table/table.module';
 import { PlanComponentModule } from './plan/plan.module';
 import { DataEntryModule } from './data-entry/data-entry.module';
+import { RatioModule } from './ratio/ratio.module';
+import { AbstractModule } from './abstract/abstract.module';
+import { FlujoModule } from './flujo/flujo.module';
 
 @NgModule({
   declarations: [],
@@ -47,7 +50,10 @@ import { DataEntryModule } from './data-entry/data-entry.module';
     PlantillaModule,
     TableComponentModule,
     PlanComponentModule,
-    DataEntryModule
+    DataEntryModule,
+    RatioModule,
+    AbstractModule,
+    FlujoModule
   ],
 
   providers: []

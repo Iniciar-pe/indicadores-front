@@ -35,8 +35,6 @@ export const menu: CoreMenu[] = [
         url: 'admin/empresa'
       },
        */
-      
-    
     ]
   },
   {
@@ -77,7 +75,6 @@ export const menu: CoreMenu[] = [
             icon: 'circle',
             url: '#'
           },
-     
           {
             id: 'components-avatar',
             title: 'Para Donar',
@@ -111,7 +108,7 @@ export const menu: CoreMenu[] = [
         translate: 'MENU.INDICATOR.INDICATORS',
         type: 'item',
         icon: 'database',
-        url: '#'
+        url: 'admin/ratios'
       },
       {
         id: 'dashboard',
@@ -119,7 +116,7 @@ export const menu: CoreMenu[] = [
         translate: 'MENU.INDICATOR.DASHBOARD',
         type: 'item',
         icon: 'dollar-sign',
-        url: '/inicio'
+        url: 'admin/flujo'
       },
       {
         id: 'abstract',
@@ -127,7 +124,7 @@ export const menu: CoreMenu[] = [
         translate: 'MENU.INDICATOR.ABSTRACT',
         type: 'item',
         icon: 'sun',
-        url: '/inicio'
+        url: 'admin/resumen'
       },
     ]
   },
@@ -171,7 +168,6 @@ export const menu: CoreMenu[] = [
         icon: 'airplay',
         url: 'admin/planes'
       },
-      
       {
         id: 'table',
         title: 'Registro de tablas',
@@ -180,8 +176,6 @@ export const menu: CoreMenu[] = [
         icon: 'columns',
         url: 'admin/tabla'
       },
-      
-      
     ]
   },
   // Charts & Maps
@@ -202,6 +196,5 @@ export const menu: CoreMenu[] = [
       }
     ]
   },
- 
-  
+
 ];

@@ -3,6 +3,7 @@
 .datatable-scroll {
   width: auto !important;
 }
+/*
 
 .datatable-header {
   height: unset !important;
@@ -30,4 +31,9 @@
 .let p:first-letter {
   text-transform: uppercase;
 
+}
+*/
+
+.datatable-body-cell-label{
+  width: 100% !important;
 }

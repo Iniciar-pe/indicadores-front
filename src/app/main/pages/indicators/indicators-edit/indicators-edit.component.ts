@@ -43,6 +43,7 @@ export class IndicatorsEditComponent implements OnInit {
       public: [this.indicatorData.publico, [Validators.required]],
       order: [this.indicatorData.orden, [Validators.required]],
       expressed: [this.indicatorData.expresado, [Validators.required]],
+      detalle_resultado: [this.indicatorData.detalle_resultado],
    });
   }
 
@@ -50,7 +51,7 @@ export class IndicatorsEditComponent implements OnInit {
     const file = (event.target as HTMLInputElement)?.files?.[0];
     this.form.patchValue({
       icono: file,
-    })
+    });
   }
 
   submitIndicator() {
@@ -70,7 +71,7 @@ export class IndicatorsEditComponent implements OnInit {
     data.append('public', this.f.public.value);
     data.append('order', this.f.order.value);
     data.append('expressed', this.f.expressed.value);
-    //data.append('id_payroll', this.f.id_plantilla.value);
+    data.append('detalle_resultado', this.f.detalle_resultado.value);
     data.append('status', this.f.status.value ? 'A' : 'I');
     
 

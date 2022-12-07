@@ -74,72 +74,86 @@
                   </div>
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column [width]="50" prop="age">
+              <ngx-datatable-column [width]="100" prop="age">
                 <ng-template let-column="column" ngx-datatable-header-template> 
-                  <div>
+                  <div class="container">
                     <p style="text-align: center;"><b style="text-transform: capitalize;">{{ datePeriod?.period | namePeriod }} anterior</b></p>
                     <div style="text-align: center; text-transform: capitalize;" >{{ datePeriod?.startMonthPeriod | nameMonth }} al {{ datePeriod?.endMonthPeriod | nameMonth }}</div>
                   </div>
                 </ng-template>
                 <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
-                  <div *ngIf="row.previousEdit == 'N'">
-                    No llenar
+                  <div class="container">
+                    <center>
+                      <div *ngIf="row.previousEdit == 'N'">
+                        No llenar
+                      </div>
+                      <div
+                        *ngIf="businessType === '2' && row.previousEdit == 'S'"
+                        title="Doble click para editar"
+                      >
+                        {{ (row.previousPeriod ? row.previousPeriod : '0.00') | currency : (currency == '1' ? 'S/ ' : '$ ') }}
+                      </div>
+                      <div
+                        title="Doble click para editar"
+                        (dblclick)="editingAge[rowIndex + '-previousPeriod'] = true"
+                        *ngIf="!editingAge[rowIndex + '-previousPeriod'] && row.previousEdit == 'S' && businessType !== '2'"
+                      >
+                        {{ (row.previousPeriod ? row.previousPeriod : '0.00') | currency : (currency == '1' ? 'S/ ' : '$ ') }}
+                      </div>
+                      <input
+                        autofocus
+                        class="form-control form-control-sm"
+                        (blur)="inlineEditingUpdateAge($event, 'previousPeriod', rowIndex, row)"
+                        (keyup.enter)="inlineEditingUpdateAge($event, 'previousPeriod', rowIndex, row)"
+                        *ngIf="editingAge[rowIndex + '-previousPeriod']"
+                        type="number"
+                        style="width: 50%;"
+                        [value]="row.previousPeriod"
+                      />
+                    </center>
                   </div>
-                  <div
-                    *ngIf="businessType === '2' && row.previousEdit == 'S'"
-                    title="Doble para editar"
-                  >
-                    {{ row.previousPeriod | currency : (currency == '1' ? 'S/ ' : '$ ') }}
-                  </div>
-                  <div
-                    title="Doble para editar"
-                    (dblclick)="editingAge[rowIndex + '-previousPeriod'] = true"
-                    *ngIf="!editingAge[rowIndex + '-previousPeriod'] && row.previousEdit == 'S' && businessType !== '2'"
-                  >
-                    {{ row.previousPeriod | currency : (currency == '1' ? 'S/ ' : '$ ') }}
-                  </div>
-                  <input
-                    autofocus
-                    class="form-control form-control-sm"
-                    (blur)="inlineEditingUpdateAge($event, 'previousPeriod', rowIndex, row)"
-                    *ngIf="editingAge[rowIndex + '-previousPeriod']"
-                    type="number"
-                    [value]="row.previousPeriod"
-                  />
+                  
                 </ng-template>
               </ngx-datatable-column>
               <ngx-datatable-column [width]="100" prop="salary">
                 <ng-template let-column="column" ngx-datatable-header-template> 
-                  <div>
+                  <div class="container">
                     <p style="text-align: center;" ><b style="text-transform: capitalize;">{{ datePeriod?.period | namePeriod }} actual o del analisis</b></p>
                     <div style="text-align: center; text-transform: capitalize;" >{{ datePeriod?.startMonth | nameMonth }} al {{ datePeriod?.endMonth | nameMonth }}</div>
                   </div>
                 </ng-template>
                 <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
-                  <div *ngIf="row.currentEdit == 'N'">
-                    No llenar
+                  <div class="container">
+                    <center>
+                      <div *ngIf="row.currentEdit == 'N'">
+                        No llenar
+                      </div>
+                      <div
+                        *ngIf="businessType === '2' && row.currentEdit == 'S'"
+                        title="Doble click para editar"
+                      >
+                      {{ (row.currentPeriod ? row.currentPeriod : '0.00') | currency : (currency == '1' ? 'S/ ' : '$ ') }}
+                      </div>
+                      <div
+                        title="Doble click para editar"
+                        (dblclick)="editingSalary[rowIndex + '-currentPeriod'] = true"
+                        *ngIf="!editingSalary[rowIndex + '-currentPeriod'] && row.currentEdit == 'S'  && businessType !== '2'"
+                      >
+                      {{ (row.currentPeriod ? row.currentPeriod : '0.00') | currency : (currency == '1' ? 'S/ ' : '$ ') }}
+                      </div>
+                      <input
+                        autofocus
+                        class="form-control form-control-sm"
+                        (blur)="inlineEditingUpdateSalary($event, 'currentPeriod', rowIndex, row)"
+                        (keyup.enter)="inlineEditingUpdateSalary($event, 'currentPeriod', rowIndex, row)"
+                        *ngIf="editingSalary[rowIndex + '-currentPeriod']"
+                        type="number"
+                        style="width: 50%;"
+                        [value]="row.currentPeriod"
+                      />
+                    </center>
                   </div>
-                  <div
-                    *ngIf="businessType === '2' && row.currentEdit == 'S'"
-                    title="Double click to edit"
-                  >
-                  {{ row.currentPeriod | currency : (currency == '1' ? 'S/ ' : '$ ') }}
-                  </div>
-                  <div
-                    title="Double click to edit"
-                    (dblclick)="editingSalary[rowIndex + '-currentPeriod'] = true"
-                    *ngIf="!editingSalary[rowIndex + '-currentPeriod'] && row.currentEdit == 'S'  && businessType !== '2'"
-                  >
-                  {{ row.currentPeriod | currency : (currency == '1' ? 'S/ ' : '$ ') }}
-                  </div>
-                  <input
-                    autofocus
-                    class="form-control form-control-sm"
-                    (blur)="inlineEditingUpdateSalary($event, 'currentPeriod', rowIndex, row)"
-                    *ngIf="editingSalary[rowIndex + '-currentPeriod']"
-                    type="number"
-                    [value]="row.currentPeriod"
-                  />
+                  
                 </ng-template>
               </ngx-datatable-column>
 

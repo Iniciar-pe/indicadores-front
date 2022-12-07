@@ -169,7 +169,23 @@
                           </div>
 
                           
-
+                          <div class="col-12">
+                            <div class="form-group">
+                              <label class="form-control-label" for="detalle_resultado">Detalle de resultado:</label>
+                              <input 
+                                class="form-control input-md"
+                                id="detalle_resultado"
+                                name="detalle_resultado"
+                                formControlName="detalle_resultado"
+                                [ngClass]="{ 'is-invalid': submitted && f.detalle_resultado.errors }"
+                                type="text"
+                                maxlength="150"
+                                placeholder="Detalle de resultado">
+                              <div *ngIf="submitted && f.detalle_resultado.errors" class="invalid-feedback">
+                                <div *ngIf="f.detalle_resultado.errors.required">El campo es requerido</div>
+                              </div>
+                            </div>
+                          </div>
                           
 
                           <div class="col-12">

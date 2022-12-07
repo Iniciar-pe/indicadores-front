@@ -11,10 +11,6 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 // routing
 const routes: Routes = [
   {
-    path: 'email',
-    loadChildren: () => import('./email/email.module').then(m => m.EmailModule)
-  },
-  {
     path: 'chat',
     loadChildren: () => import('./chat/chat.module').then(m => m.ChatModule)
   },

@@ -84,6 +84,7 @@ export class IndicatorsComponent implements OnInit {
       expresado: '',
       estado: 'A',
       icono: '',
+      detalle_resultado: '',
     };
   }
 
@@ -106,7 +107,7 @@ export class IndicatorsComponent implements OnInit {
       nemonico: '',
       edita_pp: 'I',
       edita_pa: 'I',
-      nota: ''
+      notas: ''
   };
     this.indicator = false;
     this.rubro = true;

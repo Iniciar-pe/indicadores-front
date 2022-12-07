@@ -13,7 +13,6 @@ export class EntryOfValuesComponent implements OnInit {
 
   @ViewChild(DatatableComponent) table: DatatableComponent;
   private tempData = [];
-  public editingName = {};
   public editingStatus = {};
   public editingAge = {};
   public editingSalary = {};

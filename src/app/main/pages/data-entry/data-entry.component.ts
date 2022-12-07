@@ -123,7 +123,7 @@ export class DataEntryComponent implements OnInit {
     }
 
     if (opcion === 2) {
-      this.loadingSecond = true;
+      this.loadingSecond = false;
       // this.childRef.addValues(this.criterionResponse.id);
       this.horizontalWizardStepper.next();
     }
@@ -178,8 +178,27 @@ export class DataEntryComponent implements OnInit {
   }
 
   setPeriod() {
-    const period = this.dataEntry?.period.filter(e => e.id === Number(this.data.period))[0].count;
-
+    let period = this.dataEntry?.period.filter(e => e.id === Number(this.data.period))[0]?.count;
+    if (!period) {
+      period = [
+        {
+          id: 1,
+          count: 1
+        },
+        {
+          id: 2,
+          count: 3
+        },
+        {
+          id: 3,
+          count: 6
+        },
+        {
+          id: 4,
+          count: 12
+        }
+      ].filter(e => e.id === Number(this.data.period))[0]?.count;
+    }
     const startMonth = new Date(Number(this.data.year), Number(this.data.month) - 1, 1);
     const endMonth = new Date(Number(
         moment(startMonth).add(period, 'month').format('YYYY')),

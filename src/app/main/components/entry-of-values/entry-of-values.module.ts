@@ -5,7 +5,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { EntryOfValuesComponent } from 'app/main/components/entry-of-values/entry-of-values.component';
-import { DatatablesService } from 'app/main/tables/datatables/datatables.service';
 
 
 @NgModule({
@@ -14,9 +13,8 @@ import { DatatablesService } from 'app/main/tables/datatables/datatables.service
     NgbModule,
     CoreCommonModule,
     NgxDatatableModule,
-    
   ],
   exports: [EntryOfValuesComponent],
-  providers: [DatatablesService]
+  providers: []
 })
 export class EntryOfValuesModule {}

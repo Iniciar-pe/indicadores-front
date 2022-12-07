@@ -42,7 +42,7 @@ export class RubroEditComponent implements OnInit {
       status: this.f.status.value ? 'A' : 'I',
       edita_pp: this.f.edita_pp.value ? 'A' : 'I',
       edita_pa: this.f.edita_pa.value ? 'A' : 'I',
-      nota: this.f.nota.value
+      notas: this.f.notas.value
     }
 
     if (this.form.valid && this.entry && this.entry.id_rubro) {
@@ -84,7 +84,7 @@ export class RubroEditComponent implements OnInit {
       nemonic: [this.entry.nemonico, [Validators.required]],
       edita_pp: [this.entry.edita_pp == 'A'],
       edita_pa: [this.entry.edita_pa == 'A'],   
-      nota: [this.entry.nota, [Validators.required]],   
+      notas: [this.entry.notas, [Validators.required]],   
     });
   }
 }
