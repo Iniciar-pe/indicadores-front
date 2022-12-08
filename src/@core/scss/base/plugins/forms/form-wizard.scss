@@ -78,13 +78,13 @@ $step-box-width: 38px;
       &.active {
         .step-trigger {
           .bs-stepper-box {
-            background-color: $primary;
+            background-color: $info;
             color: $white;
-            box-shadow: 0 3px 6px 0 rgba($primary, 0.4);
+            box-shadow: 0 3px 6px 0 rgba($info, 0.4);
           }
           .bs-stepper-label {
             .bs-stepper-title {
-              color: $primary;
+              color: $info;
             }
           }
         }

@@ -11,6 +11,7 @@ export interface Ratios {
   result: string;
   id: number;
   value: string;
+  detailResult: string;
 }
 
 export interface DatePeriodRequest {

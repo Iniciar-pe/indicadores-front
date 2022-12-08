@@ -6,3 +6,9 @@
     margin: 2%;
     background-color: #f2faff;
 }
+
+@media only screen and (max-width: 768px) {
+    .separator-card {
+        margin-top: 1rem;
+    }
+}

@@ -24,6 +24,26 @@
 }
 
 
+
+*/
+
+.datatable-body-cell-label{
+  width: 100% !important;
+}
+
+.tooltip {
+  top: 20px !important;
+}
+
+.arrow {
+  display: none !important;
+}
+
+.tooltip-inner {
+  max-width: 250px !important;
+  background-color: #787684 !important;
+}
+
 .let p {
   text-transform: lowercase;
 }
@@ -31,9 +51,4 @@
 .let p:first-letter {
   text-transform: uppercase;
 
-}
-*/
-
-.datatable-body-cell-label{
-  width: 100% !important;
 }

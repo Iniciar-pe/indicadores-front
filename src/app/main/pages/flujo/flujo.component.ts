@@ -110,6 +110,7 @@ export class FlujoComponent implements OnInit {
   getRatios() {
     const data = {
       business: this.business.id,
+      type: 1,
     };
     this._ratiosService.getRatios(data).subscribe(response => {
       this.rows = response.ratios;

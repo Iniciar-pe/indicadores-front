@@ -16,42 +16,44 @@
           </div>
         </div>
 
-        <div class="row">
+        <div class="row separator-card">
         <div class="col-12">
          
          <div class="card">
 
           <div class="row">
             <div class="col-12 col-md-3">
-              <div class="card" style="box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%) !important;  margin: 10% 0% 5% 10%;padding-bottom: 0px !important;">
+              <div class="card-left card" style="box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%) !important; ">
                 <div class="card-header d-flex flex-column align-items-start">
                   <div class="avatar bg-light-primary">
                     <div class="avatar-content">
                       <i data-feather="clipboard" class="font-medium-2"></i>
                     </div>
                   </div>
-                  <h1 class="font-large-2 font-weight-bolder">{{ datePeriod?.countDays }}</h1>
+                  <h2 class="font-large-1 font-weight-bolder">{{ datePeriod?.countDays }}</h2>
                   <h4 class="mb-0">Cantidad de días</h4>
                 </div>
               </div>
             </div>
-            <div class="col-12 col-md-3">
-              <div class="card" style="box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%) !important; margin: 10% 0% 5% 0%;padding-bottom: 0px !important;">
+            <div class="col-12 col-md-3 separator-card" >
+              <div class="card-rigth card" style="box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%) !important; ">
                 <div class="card-header d-flex flex-column align-items-start">
                   <div class="avatar bg-light-success">
                     <div class="avatar-content">
                       <i data-feather="clipboard" class="font-medium-2"></i>
                     </div>
                   </div>
-                  <h1 class="font-large-2 font-weight-bolder">{{ symbol }}</h1>
+                  <h2 class="font-large-1 font-weight-bolder">{{ symbol }}</h2>
                   <h4 class="mb-0">Unidad Monetaria</h4>
                 </div>
               </div>
               
             </div>
-            <div class="col-6">
-              <div class="img" style="margin: 5% 5% 5% 0%;height: 80% !important;">
-                <img src="assets/images/logo/ratio.png" alt="" style="width: 100%; height: 100%;">
+            <div class="col-md-6 separator-card">
+              <div class="card img " style="box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%) !important; ">
+                <div class="card-header d-flex flex-column align-items-start" style="padding: 0;">
+                  <img src="assets/images/logo/ratio.png" alt="" style="width: 100%;height: 133px;">
+                </div>
               </div>
             </div>
           </div>
@@ -116,29 +118,34 @@
                           <p class="font-medium-1 font-weight-bold line-height-1 mb-25">
                             {{ row.name }}
                           </p>
-                          <span class="font-small-2">{{ row.description }}</span>
+                          <span class="font-small-2">{{ row.detailResult  | nameRatio : datePeriod?.period }}</span>
                         </div>
                       </div>
                     </ng-template>
                   </ngx-datatable-column>
     
     
-                  <ngx-datatable-column name="Resultados" prop="result" [width]="50">
+                  <ngx-datatable-column name="Resultados" prop="result" [width]="200">
                     <ng-template let-column="column" ngx-datatable-header-template> 
                       <div class="container">
                         <p style="text-align: center;"><b style="text-transform: capitalize;">Resultados</b></p>
                       </div>
                     </ng-template>
                     <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
-                      <div class="d-flex align-items-center">
-                        <p class="font-medium-1 font-weight-bold line-height-1 mb-25">
-                          {{ row.result | currency : symbol }}
-                        </p>
+                      <div class="container">
+                            <p class="font-medium-1 font-weight-bold line-height-1" style="text-align: center;">
+                              {{ row.result }}
+                            </p>
                       </div>
                     </ng-template>
                   </ngx-datatable-column>
     
-                  <ngx-datatable-column name="" [width]="10" [sortable]="false">
+                  <ngx-datatable-column name="Opcion" [width]="100" [sortable]="false">
+                    <ng-template let-column="column" ngx-datatable-header-template> 
+                      <div class="container">
+                        <p style="text-align: center;"><b style="text-transform: capitalize;"></b></p>
+                      </div>
+                    </ng-template>
                     <ng-template ngx-datatable-cell-template let-row="row">
                       <div class="d-flex align-items-center">
                         <div ngbDropdown container="body">
@@ -167,7 +174,7 @@
           
         </div>
 
-      </div>
+        </div>
   </div>
 </div>
 
