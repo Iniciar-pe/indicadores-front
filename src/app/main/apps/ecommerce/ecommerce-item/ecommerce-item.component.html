@@ -1,64 +1,104 @@
 <!-- Ecommerce Item -->
-<div class="item-img text-center">
-  <a [routerLink]="'/apps/e-commerce/details/' + product.id">
-    <img class="img-fluid card-img-top" [src]="product.image" alt="img-placeholder" />
-  </a>
-</div>
+
 <div class="card-body">
-  <div class="item-wrapper">
-    <div class="item-rating">
-      <div class="rating rating-sm">
-        <ngb-rating [rate]="product.rating" [readonly]="true" [max]="5" class="outline-none">
-          <ng-template let-fill="fill" let-index="index"
-            ><span class="fa fa-star-o mr-25" [class.fa-star]="fill === 100"></span
-          ></ng-template>
-        </ngb-rating>
-      </div>
-    </div>
-    <div class="item-cost">
-      <h6 class="item-price">${{ product.price }}</h6>
-    </div>
-  </div>
+  <img [src]="product.image" alt="img-placeholder" width="150" />
   <h6 class="item-name">
-    <a class="text-body" [routerLink]="'/apps/e-commerce/details/' + product.id"> {{ product.name }}</a>
-    <span class="card-text item-company"
-      >By <a href="javascript:void(0)" class="company-name">{{ product.brand }}</a></span
-    >
+    {{ product.name }}
   </h6>
-  <p class="card-text item-description">
+  <p class="card-text">
     {{ product.description }}
   </p>
 </div>
-<div class="item-options text-center">
-  <div class="item-wrapper">
-    <div class="item-cost">
-      <h4 class="item-price">${{ product.price }}</h4>
-      <p class="card-text shipping" *ngIf="product.hasFreeShipping">
-        <span class="badge badge-pill badge-light-success">Free Shipping</span>
-      </p>
+<div class="item-options">
+  <hr>
+  <div class="container-item">
+    <div class="row">
+      <div class="col">
+        <b>Anual</b>
+      </div>
     </div>
+
+    <div class="row">
+      <div class="col-7">
+        <p>01 al 10 licencias</p>
+      </div>
+      <div class="col-5">
+        <p>99.99</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-7">
+        <p>11 a 20 licencias</p>
+      </div>
+      <div class="col-5">
+        <p>99.99</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-7">
+        <p>+ 100 licencias</p>
+      </div>
+      <div class="col-5">
+        <p>99.99</p>
+      </div>
+    </div>
+
+
   </div>
-  <a
-    *ngIf="isWishlistOpen === true"
-    href="javascript:void(0)"
-    class="btn btn-light btn-wishlist"
-    (click)="toggleWishlist(product)"
-    rippleEffect
-  >
-    <i data-feather="x"></i>
-    <span>Remove</span>
-  </a>
-  <a
-    *ngIf="isWishlistOpen !== true"
-    href="javascript:void(0)"
-    class="btn btn-light btn-wishlist"
-    (click)="toggleWishlist(product)"
-    rippleEffect
-  >
-    <i class="fa mr-25" [ngClass]="product.isInWishlist === true ? 'fa-heart text-danger' : 'fa-heart-o'"></i>
-    <span>Wishlist</span>
-  </a>
-  <a
+
+  <div class="container-item">
+    <div class="row">
+      <div class="col">
+        <b>Semestral</b>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-7">
+        <p>01 al 10 licencias</p>
+      </div>
+      <div class="col-5">
+        <p>99.99</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-7">
+        <p>11 a 20 licencias</p>
+      </div>
+      <div class="col-5">
+        <p>99.99</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-7">
+        <p>+ 100 licencias</p>
+      </div>
+      <div class="col-5">
+        <p>99.99</p>
+      </div>
+    </div>
+
+
+  </div>
+  
+  <div class="container-item">
+    <div class="form-group">
+      <label for="basicInput">¿Cuántas licencias necesitas?</label>
+      <input type="text" class="form-control" id="basicInput" placeholder="Enter email" />
+    </div>
+    <div class="form-group">
+      <label for="basicInput">¿Durante qué periodo?</label>
+      <select class="form-control" id="basicSelect">
+        <option>Anual</option>
+        <option>Semestral</option>
+      </select>
+    </div>
+
+    <a
     *ngIf="product.isInCart !== true"
     href="javascript:void(0)"
     class="btn btn-primary btn-cart"
@@ -66,7 +106,7 @@
     rippleEffect
   >
     <i data-feather="shopping-cart" class="mr-25"></i>
-    <span class="add-to-cart">Add to cart</span>
+    <span class="add-to-cart">Agregar al carrito</span>
   </a>
   <a
     *ngIf="product.isInCart === true"
@@ -75,7 +115,12 @@
     rippleEffect
   >
     <i data-feather="shopping-cart" class="mr-25"></i>
-    <span class="add-to-cart">View in cart</span>
+    <span class="add-to-cart">Ver el carrito</span>
   </a>
+  
+  </div>
+  
+
+ 
 </div>
 <!--/ Ecommerce Item -->

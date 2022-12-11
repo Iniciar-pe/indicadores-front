@@ -69,16 +69,28 @@
                   
                   <hr />
                   <div class="price-details">
-                    <h6 class="price-title">Detalles del precio</h6>
+                    <h6 class="price-title">Detalles de la Compra</h6>
                     <ul class="list-unstyled">
                       <li class="price-detail">
-                        <div class="detail-title">Sub Total</div>
-                        <div class="detail-amt">S/ 8.47</div>
+                        <div class="detail-title">
+                          <p>Licencia Individual
+                            <br>
+                            <b>15 lincencias anual</b>
+                          </p>
+                          
+                        </div>
+                        <div class="detail-amt">99.9</div>
                       </li>
                       
                       <li class="price-detail">
-                        <div class="detail-title">IGV</div>
-                        <div class="detail-amt">S/ 1.53</div>
+                        <div class="detail-title">
+                          <p>Licencia Individual
+                            <br>
+                            <b>15 lincencias anual</b>
+                          </p>
+                          
+                        </div>
+                        <div class="detail-amt">99.9</div>
                       </li>
                      
                       
@@ -87,7 +99,7 @@
                     <ul class="list-unstyled">
                       <li class="price-detail">
                         <div class="detail-title detail-total">Total</div>
-                        <div class="detail-amt font-weight-bolder">S/10.00</div>
+                        <div class="detail-amt font-weight-bolder">100.00</div>
                       </li>
                     </ul>
                     <button
@@ -124,9 +136,9 @@
               </div>
               <div class="card-body">
                 <div class="row">
-                  <div class="col-md-6 col-sm-12">
+                  <div class="col-sm-12">
                     <div class="form-group mb-2">
-                      <label for="checkout-name">Nombre:</label>
+                      <label for="checkout-name">Nombre completo</label>
                       <input
                         type="text"
                         id="checkout-name"
@@ -145,9 +157,9 @@
                       </span>
                     </div>
                   </div>
-                  <div class="col-md-6 col-sm-12">
+                  <div class="col-sm-12">
                     <div class="form-group mb-2">
-                      <label for="checkout-number">Teléfono:</label>
+                      <label for="checkout-number">Número de teléfono:</label>
                       <input
                         type="number"
                         id="checkout-number"
@@ -166,7 +178,7 @@
                       </span>
                     </div>
                   </div>
-                  <div class="col-md-6 col-sm-12">
+                  <div class="col-sm-12">
                     <div class="form-group mb-2">
                       <label for="checkout-apt-number">Dirección:</label>
                       <input
@@ -189,32 +201,41 @@
                   </div>
                   <div class="col-md-6 col-sm-12">
                     <div class="form-group mb-2">
-                      <label for="checkout-landmark">Departamento:</label>
-                      <select class="form-control" id="add-type">
-                        <option>Seleccione</option>
-                        <option>Lima</option>
-                      </select>
-                      
+                      <label for="checkout-landmark">País</label>
+                      <input
+                        type="text"
+                        id="pais"
+                        class="form-control"
+                        name="apt-number"
+                        placeholder="Pais"
+                        required
+                      />
                     </div>
                   </div>
                   <div class="col-md-6 col-sm-12">
                     <div class="form-group mb-2">
-                      <label for="checkout-city">Provincia:</label>
-                      <select class="form-control" id="add-type">
-                        <option>Seleccione</option>
-                        <option>Lima</option>
-                      </select>
-                    
+                      <label for="checkout-landmark">Cuidad</label>
+                      <input
+                        type="text"
+                        id="pais"
+                        class="form-control"
+                        name="apt-number"
+                        placeholder="Cuidad"
+                        required
+                      />
                     </div>
                   </div>
                   <div class="col-md-6 col-sm-12">
                     <div class="form-group mb-2">
-                      <label for="checkout-pincode">Distrito:</label>
-                      <select class="form-control" id="add-type">
-                        <option>Seleccione</option>
-                        <option>Lima</option>
-                      </select>
-                     
+                      <label for="checkout-landmark">Código postal</label>
+                      <input
+                        type="text"
+                        id="pais"
+                        class="form-control"
+                        name="apt-number"
+                        placeholder="Código postal"
+                        required
+                      />
                     </div>
                   </div>
             
@@ -234,25 +255,58 @@
             <!-- Checkout Customer Address Left ends -->
 
             <!-- Checkout Customer Address Right starts -->
-            <div class="customer-card">
+            <div class="checkout-options">
               <div class="card">
-                <div class="card-header">
-                  <h4 class="card-title">Gian Carlos</h4>
-                </div>
-                <div class="card-body actions">
-                  <p class="card-text mb-0">Av 5 los jirazoles 520</p>
-                  <p class="card-text">Lima - Lima - Lima</p>
-                  <p class="card-text">+51 986-555-140</p>
-                  <button
-                    type="button"
-                    class="btn btn-primary btn-block btn-next delivery-address mt-2"
-                    (click)="nextStep()"
-                    rippleEffect
-                  >
-                    Ir a pagos
-                  </button>
+                <div class="card-body">
+                  <label class="section-label mb-1">Detalle</label>
+                  
+                  <hr />
+                  <div class="price-details">
+                    <h6 class="price-title">Detalles de la Compra</h6>
+                    <ul class="list-unstyled">
+                      <li class="price-detail">
+                        <div class="detail-title">
+                          <p>Licencia Individual
+                            <br>
+                            <b>15 lincencias anual</b>
+                          </p>
+                          
+                        </div>
+                        <div class="detail-amt">99.9</div>
+                      </li>
+                      
+                      <li class="price-detail">
+                        <div class="detail-title">
+                          <p>Licencia Individual
+                            <br>
+                            <b>15 lincencias anual</b>
+                          </p>
+                          
+                        </div>
+                        <div class="detail-amt">99.9</div>
+                      </li>
+                     
+                      
+                    </ul>
+                    <hr />
+                    <ul class="list-unstyled">
+                      <li class="price-detail">
+                        <div class="detail-title detail-total">Total</div>
+                        <div class="detail-amt font-weight-bolder">100.00</div>
+                      </li>
+                    </ul>
+                    <button
+                      type="button"
+                      class="btn btn-primary btn-block btn-next place-order"
+                      (click)="nextStep()"
+                      rippleEffect
+                    >
+                     Realizar compra
+                    </button>
+                  </div>
                 </div>
               </div>
+              <!-- Checkout Place Order Right ends -->
             </div>
             <!-- Checkout Customer Address Right ends -->
           </form>
@@ -269,9 +323,6 @@
                   <p class="card-text text-muted mt-25">Asegúrese de hacer clic en la opción de pago correcta</p>
                 </div>
                 <div class="card-body">
-                  <h6 class="card-holder-name my-75">Gian Carlos</h6>
-                 
-                  
                   <hr class="my-2" />
                   <ul class="other-payment-options list-unstyled">
                     <li class="py-50">
@@ -279,11 +330,21 @@
                         <input type="radio" id="customColorRadio2" name="paymentOptions" class="custom-control-input" />
                         <label class="custom-control-label" for="customColorRadio2"> Tarjeta de crédito/débito </label>
                       </div>
+                      <div class="ml-2 mt-2 mb-2">
+                        <img src="assets/images/elements/card.jpg" alt="">
+                      </div>
                     </li>
                     <li class="py-50">
                       <div class="custom-control custom-radio">
                         <input type="radio" id="customColorRadio3" name="paymentOptions" class="custom-control-input" />
                         <label class="custom-control-label" for="customColorRadio3"> Tranferencia Bancaria </label>
+                      </div>
+                      <div class="ml-2 mt-2">
+                        <p>Consultoria Villajuana  SAC <br>
+                          <span>RUC: 20600000000</span><br>
+                          <span>Cuenta Corriente BBVA: 0011-0000-0000101</span><br>
+                          <span>CCI: 011 000 0000000101</span>
+                        </p>
                       </div>
                     </li>
                     
@@ -293,40 +354,75 @@
                 </div>
               </div>
             </div>
-            <div class="amount-payable checkout-options">
+            <div class="checkout-options">
               <div class="card">
-                <div class="card-header">
-                  <h4 class="card-title">Detalles del precio</h4>
-                </div>
                 <div class="card-body">
-                  <ul class="list-unstyled price-details">
-                    <li class="price-detail">
-                      <div class="details-title">Precio de 1 producto</div>
-                      <div class="detail-amt">
-                        <strong>S/ 10</strong>
-                      </div>
-                    </li>
-                    
-                  </ul>
+                  <label class="section-label mb-1">Detalle</label>
+      
                   <hr />
-                  <ul class="list-unstyled price-details">
-                    <li class="price-detail">
-                      <div class="details-title">Total Pagar</div>
-                      <div class="detail-amt font-weight-bolder">S/ 10</div>
-                    </li>
-                  </ul>
-                  <br>
+                  <div class="price-details">
+                    <h6 class="price-title">Detalles de la Compra</h6>
+                    <ul class="list-unstyled">
+                      <li class="price-detail">
+                        <div class="detail-title">
+                          <p>Licencia Individual
+                            <br>
+                            <b>15 lincencias anual</b>
+                          </p>
+                          
+                        </div>
+                        <div class="detail-amt">99.9</div>
+                      </li>
+                      
+                      <li class="price-detail">
+                        <div class="detail-title">
+                          <p>Licencia Individual
+                            <br>
+                            <b>15 lincencias anual</b>
+                          </p>
+                          
+                        </div>
+                        <div class="detail-amt">99.9</div>
+                      </li>
+                     
+                      
+                    </ul>
+                    <hr />
+                    <h6 class="price-title">Datos del comprador</h6>
+                    <ul class="list-unstyled">
+                      <li class="price-detail">
+                        <div class="detail-title">
+                          <p>Carlos Zavala
+                          <br>
+                            983833893
+                          <br>
+                            Av. Jose prado 879 - Lima - Perú</p>
+                        </div>
+                      </li>
+                      
+                    
+                     
+                      
+                    </ul>
+                    <hr>
+                    <ul class="list-unstyled">
+                      <li class="price-detail">
+                        <div class="detail-title detail-total">Total</div>
+                        <div class="detail-amt font-weight-bolder">100.00</div>
+                      </li>
+                    </ul>
                     <button
-                    style="width: 100%;"
-                      type="submit"
-                      class="btn btn-primary btn-next delivery-address"
+                      type="button"
+                      class="btn btn-primary btn-block btn-next place-order"
                       (click)="nextStep()"
                       rippleEffect
                     >
-                      Pagar
+                     Pagar
                     </button>
+                  </div>
                 </div>
               </div>
+              <!-- Checkout Place Order Right ends -->
             </div>
           </form>
         </div>

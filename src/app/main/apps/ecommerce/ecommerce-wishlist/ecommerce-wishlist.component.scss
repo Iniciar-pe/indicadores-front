@@ -1,1 +1,5 @@
 @import '@core/scss/base/pages/app-ecommerce.scss';
+
+.ecommerce-application .grid-view.wishlist-items {
+    grid-template-columns: 1fr 1fr 1fr !important;
+}

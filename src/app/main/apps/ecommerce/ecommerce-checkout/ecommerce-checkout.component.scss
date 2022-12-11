@@ -2,3 +2,12 @@
 @import '@core/scss/angular/libs/form-wizard.component.scss';
 @import '@core/scss/base/plugins/forms/form-validation.scss';
 @import '@core/scss/angular/libs/ratings.component.scss';
+
+
+.bs-stepper .bs-stepper-header .step.active .step-trigger .bs-stepper-box{
+    background-color: #22aaff !important;
+}
+
+.bs-stepper .bs-stepper-header .step.active .step-trigger .bs-stepper-label .bs-stepper-title {
+    color: #22aaff;
+}

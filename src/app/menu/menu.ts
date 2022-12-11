@@ -50,7 +50,7 @@ export const menu: CoreMenu[] = [
         translate: 'MENU.LICENCIAS.SHOPPING',
         type: 'item',
         icon: 'bookmark',
-        url: '#'
+        url: 'apps/comercio/lista'
       },
       {
         id: 'DISTRIBUTION',
