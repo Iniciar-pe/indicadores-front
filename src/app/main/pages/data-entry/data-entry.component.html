@@ -19,11 +19,11 @@
         <div class="row separator-card">
         <div class="col-12">
          
-          <section class="horizontal-wizard">
-            <div id="stepper1" class="bs-stepper horizontal-wizard-example">
+          <section class="modern-horizontal-wizard">
+            <div id="stepper1" class="bs-stepper wizard-modern modern-wizard-example">
               <div class="bs-stepper-header">
                 <div class="step" data-target="#data">
-                  <button class="step-trigger">
+                  <button type="button" class="step-trigger">
                     <span class="bs-stepper-box">1</span>
                     <span class="bs-stepper-label">
                       <span class="bs-stepper-title">Ingreso de datos</span>
@@ -32,7 +32,7 @@
                 </div>
                 <div class="line"><i data-feather="chevron-right" class="font-medium-2"></i></div>
                 <div class="step" data-target="#value">
-                  <button class="step-trigger">
+                  <button type="button" class="step-trigger" (click)="horizontalWizardStepperNext(3)">
                     <span class="bs-stepper-box">2</span>
                     <span class="bs-stepper-label">
                       <span class="bs-stepper-title">Ingreso de valores</span>
@@ -41,7 +41,7 @@
                 </div>
                 <div class="line"><i data-feather="chevron-right" class="font-medium-2"></i></div>
                 <div class="step" data-target="#result">
-                  <button class="step-trigger">
+                  <button type="button" class="step-trigger">
                     <span class="bs-stepper-box">3</span>
                     <span class="bs-stepper-label">
                       <span class="bs-stepper-title">Procesar resultado</span>

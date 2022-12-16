@@ -74,9 +74,9 @@ export class AbstractComponent implements OnInit {
     this._ratiosService.getRatios(data).subscribe(response => {
       this.datePeriod = {
         startMonth: new Date(Number(response.default.startYear), Number(response.default.startMonth) - 1, 1),
-        endMonth: new Date(Number(response.default.endYear), Number(response.default.endMonth) - 1, 0),
+        endMonth: new Date(Number(response.default.endYear), Number(response.default.endMonth), 0),
         startMonthPeriod: new Date(Number(response.default.startYearPrevious),Number(response.default.startMonthPrevious) - 1, 1),
-        endMonthPeriod: new Date(Number(response.default.endYearPrevious),Number(response.default.endMonthPrevious) - 1, 0),
+        endMonthPeriod: new Date(Number(response.default.endYearPrevious),Number(response.default.endMonthPrevious), 0),
         period: response.default.period,
         countDays: response.default.countDays,
       };

@@ -62,6 +62,17 @@
                             </div>
                           </div>
 
+                          <div class="col-12 col-lg-2">
+                            <div class="form-group">
+                              <label class="form-control-label" for="TDdesc">Orden:</label>
+                              <core-touchspin 
+                              [size]="'lg'" 
+                              [numberValue]="numberValue" 
+                              (onChange)="countChange($event)" [button]="true"
+                              ></core-touchspin>
+                            </div>
+                          </div>
+
                           <div class="col-12 col-lg-6">
                             <div class="form-group">
                               <label class="form-control-label" for="nemonic">Nemónico:</label>
@@ -88,13 +99,13 @@
                                 id="nota" 
                                 formControlName="notas"
                                 class="form-control input-md"
-                                [ngClass]="{ 'is-invalid': submitted && f.nota.errors }"
+                                [ngClass]="{ 'is-invalid': submitted && f.notas.errors }"
                                 placeholder="Nota"
                                 maxlength="400"
                                 ></textarea>
                               
-                                <div *ngIf="submitted && f.nota.errors" class="invalid-feedback">
-                                  <div *ngIf="f.nota.errors.required">El campo es requerido</div>
+                                <div *ngIf="submitted && f.notas.errors" class="invalid-feedback">
+                                  <div *ngIf="f.notas.errors.required">El campo es requerido</div>
                                 </div>
                             </div>
                           </div>

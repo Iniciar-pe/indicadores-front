@@ -107,7 +107,8 @@ export class IndicatorsComponent implements OnInit {
       nemonico: '',
       edita_pp: 'I',
       edita_pa: 'I',
-      notas: ''
+      notas: '',
+      orden: 0,
   };
     this.indicator = false;
     this.rubro = true;

@@ -57,7 +57,6 @@
                         [ngbTooltip]="row.note"
                         tooltipClass="tooltip-indez"
                         #methodOpen="ngbTooltip"
-                        triggers="manual"
                         (click)="methodOpen.open()"
                       > <i data-feather="alert-circle" class="" ></i>
                     </span>
@@ -72,12 +71,12 @@
                       <p class="font-medium-1 font-weight-bold line-height-1 mb-25">
                         {{ row.description }}
                       </p>
-                      <span class="font-small-2"> al último día del {{ datePeriod?.period | namePeriod }} {{ row.previousEdit != 'S' ? 'actual' : '' }} {{ row.currentEdit != 'S' ? 'anterior' : '' }}</span>
+                      <span class="font-small-2" style="color: #808080;"> al último día del {{ datePeriod?.period | namePeriod }} {{ row.previousEdit != 'S' ? 'actual' : '' }} {{ row.currentEdit != 'S' ? 'anterior' : '' }}</span>
                     </div>
                   </div>
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column [width]="100" prop="age">
+              <ngx-datatable-column [width]="200" prop="age">
                 <ng-template let-column="column" ngx-datatable-header-template> 
                   <div class="container">
                     <p style="text-align: center;"><b style="text-transform: capitalize;">{{ datePeriod?.period | namePeriod }} anterior</b></p>
@@ -87,38 +86,37 @@
                 <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
                   <div class="container">
                     <center>
-                      <div *ngIf="row.previousEdit == 'N'">
-                        No llenar
-                      </div>
-                      <div
-                        *ngIf="businessType === '2' && row.previousEdit == 'S'"
-                        title="Doble click para editar"
+                      <input 
+                        type="text" 
+                        style="text-align:center;"
+                        *ngIf="row.previousEdit != 'A'" 
+                        value="No llenar" 
+                        readonly
+                        [tabIndex]="(rowIndex + rowIndex) + 1"
+                        class="form-control form-control-sm text-data"
                       >
-                        {{ (row.previousPeriod ? row.previousPeriod : '0.00') | currency : (currency == '1' ? 'S/ ' : '$ ') }}
-                      </div>
-                      <div
-                        title="Doble click para editar"
-                        (dblclick)="editingAge[rowIndex + '-previousPeriod'] = true"
-                        *ngIf="!editingAge[rowIndex + '-previousPeriod'] && row.previousEdit == 'S' && businessType !== '2'"
-                      >
-                        {{ (row.previousPeriod ? row.previousPeriod : '0.00') | currency : (currency == '1' ? 'S/ ' : '$ ') }}
-                      </div>
                       <input
+                        [readonly]="businessType === '2'"
+                        style="text-align:right;"
                         autofocus
-                        class="form-control form-control-sm"
+                        class="form-control form-control-sm text-data"
                         (blur)="inlineEditingUpdateAge($event, 'previousPeriod', rowIndex, row)"
                         (keyup.enter)="inlineEditingUpdateAge($event, 'previousPeriod', rowIndex, row)"
-                        *ngIf="editingAge[rowIndex + '-previousPeriod']"
-                        type="number"
-                        style="width: 50%;"
+                        *ngIf="row.previousEdit == 'A'"
+                        type="text"
+                        (keypress)="validateFormat($event)"
+                        (blur)="transformAmount($event, row.previousPeriod)"
+                        [(ngModel)]="row.previousPeriod"
                         [value]="row.previousPeriod"
+                        [tabIndex]="(rowIndex + rowIndex) + 1"
                       />
+                     
                     </center>
                   </div>
                   
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column [width]="100" prop="salary">
+              <ngx-datatable-column [width]="200" prop="salary">
                 <ng-template let-column="column" ngx-datatable-header-template> 
                   <div class="container">
                     <p style="text-align: center;" ><b style="text-transform: capitalize;">{{ datePeriod?.period | namePeriod }} actual o del analisis</b></p>
@@ -128,31 +126,30 @@
                 <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
                   <div class="container">
                     <center>
-                      <div *ngIf="row.currentEdit == 'N'">
-                        No llenar
-                      </div>
-                      <div
-                        *ngIf="businessType === '2' && row.currentEdit == 'S'"
-                        title="Doble click para editar"
+                      <input 
+                        style="text-align:center;"
+                        type="text" 
+                        *ngIf="row.currentEdit != 'A'" 
+                        value="No llenar" 
+                        class="form-control form-control-sm text-data"
+                        readonly
+                        [tabIndex]="(rowIndex + rowIndex) + 2"
                       >
-                      {{ (row.currentPeriod ? row.currentPeriod : '0.00') | currency : (currency == '1' ? 'S/ ' : '$ ') }}
-                      </div>
-                      <div
-                        title="Doble click para editar"
-                        (dblclick)="editingSalary[rowIndex + '-currentPeriod'] = true"
-                        *ngIf="!editingSalary[rowIndex + '-currentPeriod'] && row.currentEdit == 'S'  && businessType !== '2'"
-                      >
-                      {{ (row.currentPeriod ? row.currentPeriod : '0.00') | currency : (currency == '1' ? 'S/ ' : '$ ') }}
-                      </div>
+                      
                       <input
+                        [readonly]="businessType === '2'"
+                        style="text-align:right;"
                         autofocus
-                        class="form-control form-control-sm"
+                        class="form-control form-control-sm text-data"
                         (blur)="inlineEditingUpdateSalary($event, 'currentPeriod', rowIndex, row)"
                         (keyup.enter)="inlineEditingUpdateSalary($event, 'currentPeriod', rowIndex, row)"
-                        *ngIf="editingSalary[rowIndex + '-currentPeriod']"
-                        type="number"
-                        style="width: 50%;"
+                        *ngIf="row.currentEdit == 'A'"
+                        type="text"
+                        (keypress)="validateFormat($event)"
+                        (blur)="transformAmount($event, row.currentPeriod)"
+                        [(ngModel)]="row.currentPeriod"
                         [value]="row.currentPeriod"
+                        [tabIndex]="(rowIndex + rowIndex) + 2"
                       />
                     </center>
                   </div>

@@ -18,19 +18,19 @@ export class EcommerceWishlistComponent implements OnInit {
   ngOnInit(): void {
     this.products = [
       {
-        image: 'assets/images/pages/eCommerce/11.png',
+        image: 'assets/images/elements/icono-licencia-individual.png',
         name: 'Licencia Individual',
         description: 'Texto aleatorio Texto aleatorio Texto aleatorio Texto aleatorio Texto aleatorio',
         isInCart: false,
       },
       {
-        image: 'assets/images/pages/eCommerce/11.png',
+        image: 'assets/images/elements/icono-licencia-sucursal.png',
         name: 'Licencia Empresa con sucursal',
         description: 'Texto aleatorio Texto aleatorio Texto aleatorio Texto aleatorio Texto aleatorio',
         isInCart: false,
       },
       {
-        image: 'assets/images/pages/eCommerce/11.png',
+        image: 'assets/images/elements/icono-licencia-donar.png',
         name: 'Licencia para donar',
         description: 'Texto aleatorio Texto aleatorio Texto aleatorio Texto aleatorio Texto aleatorio',
         isInCart: false,

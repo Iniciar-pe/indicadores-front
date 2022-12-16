@@ -22,7 +22,7 @@ export interface Currency {
 }
 
 export interface RequestDataEntry {
-  period?: string;
+  period?: number;
   currency?: string;
   month?: string;
   year?: string;
@@ -59,7 +59,7 @@ export interface Criterion {
   endYear: string;
   endYearPeriod: string;
   id: string;
-  period: string;
+  period: number;
   startMonth: string;
   startMonthPeriod: string;
   startYear: string;

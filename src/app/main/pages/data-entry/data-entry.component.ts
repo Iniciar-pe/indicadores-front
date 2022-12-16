@@ -32,7 +32,7 @@ export class DataEntryComponent implements OnInit {
   public datePeriod: DatePeriod;
 
   public data: RequestDataEntry = {
-    period: '1',
+    period: 1,
     month: '01',
     currency: '1',
     year: '2022',
@@ -52,7 +52,10 @@ export class DataEntryComponent implements OnInit {
 
   ngOnInit() {
     this.getBusiness();
-    this.horizontalWizardStepper = new Stepper(document.querySelector('#stepper1'), {});
+    this.horizontalWizardStepper = new Stepper(document.querySelector('#stepper1'), {
+      linear: false,
+      animation: true
+    });
 
     // content header
     this.contentHeader = {
@@ -71,10 +74,12 @@ export class DataEntryComponent implements OnInit {
     };
   }
 
-  getEntryData() {
+  getEntryData(option = true) {
 
     this._dataEntryService.getEntryData(this.business).subscribe((response: DataEntry) => {
-      this.dataEntry = response;
+      if (option) {
+        this.dataEntry = response;
+      }
       this.criterionResponse = response.criterion;
       if (response.criterion) {
         this.data.period = response.criterion?.period;
@@ -85,6 +90,7 @@ export class DataEntryComponent implements OnInit {
       }
       this.childRef.getValues(response.criterion?.id);
       this.setPeriod();
+      this.addDataQyery();
 /*
       // this.indicator = response?.indicator;
       // this.getBusiness(response?.business);
@@ -97,29 +103,9 @@ export class DataEntryComponent implements OnInit {
   }
 
   horizontalWizardStepperNext(opcion: number) {
-    if (opcion === 1) {
+    if (opcion === 1 || opcion === 3) {
 
-      if (this.businessType !== '3') {
-        this.loading = true;
-        this.data.business = String(this.business.id);
-        this.data.startMonth = moment(this.datePeriod.startMonth).format('YYYY-MM-DD');
-        this.data.endMonth = moment(this.datePeriod.endMonth).format('YYYY-MM-DD');
-        this.data.startMonthPeriod = moment(this.datePeriod.startMonthPeriod).format('YYYY-MM-DD');
-        this.data.endMonthPeriod = moment(this.datePeriod.endMonthPeriod).format('YYYY-MM-DD');
-        this.data.countDays = this.datePeriod.countDays;
-        this.data.type = String(this.business.type);
-        this._dataEntryService.addEntryData(this.data).subscribe(response => {
-          this.horizontalWizardStepper.next();
-          this.loading = false;
-          this.criterion = response.criterion;
-          this.childRef.getValues(response.criterion);
-        }, err => {
-          this.loading = false;
-        });
-      } else {
-        this.horizontalWizardStepper.next();
-        // this.childRef.getValues(this.data);
-      }
+      this.addDataQyery(true, opcion);
     }
 
     if (opcion === 2) {
@@ -128,6 +114,34 @@ export class DataEntryComponent implements OnInit {
       this.horizontalWizardStepper.next();
     }
 
+  }
+
+  addDataQyery(option = false, opcion = 0) {
+    if (this.businessType !== '3') {
+      this.loading = option;
+      this.data.business = String(this.business.id);
+      this.data.startMonth = moment(this.datePeriod.startMonth).format('YYYY-MM-DD');
+      this.data.endMonth = moment(this.datePeriod.endMonth).format('YYYY-MM-DD');
+      this.data.startMonthPeriod = moment(this.datePeriod.startMonthPeriod).format('YYYY-MM-DD');
+      this.data.endMonthPeriod = moment(this.datePeriod.endMonthPeriod).format('YYYY-MM-DD');
+      this.data.countDays = this.datePeriod.countDays;
+      this.data.type = String(this.business.type);
+      this._dataEntryService.addEntryData(this.data).subscribe(response => {
+        this.loading = false;
+        this.criterion = response.criterion;
+        if (option && opcion === 1) {
+          this.horizontalWizardStepper.next();
+        }
+        this.childRef.getValues(response.criterion);
+      }, err => {
+        this.loading = option;
+      });
+    } else {
+      if (option) {
+        this.horizontalWizardStepper.next();
+      }
+      // this.childRef.getValues(this.data);
+    }
   }
 
   next() {
@@ -139,6 +153,7 @@ export class DataEntryComponent implements OnInit {
   countChange(value) {
     this.data.year = value;
     this.setPeriod();
+    this.addDataQyery();
   }
 
   getBusiness() {
@@ -173,7 +188,7 @@ export class DataEntryComponent implements OnInit {
 
   setBusiness(event) {
     this.business = event;
-    this.getEntryData();
+    this.getEntryData(false);
     
   }
 
@@ -218,7 +233,7 @@ export class DataEntryComponent implements OnInit {
       endMonth: endMonth,
       startMonthPeriod: startMonthPeriod,
       endMonthPeriod: endMonthPeriod,
-      period: this.data.period,
+      period: String(this.data.period),
       countDays: String((endMonth.getTime() - startMonth.getTime())/(1000*60*60*24)),
     };
 
@@ -226,7 +241,7 @@ export class DataEntryComponent implements OnInit {
 
   changePeriod() {
     this.setPeriod();
-    
+    this.addDataQyery();
   }
 
 }

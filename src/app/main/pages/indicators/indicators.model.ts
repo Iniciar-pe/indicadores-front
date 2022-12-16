@@ -8,6 +8,7 @@ export interface Rubro {
     'edita_pp': string;
     'edita_pa': string;
     'notas': string;
+    'orden': number;
 }
 
 export interface RubroRequest {

@@ -23,9 +23,12 @@ export class NameMonth implements PipeTransform {
     ];
 
     moment.locale('es');
-
-    return moment(value).format('D') + ' - ' + month.filter(e => e.id === Number(value?.getMonth()))[0]?.name
+    if (value) {
+      return moment(value).format('D') + ' - ' + month.filter(e => e.id === Number(value?.getMonth()))[0]?.name
       + ' - ' + moment(value).format('YYYY');
+    } else { 
+      return '';
+    }
 
   }
 }
