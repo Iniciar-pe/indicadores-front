@@ -1,15 +1,30 @@
 <!-- Ecommerce Wishlist -->
 <div class="content-wrapper container-xxl p-0">
-  <app-content-header [contentHeader]="contentHeader"></app-content-header>
+  <div class="row">
+    <div class="col">
+      <app-content-header [contentHeader]="contentHeader"></app-content-header>
+    </div>
+    <div class="col-3">
+      <a
+          class="btn btn-info btn-cart"
+          rippleEffect
+          routerLink="/apps/comercio/verificar"
+        >
+          Finalizar Compra
+        </a>
+    </div>
+  </div>
+  
   <div class="content-body">
-    <section id="wishlist" class="grid-view wishlist-items">
+    <section class="row">
       <ng-container *ngFor="let product of products">
-        <app-ecommerce-item
+        <div class="col">
+          <app-ecommerce-item
           class="card ecommerce-card"
           [product]="product"
           [isWishlistOpen]="true"
-          *ngIf="product.isInWishlist === true"
         ></app-ecommerce-item>
+        </div>
       </ng-container>
     </section>
   </div>

@@ -15,6 +15,7 @@ export class RubroEditComponent implements OnInit {
   @Output() back: EventEmitter<any>;;
   form: FormGroup;
   public submitted = false;
+  numberValue = 0;
   loading = false;
   get f() {
     return this.form.controls;
@@ -42,7 +43,8 @@ export class RubroEditComponent implements OnInit {
       status: this.f.status.value ? 'A' : 'I',
       edita_pp: this.f.edita_pp.value ? 'A' : 'I',
       edita_pa: this.f.edita_pa.value ? 'A' : 'I',
-      nota: this.f.nota.value
+      notas: this.f.notas.value,
+      orden: this.f.orden.value,
     }
 
     if (this.form.valid && this.entry && this.entry.id_rubro) {
@@ -77,14 +79,22 @@ export class RubroEditComponent implements OnInit {
     });
   }
 
+  countChange(value) {
+    this.f['orden'].setValue(value);
+    console.log(value);
+    this.submitted = false;
+  }
+
   ngOnInit() {
+    this.numberValue = Number(this.entry.orden);
     this.form =this._formBuilder.group({
       status: [this.entry.estado == 'A', [Validators.required]],
       description: [this.entry.descripcion, [Validators.required]],
       nemonic: [this.entry.nemonico, [Validators.required]],
-      edita_pp: [this.entry.edita_pp == 'A'],
-      edita_pa: [this.entry.edita_pa == 'A'],   
-      nota: [this.entry.nota, [Validators.required]],   
+      edita_pp: [this.entry.edita_pp === 'A'],
+      edita_pa: [this.entry.edita_pa === 'A'],
+      notas: [this.entry.notas, [Validators.required]],
+      orden: [this.entry.orden, [Validators.required]],
     });
   }
 }

@@ -1,1 +1,24 @@
+@import '@core/scss/angular/libs/select.component.scss';
 
+
+.separator {
+    border-left: 1px solid #f8f8f8;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .detail {
+      margin-top: 1rem;
+    }
+    .separator {
+        border-left: none;
+    }
+    .separator-card {
+        margin-top: 1rem;
+    }
+}

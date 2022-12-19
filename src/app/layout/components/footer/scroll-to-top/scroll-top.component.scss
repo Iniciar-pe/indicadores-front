@@ -1,7 +1,7 @@
 .scroll-to-top {
   position: fixed;
-  bottom: 5%;
-  right: 30px;
+  bottom: 3%;
+  right: 1%;
   
  
 }
@@ -21,8 +21,12 @@ img{
 }
 
 a{
-  width: 100px;
+  width: 60px;
   border-radius: 150px;
+}
+
+a:hover{
+  width: 65px;
 }
 
 .waves-float {

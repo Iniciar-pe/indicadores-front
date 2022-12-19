@@ -34,6 +34,7 @@ import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 
+
 const appRoutes: Routes = [
   {
     path: 'inicio',
@@ -66,16 +67,6 @@ const appRoutes: Routes = [
   {
     path: 'forms',
     loadChildren: () => import('./main/forms/forms.module').then(m => m.FormsModule),
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'tables',
-    loadChildren: () => import('./main/tables/tables.module').then(m => m.TablesModule),
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'charts-and-maps',
-    loadChildren: () => import('./main/charts-and-maps/charts-and-maps.module').then(m => m.ChartsAndMapsModule),
     canActivate: [AuthGuard]
   },
   {
@@ -130,7 +121,7 @@ const appRoutes: Routes = [
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-  
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
     // ! IMPORTANT: Provider used to create fake backend, comment while using real API
     
   ],

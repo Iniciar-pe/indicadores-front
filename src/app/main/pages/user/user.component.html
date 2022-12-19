@@ -11,7 +11,7 @@
           
 
 
-          <section id="ngx-datatable-kitchen-sink" *ngIf="!userEdit">
+          <section id="ngx-datatable-kitchen-sink" [hidden]="userEdit">
                   
             <h4 class="card-title">Lista de Usuarios</h4>
             <div class="row">

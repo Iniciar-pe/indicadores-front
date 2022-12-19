@@ -1,0 +1,44 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { CoreCommonModule } from '@core/common.module';
+import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
+
+import { AuthGuard } from 'app/auth/helpers/auth.guards';
+import { FlujoComponent } from './flujo.component';
+import { RatioService } from './flujo.service';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { CoreTouchspinModule } from '@core/components/core-touchspin/core-touchspin.module';
+import { EntryOfValuesModule } from 'app/main/components/entry-of-values/entry-of-values.module';
+import { HeaderBusinessModule } from 'app/main/components/header-business/header-business.module';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+
+
+const routes: Routes = [
+  {
+    path: 'flujo',
+    component: FlujoComponent,
+    canActivate: [AuthGuard]
+  }
+];
+
+@NgModule({
+  declarations: [FlujoComponent],
+  imports: [
+    RouterModule.forChild(routes),
+    NgbModule,
+    TranslateModule,
+    CoreCommonModule,
+    ContentHeaderModule,
+    CoreTouchspinModule,
+    EntryOfValuesModule,
+    HeaderBusinessModule,
+    NgxDatatableModule,
+    SweetAlert2Module.forRoot()
+  ],
+  providers: [RatioService],
+})
+export class FlujoModule {}

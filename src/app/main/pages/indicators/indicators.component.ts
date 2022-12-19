@@ -15,6 +15,9 @@ import { environment } from 'environments/environment';
 })
 export class IndicatorsComponent implements OnInit {
 
+  constructor(private _indicatorsService: IndicatorsService) {
+  }
+
   url = environment.apiUrl;
   private tempData = [];
   private tempDataIndi = [];
@@ -25,7 +28,7 @@ export class IndicatorsComponent implements OnInit {
   public rowsIndi: any;
   public kitchenSinkRows: any;
   public kitchenSinkRowsIndi: any;
-  public basicSelectedOption: number = 5;
+  public basicSelectedOption = 5;
   public ColumnMode = ColumnMode;
   entry: Rubro;
   indicatorData: Indicator;
@@ -36,7 +39,7 @@ export class IndicatorsComponent implements OnInit {
 
   @ViewChild(DatatableComponent) tableIndi: DatatableComponent;
   @ViewChild('tableRowDetailsIndi') tableRowDetailsIndi: any;
-  
+  eventsSubject: Subject<void> = new Subject<void>();
 
   filterUpdate(event) {
     const val = event.target.value.toLowerCase();
@@ -60,9 +63,6 @@ export class IndicatorsComponent implements OnInit {
     this.table.offset = 0;
   }
 
-  constructor(private _indicatorsService: IndicatorsService) { 
-  }
-
   indicatorEdit(row) {
     this.indicator = true;
     this.rubro = false;
@@ -84,6 +84,9 @@ export class IndicatorsComponent implements OnInit {
       expresado: '',
       estado: 'A',
       icono: '',
+      detalle_resultado: '',
+      formula_mostrar: '',
+      nemonico: ''
     };
   }
 
@@ -98,7 +101,7 @@ export class IndicatorsComponent implements OnInit {
     this.rubro = true;
   }
 
-  rubroAdd(){
+  rubroAdd() {
     this.entry = {
       descripcion: '',
       estado: 'A',
@@ -106,7 +109,8 @@ export class IndicatorsComponent implements OnInit {
       nemonico: '',
       edita_pp: 'I',
       edita_pa: 'I',
-      nota: ''
+      notas: '',
+      orden: 0,
   };
     this.indicator = false;
     this.rubro = true;
@@ -125,22 +129,20 @@ export class IndicatorsComponent implements OnInit {
       this.rubro = false;
     }, 1000);
   }
-  eventsSubject: Subject<void> = new Subject<void>();
+
   emitEventToChild() {
-    
     this.eventsSubject.next();
   }
 
-  getAll(){
+  getAll() {
     this._indicatorsService.getAll().subscribe((response: RubroRequest) => {
       this.rows = response.entry;
       this.tempData = this.rows;
       this.kitchenSinkRows = this.rows;
-      
     });
   }
 
-  getIndicator(){
+  getIndicator() {
     this._indicatorsService.getAllIndicator().subscribe((response: any) => {
       this.rowsIndi = response.indicator;
       this.tempDataIndi = this.rowsIndi;
@@ -152,7 +154,7 @@ export class IndicatorsComponent implements OnInit {
   deleteFile(entry): void {
     const R = {
       id: entry.id_rubro
-    }
+    };
     this._indicatorsService.deleteEntry(R).subscribe(response => {
       this.getAll();
       Swal.fire({
@@ -180,7 +182,7 @@ export class IndicatorsComponent implements OnInit {
   deleteIndicator(indicator) {
     const R = {
       id: indicator.id_indicador
-    }
+    };
     this._indicatorsService.deleteEntryIndicator(R).subscribe(response => {
       this.getIndicator();
       Swal.fire({

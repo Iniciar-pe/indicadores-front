@@ -14,7 +14,7 @@ $gray-50: #f6f6f6 !default;
 $gray-100: #babfc7 !default; // $gray-lightest
 $gray-200: #ededed !default; // $gray-lighter
 $gray-300: #dae1e7 !default; // $gray-light
-$gray-400: #636363 !default;
+$gray-400: black !default;
 $gray-500: #adb5bd !default;
 $gray-600: #b8c2cc !default; // $gray
 $gray-700: #4e5154 !default;
@@ -30,7 +30,7 @@ $red: #ea5455 !default; //$danger
 
 $primary: #3BB4FF !default;
 $secondary: #808080 !default;
-$info: #BC1D9A !default;
+$info: #b31c90 !default;
 $warning: $orange !default;
 $light: $gray-50 !default;
 $dark: #4b4b4b !default;
@@ -100,7 +100,7 @@ $spacers: map-merge(
 //
 // Settings for the `<body>` element.
 $body-bg: #f8f8f8 !default;
-$body-color: #6e6b7b !default;
+$body-color: #474747 !default;
 
 // Links
 //

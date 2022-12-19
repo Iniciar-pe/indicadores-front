@@ -1,19 +1,21 @@
+import { CurrencyPipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ColumnMode, DatatableComponent, SelectionType } from '@swimlane/ngx-datatable';
 import { DatePeriod } from 'app/main/pages/data-entry/data-entry.model';
 import { EntryOfValuesService } from './entry-of-values.service';
+import { TabService } from './tab.service';
 
 @Component({
   selector: 'entry-of-values',
   templateUrl: './entry-of-values.component.html',
   styleUrls: ['./entry-of-values.component.scss'],
+  providers: [TabService],
   encapsulation: ViewEncapsulation.None
 })
 export class EntryOfValuesComponent implements OnInit {
 
   @ViewChild(DatatableComponent) table: DatatableComponent;
   private tempData = [];
-  public editingName = {};
   public editingStatus = {};
   public editingAge = {};
   public editingSalary = {};
@@ -27,7 +29,10 @@ export class EntryOfValuesComponent implements OnInit {
   @Input('business') business;
   @Input('currency') currency;
 
-  constructor(private _entryOfValuesService: EntryOfValuesService) {
+  constructor(
+    private _entryOfValuesService: EntryOfValuesService,
+    private currencyPipe: CurrencyPipe
+    ) {
 
   }
 
@@ -69,7 +74,7 @@ export class EntryOfValuesComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    
     
   }
 
@@ -89,8 +94,8 @@ export class EntryOfValuesComponent implements OnInit {
     const data = {
       value: row.id,
       criterion: this.criterion,
-      currentPeriod: row.currentPeriod,
-      previousPeriod: row.previousPeriod,
+      currentPeriod: row.currentPeriod.replace(',', ''),
+      previousPeriod: row.previousPeriod.replace(',', ''),
       business: this.business.id
     };
 
@@ -99,5 +104,33 @@ export class EntryOfValuesComponent implements OnInit {
     });
   }
 
+  transformAmount(element, row, type) {
+    const currency = this.currencyPipe.transform(element.target.value.replace(',', ''), '');
+    element.target.value = currency.replace('$', '');
+    type === 'previousPeriod' ? row.previousPeriod = currency.replace('$', '') : row.currentPeriod = currency.replace('$', '');
+  }
+
+  transform(element, row, type) {
+    type === 'previousPeriod' ? row.previousPeriod = this.currencyPipe.transform(element.replace(',', ''), '').replace('$', '')
+      : row.currentPeriod = this.currencyPipe.transform(element.replace(',', ''), '').replace('$', '');
+    return this.currencyPipe.transform(element.replace(',', ''), '').replace('$', '');
+  }
+
+  validateFormat(event) {
+    let key;
+    if (event.type === 'paste') {
+      key = event.clipboardData.getData('text/plain');
+    } else {
+      key = event.keyCode;
+      key = String.fromCharCode(key);
+    }
+    const regex = /[0-9]|\./;
+     if (!regex.test(key)) {
+      event.returnValue = false;
+       if (event.preventDefault) {
+        event.preventDefault();
+       }
+     }
+  }
 
 }

@@ -1,1 +1,34 @@
 @import '@core/scss/angular/libs/ratings.component.scss';
+
+img{
+    margin: auto;
+    display: block;
+}
+.item-name {
+    font-size: 1.2rem;
+    text-align: center;
+    color: #3bb4ff;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+hr {
+    border: #3bb4ff solid 1px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    width: 90%;
+}
+
+.container-item {
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.btn-cart {
+    margin: auto;
+    display: block;
+}

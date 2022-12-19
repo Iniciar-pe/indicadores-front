@@ -1,6 +1,6 @@
 <div class="row">
 
-  <div class="col-sm-4 col-12">
+  <div class="col-lg-4 col-12">
     <div class="card" style="padding-bottom: 0px;height: 100%;">
 
       <div class="card-body">
@@ -22,62 +22,62 @@
     </div>
   </div>
 
-  <div class="col-sm-8 col-12">
+  <div class="col-lg-8 col-12 separator-card">
     <div class="card" style="padding-bottom: 0px;background: #0f86b5;color: white;">
 
       <div class="card-body">
         
         <div class="row">
-          <div class="col-3">
-            <img src="assets/images/pages/libros.png" alt="" style="width: 100%">
+          <div class="col-md-3">
+            <img src="assets/images/pages/libros.png" alt="" style="display:block;margin:auto;width: 60%;height: 100%;">
           </div>
-          <div class="col">
-            <div class="row">
+          <div class="col-md-9">
+            <div class="row detail">
           
               <div class="col-12">
-                <span>Período seleccionado</span>
+                <p>Período seleccionado</p>
               </div>
 
-              <div class="col">
-                <span>{{ datePeriod?.period | namePeriod }} actual o del análisis</span>
+              <div class="col-md-6 detail">
+                <p>{{ datePeriod?.period | namePeriod }} actual o del análisis</p>
                 <div class="row">
                   <div class="col-4">
-                    <span>Desde</span>
+                    <p>Desde</p>
                   </div>
   
                   <div class="col" style="text-align: right;">
-                    <span>{{ datePeriod?.startMonth | nameMonth }}</span>
+                    <p>{{ datePeriod?.startMonth | nameMonth }}</p>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-4">
-                    <span>Hasta</span>
+                    <p>Hasta</p>
                   </div>
   
                   <div class="col" style="text-align: right;">
-                    <span>{{ datePeriod?.endMonth | nameMonth }} </span>
+                    <p>{{ datePeriod?.endMonth | nameMonth }} </p>
                   </div>
                 </div>
               </div>
 
-              <div class="col" style="border-left: 1px solid #f8f8f8;">
-                <span>{{ datePeriod?.period | namePeriod }} anterior</span>
+              <div class="col-md-6 detail separator">
+                <p>{{ datePeriod?.period | namePeriod }} anterior</p>
                 <div class="row">
                   <div class="col-4">
-                    <span>Desde</span>
+                    <p>Desde</p>
                   </div>
   
                   <div class="col" style="text-align: right;">
-                    <span>{{ datePeriod?.startMonthPeriod | nameMonth }}</span>
+                    <p>{{ datePeriod?.startMonthPeriod | nameMonth }}</p>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-4">
-                    <span>Hasta</span>
+                    <p>Hasta</p>
                   </div>
   
                   <div class="col" style="text-align: right;">
-                    <span>{{ datePeriod?.endMonthPeriod | nameMonth }} </span>
+                    <p>{{ datePeriod?.endMonthPeriod | nameMonth }} </p>
                   </div>
                 </div>
               </div>

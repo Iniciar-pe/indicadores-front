@@ -10,7 +10,7 @@
     "build-stats": "node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng build --stats-json",
     "build:prod": "node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng build --configuration production",
     "build:prod-stats": "node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng build --configuration production --stats-json",
-    "build:prod-page": "ng build --prod --base-href /app/",
+    "build:prod-page": "ng build --configuration production --base-href /app/",
     "bundle-analyzer": "webpack-bundle-analyzer dist/vuexy/stats.json",
     "test": "ng test",
     "lint": "ng lint",
@@ -79,7 +79,7 @@
     "rxjs": "6.6.0",
     "sweetalert2": "9.17.2",
     "swiper": "6.7.0",
-    "tslib": "2.2.0",
+    "tslib": "^2.2.0",
     "zone.js": "0.11.4"
   },
   "devDependencies": {

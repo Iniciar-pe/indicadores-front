@@ -98,25 +98,11 @@ export class EcommerceCheckoutComponent implements OnInit {
 
     // content header
     this.contentHeader = {
-      headerTitle: 'Verificar',
+      headerTitle: 'Carrito de compras',
       actionButton: true,
       breadcrumb: {
         type: '',
         links: [
-          {
-            name: 'Inicio',
-            isLink: true,
-            link: '/'
-          },
-          {
-            name: 'Compra',
-            isLink: true,
-            link: '/'
-          },
-          {
-            name: 'Verificar',
-            isLink: false
-          }
         ]
       }
     };

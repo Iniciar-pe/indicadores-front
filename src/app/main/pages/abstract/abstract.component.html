@@ -1,0 +1,141 @@
+<div class="content-wrapper container-xxl p-0">
+  <div class="content-body">
+      <header-business
+        [businesslist]="businesslist"
+        [business]="business"
+        (getBusiness)="setBusiness($event)"
+        [datePeriod]="datePeriod"
+      ></header-business>
+<br>
+        <div class="row">
+          <div class="col">
+            <app-content-header [contentHeader]="contentHeader"></app-content-header>
+          </div>
+        </div>
+
+        <div class="row">
+        <div class="col-12">
+         
+         <div class="card">
+          <div class="result">
+            <div class="row">
+              <div class="col-lg-7 col-sm-12" style="align-items: center; display: flex;">
+                  <img src="assets/images/logo/result.png" alt="" style="display:block;margin:auto;">
+              </div>
+              <div class="colsm-12 col-lg-5" style="align-items: center; display: flex;">
+                <button type="button" class="btn btn-primary" rippleEffect >
+                  <i data-feather="sun" class="align-middle ml-sm-25 ml-0"></i>
+                  Ver resumen ejecutivo
+                </button>
+              </div>
+            </div>
+          </div>
+         </div>
+          
+        </div>
+
+      </div>
+  </div>
+</div>
+
+
+
+<!--modal-->
+    <!-- Modal -->
+    <ng-template #modalSLCIM let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel1">Glosario de terminos</h4>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" tabindex="0" ngbAutofocus>
+        <div class="container">
+          <p>
+            Biscuit powder jelly beans. Lollipop candy canes croissant icing chocolate cake. Cake fruitcake
+            powder pudding pastry.
+          </p>
+    
+          <p>
+            Tootsie roll oat cake I love bear claw I love caramels caramels halvah chocolate bar. Cotton
+            candy gummi bears pudding pie apple pie cookie. Cheesecake jujubes lemon drops danish dessert I
+            love caramels powder.
+          </p>
+    
+          <p>
+            Chocolate cake icing tiramisu liquorice toffee donut sweet roll cake. Cupcake dessert icing
+            dragée dessert. Liquorice jujubes cake tart pie donut. Cotton candy candy canes lollipop
+            liquorice chocolate marzipan muffin pie liquorice.
+          </p>
+          <p>
+            Powder cookie jelly beans sugar plum ice cream. Candy canes I love powder sugar plum tiramisu.
+            Liquorice pudding chocolate cake cupcake topping biscuit. Lemon drops apple pie sesame snaps
+            tootsie roll carrot cake soufflé halvah. Biscuit powder jelly beans. Lollipop candy canes
+            croissant icing chocolate cake. Cake fruitcake powder pudding pastry.
+          </p>
+    
+          <p>
+            Tootsie roll oat cake I love bear claw I love caramels caramels halvah chocolate bar. Cotton
+            candy gummi bears pudding pie apple pie cookie. Cheesecake jujubes lemon drops danish dessert I
+            love caramels powder.
+          </p>
+    
+          <p>
+            Chocolate cake icing tiramisu liquorice toffee donut sweet roll cake. Cupcake dessert icing
+            dragée dessert. Liquorice jujubes cake tart pie donut. Cotton candy candy canes lollipop
+            liquorice chocolate marzipan muffin pie liquorice.
+          </p>
+    
+          <p>
+            Powder cookie jelly beans sugar plum ice cream. Candy canes I love powder sugar plum tiramisu.
+            Liquorice pudding chocolate cake cupcake topping biscuit. Lemon drops apple pie sesame snaps
+            tootsie roll carrot cake soufflé halvah. Biscuit powder jelly beans. Lollipop candy canes
+            croissant icing chocolate cake. Cake fruitcake powder pudding pastry.
+          </p>
+        </div>
+  
+      </div>
+ 
+    </ng-template>
+ 
+
+    <ng-template #modalDetail let-modal>
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel160">Detalle del indicador</h5>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" tabindex="0" ngbAutofocus>
+        <br>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-5">
+              <div class="form-group">
+                <label for="disabledInput"><b>Indicador</b></label>
+                <input type="text" class="form-control" id="disabledInput" disabled [value]="ratioDetail?.name" />
+              </div>
+              <div class="form-group">
+                <label for="disabledInput"><b>Resultado</b></label>
+                <input type="text" class="form-control" id="disabledInput" disabled [value]="ratioDetail?.result" />
+              </div>
+            </div>
+            <div class="col-lg-7">
+              <b>Definición</b>
+              <p>{{ ratioDetail?.description }}</p>
+             
+              <b>Fórmula</b>
+              <br>
+                <div class="badge badge-dark">{{ ratioDetail?.formula }}</div>
+              <br><br>
+              <b>Valores Utilizados</b><br>
+              <span [innerHTML]="ratioDetail?.value"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary"
+          (click)="modal.close('Accept click')">Aceptar</button>
+      </div>
+    </ng-template>

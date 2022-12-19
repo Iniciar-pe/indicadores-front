@@ -20,6 +20,10 @@ export class DataEntryService {
 
     getBusiness() {
       return this._http.get<RequestBusiness>(`${environment.apiUrl}/api/business/get-business`);
-  }
+    }
+
+    runProcess(data) {
+      return this._http.post(`${environment.apiUrl}/api/entry-data/run`, data);
+    }
   
 }

@@ -3,6 +3,7 @@
 .datatable-scroll {
   width: auto !important;
 }
+/*
 
 .datatable-header {
   height: unset !important;
@@ -23,6 +24,26 @@
 }
 
 
+
+*/
+
+.datatable-body-cell-label{
+  width: 100% !important;
+}
+
+.tooltip {
+  top: 20px !important;
+}
+
+.arrow {
+  display: none !important;
+}
+
+.tooltip-inner {
+  max-width: 250px !important;
+  background-color: #787684 !important;
+}
+
 .let p {
   text-transform: lowercase;
 }
@@ -30,4 +51,16 @@
 .let p:first-letter {
   text-transform: uppercase;
 
+}
+
+.text-data {
+  width: 50% !important;
+}
+
+
+@media only screen and (max-width: 768px) {
+  
+  .text-data {
+    width: auto !important;
+  }
 }
