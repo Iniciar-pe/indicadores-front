@@ -192,7 +192,8 @@
                               <img src="assets/images/logo/result.png" alt="" style="display:block;margin:auto;width: 50%;">
                           </div>
                           <div class="col-sm-12 col-lg-5" style="align-items: center; display: flex;">
-                            <button type="button" class="btn btn-primary" rippleEffect >
+                            <button type="button" class="btn btn-primary" rippleEffect (click)="runProcess()">
+                              <span *ngIf="loadingRun" class="spinner-border spinner-border-sm mr-1"></span>
                               <i data-feather="sun" class="align-middle ml-sm-25 ml-0"></i>
                               Procesar resultado
                             </button>

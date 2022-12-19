@@ -105,9 +105,9 @@
                         *ngIf="row.previousEdit == 'A'"
                         type="text"
                         (keypress)="validateFormat($event)"
-                        (blur)="transformAmount($event, row.previousPeriod)"
+                        (blur)="transformAmount($event, row, 'previousPeriod')"
                         [(ngModel)]="row.previousPeriod"
-                        [value]="row.previousPeriod"
+                        [value]="transform(row.previousPeriod, row, 'previousPeriod')"
                         [tabIndex]="(rowIndex + rowIndex) + 1"
                       />
                      
@@ -146,9 +146,9 @@
                         *ngIf="row.currentEdit == 'A'"
                         type="text"
                         (keypress)="validateFormat($event)"
-                        (blur)="transformAmount($event, row.currentPeriod)"
+                        (blur)="transformAmount($event, row, 'currentPeriod')"
                         [(ngModel)]="row.currentPeriod"
-                        [value]="row.currentPeriod"
+                        [value]="transform(row.currentPeriod, row, 'currentPeriod')"
                         [tabIndex]="(rowIndex + rowIndex) + 2"
                       />
                     </center>

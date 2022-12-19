@@ -28,6 +28,7 @@ export class DataEntryComponent implements OnInit {
   public dataEntry: DataEntry;
   public criterion = '';
   public criterionResponse;
+  public loadingRun = false;
 
   public datePeriod: DatePeriod;
 
@@ -242,6 +243,18 @@ export class DataEntryComponent implements OnInit {
   changePeriod() {
     this.setPeriod();
     this.addDataQyery();
+  }
+
+  runProcess() {
+    this.loadingRun = true;
+    const data = {
+      criterion: this.criterion
+    }
+    this._dataEntryService.runProcess(data).subscribe(response => {
+      this.loadingRun = false;
+    }, err => {
+      this.loadingRun = false;
+    });
   }
 
 }

@@ -104,9 +104,16 @@ export class EntryOfValuesComponent implements OnInit {
     });
   }
 
-  transformAmount(element, previousPeriod){
+  transformAmount(element, row, type) {
     const currency = this.currencyPipe.transform(element.target.value.replace(',', ''), '');
     element.target.value = currency.replace('$', '');
+    type === 'previousPeriod' ? row.previousPeriod = currency.replace('$', '') : row.currentPeriod = currency.replace('$', '');
+  }
+
+  transform(element, row, type) {
+    type === 'previousPeriod' ? row.previousPeriod = this.currencyPipe.transform(element.replace(',', ''), '').replace('$', '')
+      : row.currentPeriod = this.currencyPipe.transform(element.replace(',', ''), '').replace('$', '');
+    return this.currencyPipe.transform(element.replace(',', ''), '').replace('$', '');
   }
 
   validateFormat(event) {

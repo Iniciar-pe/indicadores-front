@@ -103,8 +103,6 @@
                             </div>
                           </div>
                           
-                          
-
                           <div class="col-12 col-lg-6">
                             <div class="form-group">
                               <label class="form-control-label" for="TDdesc">Descripción:</label>
@@ -122,22 +120,6 @@
                               </div>
                             </div>
                           </div>
-
-                          <!--<div class="col-lg-4 col-12">
-                            <div class="form-group">
-                              <label class="form-control-label" for="id_plantilla">Plantilla:</label>
-                                <select
-                                class="form-control input-md"  
-                                formControlName="id_plantilla"
-                                [ngClass]="{ 'is-invalid': submitted && f.id_plantilla.errors }" >
-                                  <option value="">Seleccione</option>
-                                  <option [value]="item.id_plantilla" *ngFor="let item of template">{{ item.descripcion }}</option>
-                                </select>
-                                <div *ngIf="submitted && f.id_plantilla.errors" class="invalid-feedback">
-                                  <div *ngIf="f.id_plantilla.errors.required">El campo es requerido</div>
-                                </div>
-                            </div>
-                          </div>-->
 
                           <div class="col-12 col-lg-2">
                             <div class="form-group">
@@ -186,7 +168,46 @@
                               </div>
                             </div>
                           </div>
+
+                          <div class="col-12">
+                            <div class="form-group">
+                              <label class="form-control-label" for="nemonico">Nemónico:</label>
+                              <input 
+                                class="form-control input-md"
+                                id="nemonico"
+                                name="nemonico"
+                                formControlName="nemonico"
+                                [ngClass]="{ 'is-invalid': submitted && f.nemonico.errors }"
+                                type="text"
+                                maxlength="20"
+                                placeholder="Detalle de resultado">
+                              <div *ngIf="submitted && f.nemonico.errors" class="invalid-feedback">
+                                <div *ngIf="f.nemonico.errors.required">El campo es requerido</div>
+                              </div>
+                            </div>
+                          </div>
                           
+                          <div class="col-12">
+                            <div class="form-group">
+                              <label class="form-control-label" for="formula_mostrar">Fórmula a mostrar:</label>
+                            
+                                <fieldset class="form-group">
+                                  <textarea 
+                                    class="form-control" 
+                                    id="formula_mostrar" 
+                                    name="formula_mostrar"
+                                    formControlName="formula_mostrar"
+                                    [ngClass]="{ 'is-invalid': submitted && f.formula_mostrar.errors }"
+                                    type="text"
+                                    maxlength="450"
+                                    placeholder="Fórmula"></textarea>
+                                </fieldset>
+                                <div *ngIf="submitted && f.formula_mostrar.errors" class="invalid-feedback">
+                                  <div *ngIf="f.formula_mostrar.errors.required">El campo es requerido</div>
+                                </div>
+                           
+                            </div>
+                          </div>
 
                           <div class="col-12">
                             <div class="form-group">

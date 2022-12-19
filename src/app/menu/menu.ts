@@ -153,14 +153,6 @@ export const menu: CoreMenu[] = [
         url: 'admin/indicadores'
       },
       {
-        id: 'template',
-        title: 'Plantilla',
-        translate: 'MENU.CONFIGURATION.TEMPLATE',
-        type: 'item',
-        icon: 'book',
-        url: 'admin/plantilla'
-      },
-      {
         id: 'plan',
         title: 'Planes',
         translate: 'MENU.CONFIGURATION.PLAN',
@@ -198,3 +190,14 @@ export const menu: CoreMenu[] = [
   },
 
 ];
+
+/*
+{
+        id: 'template',
+        title: 'Plantilla',
+        translate: 'MENU.CONFIGURATION.TEMPLATE',
+        type: 'item',
+        icon: 'book',
+        url: 'admin/plantilla'
+      },
+      */

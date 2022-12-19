@@ -15,7 +15,7 @@
             </a>
             <ng-template ngbNavContent >
               
-          <section id="ngx-datatable-kitchen-sink" *ngIf="!userEdit">
+          <section id="ngx-datatable-kitchen-sink" [hidden]="userEdit">
                   
             <h4 class="card-title">Lista de tablas</h4>
             <div class="row">
