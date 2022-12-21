@@ -9,5 +9,5 @@ export const environment = {
   },
   production: true,
   hmr: false,
-  apiUrl: 'https://devindicadores.aztweb.net/backend/public'
+  apiUrl: 'https://backend-indicadores.back-devaztweb.com'
 };

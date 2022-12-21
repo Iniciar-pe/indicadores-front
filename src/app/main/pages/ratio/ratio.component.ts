@@ -108,7 +108,12 @@ export class RatioComponent implements OnInit {
       type: 2,
     };
     this._ratiosService.getRatios(data).subscribe(response => {
-      this.rows = response.ratios;
+      this.rows = response.ratios.map(e => {
+        if (e.voiced === '2') {
+          e.result = String(Number(e.result) * 100);
+        }
+        return e;
+      });
       this.tempData = this.rows;
       this.symbol = response.default.symbol;
       this.datePeriod = {

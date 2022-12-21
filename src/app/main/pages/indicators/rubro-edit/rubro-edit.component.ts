@@ -30,12 +30,11 @@ export class RubroEditComponent implements OnInit {
 
   submitEntry() {
     this.submitted = true;
-    
     if (this.form.invalid) {
       return;
     }
     this.loading = true;
-
+    this.data();
     const entryR = {
       id: this.entry.id_rubro,
       description: this.f.description.value,
@@ -45,7 +44,7 @@ export class RubroEditComponent implements OnInit {
       edita_pa: this.f.edita_pa.value ? 'A' : 'I',
       notas: this.f.notas.value,
       orden: this.f.orden.value,
-    }
+    };
 
     if (this.form.valid && this.entry && this.entry.id_rubro) {
       this._indicatorsService.edit(entryR).subscribe(e => {
@@ -96,5 +95,14 @@ export class RubroEditComponent implements OnInit {
       notas: [this.entry.notas, [Validators.required]],
       orden: [this.entry.orden, [Validators.required]],
     });
+  }
+
+  data() {
+    this.entry.estado = this.f.status.value ? 'A' : 'I';
+    this.entry.edita_pp = this.f.edita_pp.value ? 'A' : 'I';
+    this.entry.edita_pa = this.f.edita_pa.value ? 'A' : 'I';
+    this.entry.nemonico = this.f.nemonic.value ;
+    this.entry.notas = this.f.notas.value ;
+    this.entry.orden = this.f.orden.value ;
   }
 }

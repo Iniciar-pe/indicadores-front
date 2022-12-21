@@ -1,3 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&family=Roboto:wght@100&display=swap');
 @import '@core/scss/core.scss';
 @import './assets/scss/styles';
+
+
+.main-menu.menu-light .navigation li a {
+    color: #474747;
+    padding: 10px 15px 10px 15px;
+    line-height: 1.45;
+}

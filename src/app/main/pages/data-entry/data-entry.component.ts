@@ -171,9 +171,8 @@ export class DataEntryComponent implements OnInit {
           isActive: response?.default.filter(e => e.business === res.id).length > 0,
         };
       });
-      this.business = this.businesslist.filter(e => e.id === response?.default.filter(i => i.default == 'S')[0].business)[0];
+      this.business = this.businesslist.filter(e => e.id === response?.default.filter(i => i.default === 'S')[0].business)[0];
       this.getEntryData();
-      
     });
   }
 
@@ -190,7 +189,6 @@ export class DataEntryComponent implements OnInit {
   setBusiness(event) {
     this.business = event;
     this.getEntryData(false);
-    
   }
 
   setPeriod() {
@@ -235,7 +233,7 @@ export class DataEntryComponent implements OnInit {
       startMonthPeriod: startMonthPeriod,
       endMonthPeriod: endMonthPeriod,
       period: String(this.data.period),
-      countDays: String((endMonth.getTime() - startMonth.getTime())/(1000*60*60*24)),
+      countDays: String((endMonth.getTime() - startMonth.getTime()) / (1000 *  60 * 60 * 24)),
     };
 
   }
@@ -249,9 +247,17 @@ export class DataEntryComponent implements OnInit {
     this.loadingRun = true;
     const data = {
       criterion: this.criterion
-    }
+    };
     this._dataEntryService.runProcess(data).subscribe(response => {
       this.loadingRun = false;
+      Swal.fire({
+        icon: 'success',
+        title: 'Proceso finalizado correctamente',
+        confirmButtonText: 'Aceptar',
+        customClass: {
+          confirmButton: 'btn btn-success'
+        },
+      });
     }, err => {
       this.loadingRun = false;
     });

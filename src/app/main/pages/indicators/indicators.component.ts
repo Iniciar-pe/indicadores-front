@@ -30,6 +30,7 @@ export class IndicatorsComponent implements OnInit {
   public kitchenSinkRowsIndi: any;
   public basicSelectedOption = 5;
   public ColumnMode = ColumnMode;
+  public indicatorType = '';
   entry: Rubro;
   indicatorData: Indicator;
   template: any;
@@ -63,6 +64,16 @@ export class IndicatorsComponent implements OnInit {
     this.table.offset = 0;
   }
 
+  filterUpdateIndiType(event) {
+    const val = event.target.value;
+    if (val === '') { return false; }
+    const temp = this.tempDataIndi.filter(function (d) {
+      return d.tipo === val;
+    });
+    this.rowsIndi = temp;
+    this.table.offset = 0;
+  }
+
   indicatorEdit(row) {
     this.indicator = true;
     this.rubro = false;
@@ -92,7 +103,7 @@ export class IndicatorsComponent implements OnInit {
 
   backIndicator(event) {
     this.indicator = false;
-    this.getIndicator();
+    // this.getIndicator();
   }
 
   rubroEdit(row?: Rubro) {
@@ -118,7 +129,7 @@ export class IndicatorsComponent implements OnInit {
 
   backRubro(event) {
     this.rubro = false;
-    this.getAll();
+    // this.getAll();
   }
 
   reset() {

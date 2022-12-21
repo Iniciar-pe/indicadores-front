@@ -22,7 +22,7 @@ export class FlujoComponent implements OnInit {
   public datePeriod: DatePeriod;
   private tempData = [];
   public rows: Ratios[];
-  public basicSelectedOption = 5;
+  public basicSelectedOption = 10;
   public ColumnMode = ColumnMode;
   public symbol: string;
   public ratioDetail;
@@ -113,7 +113,12 @@ export class FlujoComponent implements OnInit {
       type: 1,
     };
     this._ratiosService.getRatios(data).subscribe(response => {
-      this.rows = response.ratios;
+      this.rows = response.ratios.map(e => {
+        if (e.voiced === '2') {
+          e.result = String(Number(e.result) * 100);
+        }
+        return e;
+      });
       this.tempData = this.rows;
       this.symbol = response.default.symbol;
       this.datePeriod = {
