@@ -192,7 +192,24 @@
                               <img src="assets/images/logo/result.png" alt="" style="display:block;margin:auto;width: 50%;">
                           </div>
                           <div class="col-sm-12 col-lg-5" style="align-items: center; display: flex;">
-                            <button type="button" class="btn btn-primary" rippleEffect (click)="runProcess()">
+                            <button 
+                              type="button" 
+                              class="btn btn-primary" 
+                              rippleEffect 
+                              [swal]="{
+                                title: '¿Está seguro de procesar resultado?',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#7367F0',
+                                cancelButtonColor: '#E42728',
+                                confirmButtonText: 'Aceptar',
+                                cancelButtonText: 'Cancelar',
+                                customClass: {
+                                  confirmButton: 'btn btn-primary',
+                                  cancelButton: 'btn btn-danger ml-1'
+                                }
+                              }"
+                              (confirm)="runProcess()">
                               <span *ngIf="loadingRun" class="spinner-border spinner-border-sm mr-1"></span>
                               <i data-feather="sun" class="align-middle ml-sm-25 ml-0"></i>
                               Procesar resultado

@@ -64,7 +64,7 @@ export class IndicatorsEditComponent implements OnInit {
       return;
     }
     this.loading = true;
-
+    this.data();
     const data: any = new FormData();
     data.append('id', this.indicatorData.id_indicador);
     data.append('description', this.f.description.value);
@@ -91,6 +91,19 @@ export class IndicatorsEditComponent implements OnInit {
         this.back.emit(false);
       }, err => this.messageError());
     }
+  }
+
+  data() {
+    this.indicatorData.estado = this.f.status.value ? 'A' : 'I';
+    this.indicatorData.descripcion = this.f.description.value;
+    this.indicatorData.nombre = this.f.name.value;
+    this.indicatorData.tipo = this.f.type.value;
+    this.indicatorData.formula = this.f.formula.value;
+    this.indicatorData.publico = this.f.public.value;
+    this.indicatorData.expresado = this.f.expressed.value;
+    this.indicatorData.formula_mostrar = this.f.formula_mostrar.value;
+    this.indicatorData.nemonico = this.f.nemonico.value;
+    this.indicatorData.detalle_resultado = this.f.detalle_resultado.value;
   }
 
   countChange(value) {

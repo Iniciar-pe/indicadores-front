@@ -50,6 +50,20 @@
                       </div>
                       <div class="col-md-6 col-12 d-flex justify-content-md-end">
                         <div class="d-flex align-items-center justify-content-end pr-1 pb-1 pl-1 pl-md-0 pb-md-0">
+                          <label class="d-flex align-items-center" for="type">Tipo:</label>
+                          <select 
+                            class="form-control input-md"
+                            name="type"
+                            id="type"
+                            name="type"
+                            [(ngModel)]="indicatorType"
+                            (change)="filterUpdateIndiType($event)">
+                            <option value="">Seleccione</option>
+                            <option value="1">Ingreso neto del Flujo Monetario</option>
+                            <option value="2">Razones Financieras</option>
+                          </select>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end pr-1 pb-1 pl-1 pl-md-0 pb-md-0">
                           <label class="d-flex align-items-center"
                             >Buscar<input
                               type="search"
@@ -219,7 +233,10 @@
                       >
                     </div>
                   </div>
+                  
+
                   <div class="col-md-6 col-12 d-flex justify-content-md-end">
+                    
                     <div class="d-flex align-items-center justify-content-end pr-1 pb-1 pl-1 pl-md-0 pb-md-0">
                       <label class="d-flex align-items-center"
                         >Buscar<input
