@@ -30,7 +30,8 @@ export class IndicatorsComponent implements OnInit {
   public kitchenSinkRowsIndi: any;
   public basicSelectedOption = 5;
   public ColumnMode = ColumnMode;
-  public indicatorType = '';
+  public indicatorType = '2';
+  public searh = '';
   entry: Rubro;
   indicatorData: Indicator;
   template: any;
@@ -54,10 +55,14 @@ export class IndicatorsComponent implements OnInit {
   }
 
   filterUpdateIndi(event) {
-    const val = event.target.value.toLowerCase();
-
+    const val = this.searh.toLowerCase();
+    const indicatorType = this.indicatorType;
     const temp = this.tempDataIndi.filter(function (d) {
-      return d.descripcion.toLowerCase().indexOf(val) !== -1 || !val;
+      if (indicatorType !== '') {
+        return d.descripcion.toLowerCase().indexOf(val) !== -1 && d.tipo === indicatorType;
+      } else {
+        return d.descripcion.toLowerCase().indexOf(val) !== -1;
+      }
     });
 
     this.rowsIndi = temp;
@@ -160,6 +165,7 @@ export class IndicatorsComponent implements OnInit {
       this.tempDataIndi = this.rowsIndi;
       this.kitchenSinkRowsIndi = this.rowsIndi;
       this.template = response.template;
+      this.filterUpdateIndi('');
     });
   }
 
@@ -222,6 +228,7 @@ export class IndicatorsComponent implements OnInit {
   ngOnInit() {
     this.getAll();
     this.getIndicator();
+    
     // content header
     this.contentHeader = {
       headerTitle: 'Indicadores',

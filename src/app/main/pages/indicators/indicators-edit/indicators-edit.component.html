@@ -124,7 +124,13 @@
                           <div class="col-12 col-lg-2">
                             <div class="form-group">
                               <label class="form-control-label" for="TDdesc">Orden:</label>
-                              <core-touchspin [size]="'lg'" [numberValue]="numberValue" (onChange)="countChange($event)" [button]="true"></core-touchspin>
+                              <core-touchspin
+                                style="width: 100%;display: block;" 
+                                [size]="'lg'" 
+                                [numberValue]="numberValue" 
+                                (onChange)="countChange($event)" 
+                                [button]="true"
+                              ></core-touchspin>
                             </div>
                           </div>
 

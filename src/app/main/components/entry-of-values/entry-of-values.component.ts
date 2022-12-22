@@ -28,7 +28,8 @@ export class EntryOfValuesComponent implements OnInit {
   @Input('datePeriod') datePeriod: DatePeriod;
   @Input('business') business;
   @Input('currency') currency;
-
+  @Input('nameCurrency') nameCurrency;
+  
   constructor(
     private _entryOfValuesService: EntryOfValuesService,
     private currencyPipe: CurrencyPipe
