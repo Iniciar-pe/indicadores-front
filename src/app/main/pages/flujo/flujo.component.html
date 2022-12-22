@@ -132,7 +132,7 @@
                           <p class="font-medium-1 font-weight-bold line-height-1 mb-25">
                             <b>{{ row.name }}</b>
                           </p>
-                          <span class="font-small-2">{{ row.detailResult  | nameRatio : datePeriod?.period }}</span>
+                          <p class="font-medium-1 font-weight-bold line-height-1 mb-25">{{ row.detailResult  | nameRatio : datePeriod?.period }}</p>
                         </div>
                       </div>
                     </ng-template>
@@ -141,11 +141,16 @@
     
                   <ngx-datatable-column name="Resultados" prop="result" [width]="200">
                     <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
-                      <div class="container">
+                      <div class="container" *ngIf="row.validate == 'O'">
                             <p class="font-medium-1 font-weight-bold line-height-1" style="text-align: center;">
                               {{ row.result | number: '1.2-2' }} {{ row.voiced == '2' ? '%' : '' }}
                             </p>
                       </div>
+                      <div class="container" *ngIf="row.validate == 'E'">
+                        <p class="font-medium-1 font-weight-bold line-height-1" style="text-align: center;">
+                          {{ row.result | number: '1.2-2' }} {{ row.voiced == '2' ? '%' : '' }}
+                        </p>
+                  </div>
                     </ng-template>
                   </ngx-datatable-column>
     

@@ -97,7 +97,8 @@ export class IndicatorsComponent implements OnInit {
       icono: '',
       detalle_resultado: '',
       formula_mostrar: '',
-      nemonico: ''
+      nemonico: '',
+      lista_variables: ''
     };
   }
 
