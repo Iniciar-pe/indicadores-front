@@ -199,8 +199,9 @@
                                     formControlName="formula_mostrar"
                                     [ngClass]="{ 'is-invalid': submitted && f.formula_mostrar.errors }"
                                     type="text"
-                                    maxlength="450"
-                                    placeholder="Fórmula"></textarea>
+                                    maxlength="1000"
+                                    placeholder="Fórmula"
+                                    rows="5"></textarea>
                                 </fieldset>
                                 <div *ngIf="submitted && f.formula_mostrar.errors" class="invalid-feedback">
                                   <div *ngIf="f.formula_mostrar.errors.required">El campo es requerido</div>
@@ -221,11 +222,35 @@
                                     formControlName="formula"
                                     [ngClass]="{ 'is-invalid': submitted && f.formula.errors }"
                                     type="text"
-                                    maxlength="450"
-                                    placeholder="Fórmula"></textarea>
+                                    maxlength="1000"
+                                    placeholder="Fórmula"
+                                    rows="5"></textarea>
                                 </fieldset>
                                 <div *ngIf="submitted && f.formula.errors" class="invalid-feedback">
                                   <div *ngIf="f.formula.errors.required">El campo es requerido</div>
+                                </div>
+                           
+                            </div>
+                          </div>
+
+                          <div class="col-12">
+                            <div class="form-group">
+                              <label class="form-control-label" for="lista_variables">Variables de formula:</label>
+                            
+                                <fieldset class="form-group">
+                                  <textarea 
+                                    class="form-control" 
+                                    id="lista_variables" 
+                                    name="lista_variables"
+                                    formControlName="lista_variables"
+                                    [ngClass]="{ 'is-invalid': submitted && f.lista_variables.errors }"
+                                    type="text"
+                                    maxlength="1000"
+                                    placeholder="Fórmula"
+                                    rows="5"></textarea>
+                                </fieldset>
+                                <div *ngIf="submitted && f.lista_variables.errors" class="invalid-feedback">
+                                  <div *ngIf="f.lista_variables.errors.required">El campo es requerido</div>
                                 </div>
                            
                             </div>

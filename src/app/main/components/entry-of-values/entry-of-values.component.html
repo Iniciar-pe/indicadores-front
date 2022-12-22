@@ -69,9 +69,9 @@
                     
                     <div class="cell-line-height" style="    text-align: left;">
                       <p class="font-medium-1 font-weight-bold line-height-1 mb-25">
-                        {{ row.description }}
+                        <b>{{ row.description }}</b>
                       </p>
-                      <span class="font-small-2" style="color: #808080;"> al último día del {{ datePeriod?.period | namePeriod }} {{ row.previousEdit != 'S' ? 'actual' : '' }} {{ row.currentEdit != 'S' ? 'anterior' : '' }}</span>
+                      <p class="font-medium-1 font-weight-bold line-height-1 mb-25" style="color: #808080;"> al último día del {{ datePeriod?.period | namePeriod }} {{ row.previousEdit != 'S' ? 'actual' : '' }} {{ row.currentEdit != 'S' ? 'anterior' : '' }}</p>
                     </div>
                   </div>
                 </ng-template>

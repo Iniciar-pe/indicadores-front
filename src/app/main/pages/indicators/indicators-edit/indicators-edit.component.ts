@@ -48,6 +48,7 @@ export class IndicatorsEditComponent implements OnInit {
       formula_mostrar: [this.indicatorData.formula_mostrar, [Validators.required]],
       nemonico: [this.indicatorData.nemonico, [Validators.required]],
       detalle_resultado: [this.indicatorData.detalle_resultado],
+      lista_variables: [this.indicatorData.lista_variables],
    });
   }
 
@@ -77,8 +78,9 @@ export class IndicatorsEditComponent implements OnInit {
     data.append('view', this.f.formula_mostrar.value);
     data.append('nemonico', this.f.nemonico.value);
     data.append('detalle_resultado', this.f.detalle_resultado.value);
+    data.append('lista_variables', this.f.lista_variables.value);
     data.append('status', this.f.status.value ? 'A' : 'I');
-
+    
     if (this.form.valid && this.indicatorData && this.indicatorData.id_indicador) {
       this._indicatorsService.editIndicator(data).subscribe(e => {
         this.loading = false;
@@ -104,6 +106,7 @@ export class IndicatorsEditComponent implements OnInit {
     this.indicatorData.formula_mostrar = this.f.formula_mostrar.value;
     this.indicatorData.nemonico = this.f.nemonico.value;
     this.indicatorData.detalle_resultado = this.f.detalle_resultado.value;
+    this.indicatorData.lista_variables = this.f.lista_variables.value;
   }
 
   countChange(value) {

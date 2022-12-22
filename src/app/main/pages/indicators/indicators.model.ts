@@ -32,6 +32,7 @@ export interface Indicator {
     detalle_resultado: string;
     formula_mostrar: string;
     nemonico: string;
+    lista_variables: string;
 }
 
 export interface IndicatorRequest {
