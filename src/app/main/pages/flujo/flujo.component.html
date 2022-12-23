@@ -124,14 +124,14 @@
                     <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
                       <div class="d-flex align-items-center">
                         
-                          <div class="avatar mr-1 ml-0 bg-light-success">
-                            <div 
-                              class="avatar-content"
-                              [ngClass]="{
-                                'bg-light-success': '1' == row.public,
-                                'bg-light-primary': row.public == '2'
-                              }">{{ row.name | initials }}</div>
-                          </div>
+                        <div class="avatar mr-1 ml-0"
+                          [ngClass]="{
+                            'bg-light-success': '1' == row.public,
+                            'bg-light-primary': row.public == '2'
+                          }">
+                          <div class="avatar-content"
+                            >{{ row.name | initials }}</div>
+                        </div>
                         
                         <div class="cell-line-height">
                           <p class="font-medium-1 font-weight-bold line-height-1 mb-25">
@@ -269,13 +269,15 @@
       </div>
       <div class="modal-body" tabindex="0" ngbAutofocus>
         <br>
-        <div class="container">
+        <div style="padding: 0.5rem 3.5rem;">
           <div class="row">
-            <div class="col-lg-5">
+            <div class="col-lg-7">
               <div class="form-group">
                 <label for="disabledInput"><b>Indicador</b></label>
                 <input type="text" class="form-control" id="disabledInput" disabled [value]="ratioDetail?.name" />
               </div>
+            </div>
+            <div class="col-lg-5">
               <div class="form-group">
                 <label for="disabledInput"><b>Resultado</b></label>
                 <p style="background: #efefef;
@@ -283,21 +285,24 @@
                 border-radius: 5px;">{{ ratioDetail?.result | number: '1.2-2' }} {{ ratioDetail?.voiced == '2' ? '%' : '' }}</p>
               </div>
             </div>
-            <div class="col-lg-7">
+
+            <div class="col-12">
               <b>Definición</b>
               <p>{{ ratioDetail?.description }}</p>
-             
+             <br>
               <b>Fórmula</b>
+                <p style="background: #bbbec0;
+                padding: 0.5rem 1rem;
+                border-radius: 5px;
+                font-weight: bold;">{{ ratioDetail?.formula }}</p>
               <br>
-              <div class="badge badge-dark" style="white-space: break-spaces;">{{ ratioDetail?.formula }}</div>
-              <br><br>
-              <b>Valores Utilizados</b><br>
-              <span [innerHTML]="ratioDetail?.value"></span>
+              <b>Valores Utilizados</b>
+              <p [innerHTML]="ratioDetail?.value"></p>
             </div>
           </div>
         </div>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" style="justify-content: center;">
         <button type="button" class="btn btn-primary"
           (click)="modal.close('Accept click')">Aceptar</button>
       </div>
