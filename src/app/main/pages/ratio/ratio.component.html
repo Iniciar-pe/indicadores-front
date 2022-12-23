@@ -104,14 +104,22 @@
                   <ngx-datatable-column name="Indicadores" prop="name" [width]="280">
                     <ng-template let-column="column" ngx-datatable-header-template> 
                       <div class="container">
-                        <p style="text-align: center;"><b style="text-transform: capitalize;">Indicadores</b></p>
+                        <p 
+                          style="text-align: center;"
+                          class="font-medium-1 font-weight-bold line-height-1 mb-25"
+                        ><b style="text-transform: capitalize;">Indicadores</b></p>
                       </div>
                     </ng-template>
                     <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
                       <div class="d-flex align-items-center">
                         
                           <div class="avatar mr-1 ml-0 bg-light-success">
-                            <div class="avatar-content">{{ row.name | initials }}</div>
+                            <div 
+                              class="avatar-content"
+                              [ngClass]="{
+                                'bg-light-success': '1' == row.public,
+                                'bg-light-primary': row.public == '2'
+                              }">{{ row.name | initials }}</div>
                           </div>
                         
                         <div class="cell-line-height">
@@ -128,7 +136,9 @@
                   <ngx-datatable-column name="Resultados" prop="result" [width]="200">
                     <ng-template let-column="column" ngx-datatable-header-template> 
                       <div class="container">
-                        <p style="text-align: center;"><b style="text-transform: capitalize;">Resultados</b></p>
+                        <p 
+                          class="font-medium-1 font-weight-bold line-height-1 mb-25"
+                          style="text-align: center;"><b style="text-transform: capitalize;">Resultados</b></p>
                       </div>
                     </ng-template>
                     <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>

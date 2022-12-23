@@ -87,6 +87,7 @@ export class DataEntryComponent implements OnInit {
         this.data.month = response.criterion?.startMonth;
         this.data.year = response.criterion?.startYear;
         this.data.currency = response.criterion?.currency;
+        this.data.nameCurrency = response.criterion?.nameCurrency;
         this.existCriterion = false;
       }
       this.childRef.getValues(response.criterion?.id);

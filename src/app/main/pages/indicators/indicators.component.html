@@ -57,7 +57,7 @@
                             id="type"
                             name="type"
                             [(ngModel)]="indicatorType"
-                            (change)="filterUpdateIndiType($event)">
+                            (change)="filterUpdateIndi($event)">
                             <option value="">Seleccione</option>
                             <option value="1">Ingreso neto del Flujo Monetario</option>
                             <option value="2">Razones Financieras</option>
@@ -69,6 +69,7 @@
                               type="search"
                               placeholder="Buscar"
                               class="form-control ml-25"
+                              [(ngModel)]="searh"
                               (keyup)="filterUpdateIndi($event)"
                               (search)="filterUpdateIndi($event)"
                           /></label>
@@ -101,8 +102,8 @@
                               <div
                                 class="avatar mr-1 ml-0"
                                 [ngClass]="{
-                                  'bg-light-success': 'A' >= row.estado,
-                                  'bg-light-primary': row.estado >= 'I'
+                                  'bg-light-success': '1' == row.publico,
+                                  'bg-light-primary': row.publico == '2'
                                 }"
                               >
                                 <div class="avatar-content">{{ row.nombre | initials }}</div>

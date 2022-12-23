@@ -12,6 +12,7 @@ export interface Ratios {
   id: number;
   value: string;
   voiced: string;
+  public: string;
 }
 
 export interface DatePeriodRequest {
