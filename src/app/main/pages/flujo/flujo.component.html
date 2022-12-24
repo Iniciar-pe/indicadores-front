@@ -290,12 +290,12 @@
               <b>Definición</b>
               <p>{{ ratioDetail?.description }}</p>
              <br>
-              <b>Fórmula</b>
-              <div 
-                class="badge badge-dark" 
-                style="white-space: break-spaces;background: #efefef;color: #000;padding: 1rem; width: 100%;"
-              >{{ ratioDetail?.formula }}</div>
-              <br><br>
+             <b>Fórmula</b>
+             <div 
+               class="badge badge-dark" 
+               style="white-space: break-spaces;background: #efefef;color: #000;padding: 1rem; width: 100%;line-height: 20px;"
+             >{{ ratioDetail?.formula }}</div>
+           <br><br>
               <b>Valores Utilizados</b>
               <p [innerHTML]="ratioDetail?.value"></p>
             </div>

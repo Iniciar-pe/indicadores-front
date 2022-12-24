@@ -11,78 +11,24 @@
 </div>
 <div class="item-options">
   <hr>
-  <div class="container-item">
-    <div class="row">
-      <div class="col">
-        <b>Anual</b>
+  <div class="container-item" *ngFor="let period of product.period">
+    <div class="row" >
+      <div class="col-12">
+        <b>{{ period.description }}</b>
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-7">
-        <p>01 al 10 licencias</p>
-      </div>
-      <div class="col-5">
-        <p>99.99</p>
-      </div>
-    </div>
+    
+        <div class="row" *ngFor="let range of period.range">
+          <div class="col-7">
+            <p>{{ range.start }} al {{ range.end }} licencias</p>
+          </div>
+          <div class="col-5">
+            <p>{{ range.price }}</p>
+          </div>
+        </div>
 
-    <div class="row">
-      <div class="col-7">
-        <p>11 a 20 licencias</p>
-      </div>
-      <div class="col-5">
-        <p>99.99</p>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-7">
-        <p>+ 100 licencias</p>
-      </div>
-      <div class="col-5">
-        <p>99.99</p>
-      </div>
-    </div>
-
-
-  </div>
-
-  <div class="container-item">
-    <div class="row">
-      <div class="col">
-        <b>Semestral</b>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-7">
-        <p>01 al 10 licencias</p>
-      </div>
-      <div class="col-5">
-        <p>99.99</p>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-7">
-        <p>11 a 20 licencias</p>
-      </div>
-      <div class="col-5">
-        <p>99.99</p>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-7">
-        <p>+ 100 licencias</p>
-      </div>
-      <div class="col-5">
-        <p>99.99</p>
-      </div>
-    </div>
-
-
+ 
   </div>
   
   <div class="container-item">
