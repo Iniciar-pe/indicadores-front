@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Plan } from '../ecommerce.model';
+import { EcommerceService } from '../ecommerce.service';
 
 @Component({
   selector: 'app-ecommerce-wishlist',
@@ -10,38 +12,27 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 export class EcommerceWishlistComponent implements OnInit {
 
   public contentHeader: object;
-  public products;
+  public products: Plan[];
   public wishlist;
 
-  constructor() {}
+  constructor(
+    private ecommerceService: EcommerceService
+  ) {}
 
   ngOnInit(): void {
-    this.products = [
-      {
-        image: 'assets/images/elements/icono-licencia-individual.png',
-        name: 'Licencia Individual',
-        description: 'Texto aleatorio Texto aleatorio Texto aleatorio Texto aleatorio Texto aleatorio',
-        isInCart: false,
-      },
-      {
-        image: 'assets/images/elements/icono-licencia-sucursal.png',
-        name: 'Licencia Empresa con sucursal',
-        description: 'Texto aleatorio Texto aleatorio Texto aleatorio Texto aleatorio Texto aleatorio',
-        isInCart: false,
-      },
-      {
-        image: 'assets/images/elements/icono-licencia-donar.png',
-        name: 'Licencia para donar',
-        description: 'Texto aleatorio Texto aleatorio Texto aleatorio Texto aleatorio Texto aleatorio',
-        isInCart: false,
-      }
-    ];
-
+    this.getPlanes();
     // content header
     this.contentHeader = {
       headerTitle: 'Compra de licencia',
       actionButton: true,
       breadcrumb: {}
     };
+  }
+
+  getPlanes() {
+    this.ecommerceService.getPlanes().subscribe(data => {
+      this.products = data.planes;
+      this.ecommerceService.planesList = this.products;
+    });
   }
 }

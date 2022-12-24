@@ -29,17 +29,11 @@ const routes: Routes = [
   {
     path: 'lista',
     component: EcommerceWishlistComponent,
-    resolve: {
-      ecommerce: EcommerceService
-    },
     data: { animation: 'EcommerceWishlistComponent' }
   },
   {
     path: 'verificar',
     component: EcommerceCheckoutComponent,
-    resolve: {
-      ecommerce: EcommerceService
-    },
     data: { animation: 'EcommerceCheckoutComponent' }
   },
 ];
@@ -67,7 +61,8 @@ const routes: Routes = [
     {
       provide: SWIPER_CONFIG,
       useValue: DEFAULT_SWIPER_CONFIG
-    }
+    },
+    EcommerceService
   ]
 })
 export class EcommerceModule {}
