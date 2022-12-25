@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
-import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
+import { EcommerceService1 } from 'app/main/apps/ecommerce/ecommerce-1.service';
 
 @Component({
   selector: 'app-ecommerce-item',
@@ -21,7 +21,7 @@ export class EcommerceItemComponent implements OnInit {
    *
    * @param {EcommerceService} _ecommerceService
    */
-  constructor(private _ecommerceService: EcommerceService) {}
+  constructor(private _ecommerceService: EcommerceService1) {}
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------

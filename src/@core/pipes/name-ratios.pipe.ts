@@ -25,7 +25,7 @@ export class NameRatio implements PipeTransform {
       },
     ];
     const name = periodArray.filter(e => e.id === Number(period))[0]?.name;
-    const nuevaStr = value.replace(/\%%periodo%%/g, name);
+    const nuevaStr = value?.replace(/\%%periodo%%/g, name);
     return nuevaStr;
 
   }

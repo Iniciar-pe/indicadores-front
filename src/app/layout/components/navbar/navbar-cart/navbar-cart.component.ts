@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
+import { EcommerceService1 } from 'app/main/apps/ecommerce/ecommerce-1.service';
 
 @Component({
   selector: 'app-navbar-cart',
@@ -22,7 +22,7 @@ export class NavbarCartComponent implements OnInit {
    *
    * @param {EcommerceService} _ecommerceService
    */
-  constructor(public _ecommerceService: EcommerceService) {
+  constructor(public _ecommerceService: EcommerceService1) {
     this._unsubscribeAll = new Subject();
   }
 

@@ -44,9 +44,7 @@ export class RatioComponent implements OnInit {
       return d.name.toLowerCase().indexOf(val) !== -1 || !val;
     });
 
-    // update the rows
     this.rows = temp;
-    // Whenever the filter changes, always go back to the first page
     this.table.offset = 0;
   }
 
