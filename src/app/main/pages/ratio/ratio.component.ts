@@ -25,6 +25,7 @@ export class RatioComponent implements OnInit {
   public basicSelectedOption = 5;
   public ColumnMode = ColumnMode;
   public symbol: string;
+  public descriptionCurrent: string;
   public ratioDetail;
 
   constructor(
@@ -114,6 +115,7 @@ export class RatioComponent implements OnInit {
       });
       this.tempData = this.rows;
       this.symbol = response.default.symbol;
+      this.descriptionCurrent = response.default.description;
       this.datePeriod = {
         startMonth: new Date(Number(response.default.startYear), Number(response.default.startMonth) - 1, 1),
         endMonth: new Date(Number(response.default.endYear), Number(response.default.endMonth), 0),

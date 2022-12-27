@@ -29,4 +29,5 @@ export interface DatePeriodRequest {
   period: string;
   countDays: string;
   symbol: string;
+  description: string;
 }
