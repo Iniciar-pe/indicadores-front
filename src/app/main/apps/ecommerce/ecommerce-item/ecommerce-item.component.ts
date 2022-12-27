@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-
 import { EcommerceService1 } from 'app/main/apps/ecommerce/ecommerce-1.service';
+import { environment } from 'environments/environment';
+import { Period } from '../ecommerce.model';
 
 @Component({
   selector: 'app-ecommerce-item',
@@ -13,24 +14,11 @@ export class EcommerceItemComponent implements OnInit {
   // Input Decorotor
   @Input() product;
   @Input() isWishlistOpen = false;
+  public ruta: string;
+  @Input() period;
 
-  // Public
-  public isInCart = false;
-
-  /**
-   *
-   * @param {EcommerceService} _ecommerceService
-   */
   constructor(private _ecommerceService: EcommerceService1) {}
 
-  // Public Methods
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * Toggle Wishlist
-   *
-   * @param product
-   */
   toggleWishlist(product) {
     if (product.isInWishlist === true) {
       this._ecommerceService.removeFromWishlist(product.id).then(res => {
@@ -43,18 +31,13 @@ export class EcommerceItemComponent implements OnInit {
     }
   }
 
-  /**
-   * Add To Cart
-   *
-   * @param product
-   */
   addToCart(product) {
     this._ecommerceService.addToCart(product.id).then(res => {
       product.isInCart = true;
     });
   }
 
-  // Lifecycle Hooks
-  // -----------------------------------------------------------------------------------------------------
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.ruta = environment.apiUrl;
+  }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Plan } from '../ecommerce.model';
+import { Period, Plan } from '../ecommerce.model';
 import { EcommerceService } from '../ecommerce.service';
 
 @Component({
@@ -13,6 +13,7 @@ export class EcommerceWishlistComponent implements OnInit {
 
   public contentHeader: object;
   public products: Plan[];
+  public period: Period;
   public wishlist;
 
   constructor(
@@ -32,6 +33,7 @@ export class EcommerceWishlistComponent implements OnInit {
   getPlanes() {
     this.ecommerceService.getPlanes().subscribe(data => {
       this.products = data.planes;
+      this.period = data.period;
       this.ecommerceService.planesList = this.products;
     });
   }

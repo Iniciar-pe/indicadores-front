@@ -1,7 +1,7 @@
 <!-- Ecommerce Item -->
 
 <div class="card-body">
-  <img [src]="product.image" alt="img-placeholder" width="80" />
+  <img [src]="ruta+product.image" alt="img-placeholder" width="80" />
   <h6 class="item-name">
     {{ product.name }}
   </h6>
@@ -12,7 +12,7 @@
 <div class="item-options">
   <hr>
   <div class="container-item" *ngFor="let period of product.period">
-    <div class="row" >
+    <div class="row" style="margin-bottom: 0.7rem;margin-top: 0.7rem;">
       <div class="col-12">
         <b>{{ period.description }}</b>
       </div>
@@ -24,23 +24,22 @@
             <p>{{ range.start }} al {{ range.end }} licencias</p>
           </div>
           <div class="col-5">
-            <p>{{ range.price }}</p>
+            <p>{{ range.price }} c/u</p>
           </div>
         </div>
 
  
   </div>
   
-  <div class="container-item">
+  <div class="container-item" style="margin-top: 0.7rem;">
     <div class="form-group">
       <label for="basicInput">¿Cuántas licencias necesitas?</label>
-      <input type="text" class="form-control" id="basicInput" placeholder="Enter email" />
+      <input type="number" class="form-control" id="basicInput"  />
     </div>
     <div class="form-group">
       <label for="basicInput">¿Durante qué periodo?</label>
       <select class="form-control" id="basicSelect">
-        <option>Anual</option>
-        <option>Semestral</option>
+        <option *ngFor="let item of period" [value]="item.id">{{ item.description }}</option>
       </select>
     </div>
 
