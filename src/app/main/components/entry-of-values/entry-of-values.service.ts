@@ -9,7 +9,7 @@ import { ValuesRequest } from 'app/main/pages/data-entry/data-entry.model';
 export class EntryOfValuesService {
 
     constructor(private _http: HttpClient) {}
-    
+
     getValues(criterion, business) {
       return this._http.get<ValuesRequest>(`${environment.apiUrl}/api/entry-data/get-values?c=${criterion}&b=${business}`);
     }
@@ -17,5 +17,4 @@ export class EntryOfValuesService {
     addValues(data) {
       return this._http.post<any>(`${environment.apiUrl}/api/entry-data/add-values`, data);
     }
-  
 }

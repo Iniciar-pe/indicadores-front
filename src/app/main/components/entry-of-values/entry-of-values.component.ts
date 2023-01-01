@@ -82,7 +82,11 @@ export class EntryOfValuesComponent implements OnInit {
   getValues(criterion) {
     this.criterion = criterion;
     this._entryOfValuesService.getValues(criterion, this.business.id).subscribe(response => {
-      this.rows = response.values;
+      this.rows = response.values.map(e => {
+        e.previousPeriod = this.transform(e.previousPeriod);
+        e.currentPeriod = this.transform(e.currentPeriod);
+        return e;
+      });
       this.tempData = this.rows;
     }, err => {
       this.rows = [];
@@ -91,7 +95,6 @@ export class EntryOfValuesComponent implements OnInit {
   }
 
   addValues(row) {
-
     const data = {
       value: row.id,
       criterion: this.criterion,
@@ -111,9 +114,9 @@ export class EntryOfValuesComponent implements OnInit {
     type === 'previousPeriod' ? row.previousPeriod = currency.replace('$', '') : row.currentPeriod = currency.replace('$', '');
   }
 
-  transform(element, row, type) {
-    type === 'previousPeriod' ? row.previousPeriod = this.currencyPipe.transform(element.replace(',', ''), '').replace('$', '')
-      : row.currentPeriod = this.currencyPipe.transform(element.replace(',', ''), '').replace('$', '');
+  transform(element) {
+    // type === 'previousPeriod' ? row.previousPeriod = this.currencyPipe.transform(element.replace(',', ''), '').replace('$', '')
+    //  : row.currentPeriod = this.currencyPipe.transform(element.replace(',', ''), '').replace('$', '');
     return this.currencyPipe.transform(element.replace(',', ''), '').replace('$', '');
   }
 

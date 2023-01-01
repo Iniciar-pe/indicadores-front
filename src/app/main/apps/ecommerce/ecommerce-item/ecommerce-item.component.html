@@ -20,8 +20,11 @@
 
     
         <div class="row" *ngFor="let range of period.range">
-          <div class="col-7">
+          <div class="col-7" *ngIf="range.end">
             <p>{{ range.start }} al {{ range.end }} licencias</p>
+          </div>
+          <div class="col-7" *ngIf="!range.end">
+            <p>{{ range.start }} a más</p>
           </div>
           <div class="col-5">
             <p>{{ range.price }} c/u</p>
