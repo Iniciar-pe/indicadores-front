@@ -107,7 +107,7 @@ export class AuthenticationService {
    }
 
 
-   registerSocial(user): Observable<any[]> {
+   registerSocial(user): Observable<any> {
     return this._http.post<any>(`${environment.apiUrl}/api/auth/login-social`, user)
     .pipe(
       map(user => {

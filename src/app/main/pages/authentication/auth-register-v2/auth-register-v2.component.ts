@@ -9,6 +9,7 @@ import { AuthenticationService } from 'app/auth/service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomValidators } from './customValidators';
 import { HttpErrorResponse } from '@angular/common/http';
+import { LoginSocialService } from '../login-social.service';
 
 @Component({
   selector: 'app-auth-register-v2',
@@ -40,7 +41,8 @@ export class AuthRegisterV2Component implements OnInit {
     private _formBuilder: FormBuilder,
     private _authenticationService: AuthenticationService,
     private _router: Router,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private loginSocialService: LoginSocialService
   ) {
     this._unsubscribeAll = new Subject();
 
@@ -102,7 +104,7 @@ export class AuthRegisterV2Component implements OnInit {
       policy: this.f.policy.value,
       data: this.f.data.value,
       businessExist: this.f.businessExist.value ? 'S' : 'N',
-    }
+    };
 
     this._authenticationService.register(user).pipe(first()).subscribe(
       data => {
@@ -194,11 +196,14 @@ export class AuthRegisterV2Component implements OnInit {
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
       this.coreConfig = config;
     });
-    
 
-    this.registerForm.get("businessExist").valueChanges.subscribe(selectedValue => {
+    this.registerForm.get('businessExist').valueChanges.subscribe(selectedValue => {
       this.addValidators();
-    })
+    });
+
+    this.f.email.setValue(this.loginSocialService.userResponse?.email);
+    this.f.name.setValue(this.loginSocialService.userResponse?.firstName);
+    // this.loginSocialService.userResponse;
   }
 
   /**

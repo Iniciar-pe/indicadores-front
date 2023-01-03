@@ -1,0 +1,69 @@
+<div class="content-wrapper container-xxl p-0">
+  <div class="content-body">
+
+    <section id="faq-search-filter">
+      <div class="card faq-search" style="background-image: url('assets/images/banner/banner.png')">
+        <div class="card-body text-center">
+
+          <!-- search input -->
+          <form class="faq-search-input">
+            <div class="input-group input-group-merge">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i data-feather="search"></i>
+                </div>
+              </div>
+              <input
+                type="text"
+                [(ngModel)]="searchText"
+                name="searchbar"
+                class="form-control"
+                placeholder="Search faq..."
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+    <!-- *ngIf="(data.payment.qandA | filter: searchText:'question').length; else noResults" -->
+    <section id="faq">
+      
+      <div
+                  class="tab-pane collapse-icon"
+                  id="faq-delivery"
+                  role="tabpanel"
+                  aria-labelledby="delivery"
+                  aria-expanded="false"
+                >
+
+                  <!-- frequent answer and question  collapse  -->
+                  <div class="accordion collapse-margin mt-2">
+                    <ng-container *ngIf="(qandA | filter: searchText:'question').length; else noResults">
+                      <ngb-accordion [destroyOnHide]="false" [closeOthers]="true" activeIds="deliveryId1">
+                        <ngb-panel
+                          id="deliveryId{{ i }}"
+                          [cardClass]="'collapse-margin'"
+                          *ngFor="let deliveryRef of qandA | filter: searchText:'question'; let i = index"
+                        >
+                          <ng-template ngbPanelTitle>
+                            <span>{{ deliveryRef.question }}</span>
+                          </ng-template>
+                          <ng-template ngbPanelContent>
+                            {{ deliveryRef.ans }}
+                          </ng-template>
+                        </ngb-panel>
+                      </ngb-accordion>
+                    </ng-container>
+                    <ng-template #noResults>
+                      <div class="p-5 text-center">
+                        <h5 class="p-1"><i data-feather="info" size="19" class="mr-25"></i> No Results found</h5>
+                      </div>
+                    </ng-template>
+                  </div>
+                </div>
+    </section>
+    <!--/ account setting page -->
+
+
+  </div>
+</div>

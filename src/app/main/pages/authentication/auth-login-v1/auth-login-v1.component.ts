@@ -27,9 +27,9 @@ export class AuthLoginV1Component implements OnInit {
   private _unsubscribeAll: Subject<any>;
 
   linkedInCredentials = {
-    clientId: "78eygsqp7carij",
-    redirectUrl: "http://localhost:4200/",
-    scope: "r_liteprofile%r_emailaddress" // To read basic user profile data and email
+    clientId: '78eygsqp7carij',
+    redirectUrl: 'http://localhost:4200/',
+    scope: 'r_liteprofile%r_emailaddress' // To read basic user profile data and email
   };
 
   constructor(
@@ -127,7 +127,7 @@ export class AuthLoginV1Component implements OnInit {
     this.loginSocialService.loginFaceBook().then(response => {
       console.log(response);
       this.loginService(response.user.email, response.user.email, response.user.displayName)
-    })
+    });
   }
 
   loginService(email, password, name) {
@@ -136,22 +136,27 @@ export class AuthLoginV1Component implements OnInit {
       password: password,
       firstName: name,
       password_confirmation: password
-    }
-   
+    };
+
     this._authenticationService.registerSocial(user)
       .pipe(first())
       .subscribe(
       data => {
-        this._router.navigate([this.returnUrl]);
-        console.log('data', data)
-       
+        if( data?.action === '2') {
+          this.loginSocialService.userResponse = user;
+          this._router.navigate(['/admin/registro']);
+        } else {
+          this._router.navigate([this.returnUrl]);
+        }
+        // 
+        console.log('data', data);
       },
       error => {
         console.log(error);
       }
     );
   }
-  
+
   ngOnDestroy(): void {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();
