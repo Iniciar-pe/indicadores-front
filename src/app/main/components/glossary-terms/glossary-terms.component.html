@@ -49,14 +49,14 @@
                             <span>{{ deliveryRef.question }}</span>
                           </ng-template>
                           <ng-template ngbPanelContent>
-                            {{ deliveryRef.ans }}
+                            <div [innerHTML]="deliveryRef.ans"></div>
                           </ng-template>
                         </ngb-panel>
                       </ngb-accordion>
                     </ng-container>
                     <ng-template #noResults>
                       <div class="p-5 text-center">
-                        <h5 class="p-1"><i data-feather="info" size="19" class="mr-25"></i> No Results found</h5>
+                        <h5 class="p-1"><i data-feather="info" size="19" class="mr-25"></i>No se encontraron resultados</h5>
                       </div>
                     </ng-template>
                   </div>

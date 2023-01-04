@@ -98,7 +98,7 @@ export const menu: CoreMenu[] = [
   {
     id: 'indicators',
     type: 'section',
-    title: 'Restultados',
+    title: 'Resultados',
     translate: 'MENU.INDICATOR.SECTION',
     icon: 'layers',
     children: [

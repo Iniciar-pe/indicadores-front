@@ -22,7 +22,7 @@ export const locale = {
         SECTION: 'Ingreso de datos',
       },
       INDICATOR: {
-        SECTION: 'Restultados',
+        SECTION: 'Resultados',
         INDICATORS: 'Mis Indicadores',
         DASHBOARD: 'Cálculo del ingreso neto del flujo monetario',
         ABSTRACT: 'Resumen ejecutivo'

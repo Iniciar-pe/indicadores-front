@@ -69,12 +69,15 @@ export class GlossaryTermsComponent implements OnInit {
         question: 'Costo de insumo de producción',
         ans:
         `El insumo se considera como parte del material directo de un producto. Comprende todo material, ingrediente o sustancia que sirve para transformar la materia prima y que forma parte del producto terminado. En el caso que no forme parte del producto terminado, debe tratarse de un recurso que tuvo contacto con la materia prima o el producto en proceso con el fin de otorgarle valor. Por ejemplo:
-          En un restaurante: Sal, tomate, cebolla, pimienta, etcétera.
-          Servicio de atención pediátrica: Medicamento, esparadrapo, alcohol.
-          Aceites comestibles: Ácido fosfórico, soda cáustica, tierra de blanqueo, sal industrial.
-          Cerveza: Lúpulo (para el sabor amargo y aroma), agua, dextrosa, levadura (para la fermentación), azúcar.
-          Plátano: Abono orgánico, ceniza.
-          Ropa: Hilo, broches, botones.
+          <br>
+          <ul>
+            <li>En un restaurante: Sal, tomate, cebolla, pimienta, etcétera.</li>
+            <li>Servicio de atención pediátrica: Medicamento, esparadrapo, alcohol.</li>
+            <li>Aceites comestibles: Ácido fosfórico, soda cáustica, tierra de blanqueo, sal industrial.</li>
+            <li>Cerveza: Lúpulo (para el sabor amargo y aroma), agua, dextrosa, levadura (para la fermentación), azúcar.</li>
+            <li>Plátano: Abono orgánico, ceniza.</li>
+            <li>Ropa: Hilo, broches, botones.</li>
+          </ul>
           `
       }
     ]
