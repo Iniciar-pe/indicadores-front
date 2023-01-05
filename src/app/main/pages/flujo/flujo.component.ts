@@ -105,7 +105,10 @@ export class FlujoComponent implements OnInit {
   }
 
   modalOpenSLCIM(modalSLCIM) {
-    this.modalService.open(modalSLCIM, { scrollable: true });
+    this.modalService.open(modalSLCIM, {
+      centered: true,
+      size: 'lg' // size: 'xs' | 'sm' | 'lg' | 'xl'
+    });
   }
 
   getRatios() {

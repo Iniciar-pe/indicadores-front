@@ -15,6 +15,7 @@ import { CoreTouchspinModule } from '@core/components/core-touchspin/core-touchs
 import { EntryOfValuesModule } from 'app/main/components/entry-of-values/entry-of-values.module';
 import { HeaderBusinessModule } from 'app/main/components/header-business/header-business.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { GlossaryTermsModule } from 'app/main/components/glossary-terms/glossary-terms.module';
 
 
 const routes: Routes = [
@@ -37,6 +38,7 @@ const routes: Routes = [
     EntryOfValuesModule,
     HeaderBusinessModule,
     NgxDatatableModule,
+    GlossaryTermsModule,
     SweetAlert2Module.forRoot()
   ],
   providers: [RatioService],

@@ -80,7 +80,7 @@ export class GlossaryTermsComponent implements OnInit {
           </ul>
           `
       }
-    ]
+    ];
     // content header
     this.contentHeader = {
       headerTitle: 'FAQ',
