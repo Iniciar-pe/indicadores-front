@@ -120,7 +120,7 @@ const appRoutes: Routes = [
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
     // ! IMPORTANT: Provider used to create fake backend, comment while using real API
     
   ],

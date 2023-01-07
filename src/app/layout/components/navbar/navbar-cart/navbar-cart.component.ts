@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
+import { Plan } from 'app/main/apps/ecommerce/ecommerce.model';
 
-import { EcommerceService1 } from 'app/main/apps/ecommerce/ecommerce-1.service';
 
 @Component({
   selector: 'app-navbar-cart',
@@ -11,45 +12,37 @@ import { EcommerceService1 } from 'app/main/apps/ecommerce/ecommerce-1.service';
 })
 export class NavbarCartComponent implements OnInit {
   // Public
-  public products = [];
+  public products: Plan[] = this._ecommerceService.planesList;
   public cartList = [];
   public cartListLength;
 
-  // Private
   private _unsubscribeAll: Subject<any>;
 
-  /**
-   *
-   * @param {EcommerceService} _ecommerceService
-   */
-  constructor(public _ecommerceService: EcommerceService1) {
+  constructor(private _ecommerceService: EcommerceService) {
     this._unsubscribeAll = new Subject();
   }
 
-  // Public Methods
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * Remove From Cart
-   *
-   * @param product
-   */
   removeFromCart(product) {
-    if (product.isInCart === true) {
+    /**
+     * if (product.isInCart === true) {
       this._ecommerceService.removeFromCart(product.id).then(res => {
         product.isInCart = false;
       });
     }
+     */
   }
 
-  // Lifecycle Hooks
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * On init
-   */
   ngOnInit(): void {
-    // Get Products
+
+    this._ecommerceService.getProduct$().subscribe(res => {
+      this.products = res;
+      console.log("aqui", this.products);
+      this.cartListLength = this.products.length;
+    });
+
+
+    /**
+     * // Get Products
     this._ecommerceService.getProducts();
 
     // Get Cart List
@@ -58,8 +51,8 @@ export class NavbarCartComponent implements OnInit {
     // Subscribe to Cart List
     this._ecommerceService.onCartListChange.pipe(takeUntil(this._unsubscribeAll)).subscribe(res => {
       this.cartList = res;
-      //this.cartListLength = this.cartList.length;
-      this.cartListLength = '1';
+      this.cartListLength = this.cartList.length;
+      // this.cartListLength = '1';
     });
 
     // Subscribe to ProductList change
@@ -72,6 +65,7 @@ export class NavbarCartComponent implements OnInit {
           product.isInCart = this.cartList.findIndex(p => p.productId === product.id) > -1;
         });
       }
-    });
+     
+    });*/
   }
 }

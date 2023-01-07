@@ -11,7 +11,7 @@
 </div>
 <div class="item-options">
   <hr>
-  <div class="container-item" *ngFor="let period of product.period">
+  <div class="container-item" *ngFor="let period of product.period" >
     <div class="row" style="margin-bottom: 0.7rem;margin-top: 0.7rem;">
       <div class="col-12">
         <b>{{ period.description }}</b>
@@ -37,11 +37,11 @@
   <div class="container-item" style="margin-top: 0.7rem;">
     <div class="form-group">
       <label for="basicInput">¿Cuántas licencias necesitas?</label>
-      <input type="number" class="form-control" id="basicInput"  />
+      <input type="number" class="form-control" id="basicInput" [(ngModel)]="mount" />
     </div>
     <div class="form-group">
       <label for="basicInput">¿Durante qué periodo?</label>
-      <select class="form-control" id="basicSelect">
+      <select class="form-control" id="basicSelect" [(ngModel)]="periodList">
         <option *ngFor="let item of period" [value]="item.id">{{ item.description }}</option>
       </select>
     </div>
@@ -58,7 +58,7 @@
   </a>
   <a
     *ngIf="product.isInCart === true"
-    routerLink="/apps/e-commerce/checkout"
+    routerLink="/apps/comercio/verificar"
     class="btn btn-primary btn-cart"
     rippleEffect
   >

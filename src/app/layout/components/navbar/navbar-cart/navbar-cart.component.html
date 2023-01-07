@@ -19,7 +19,7 @@
 
     <!-- Cart content -->
     <li class="scrollable-container media-list" [perfectScrollbar]>
-      <ng-container *ngIf="products.length">
+      <ng-container *ngIf="products?.length">
         <ng-container *ngFor="let product of products">
           <div class="media align-items-center" *ngIf="product?.isInCart === true">
             <img class="d-block rounded mr-1" [src]="product.image" alt="donuts" width="62" />

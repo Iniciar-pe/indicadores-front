@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-
 import Stepper from 'bs-stepper';
-
-import { EcommerceService1 } from 'app/main/apps/ecommerce/ecommerce-1.service';
+import { Plan } from '../ecommerce.model';
+import { EcommerceService } from '../ecommerce.service';
 
 @Component({
   selector: 'app-ecommerce-checkout',
@@ -14,9 +13,10 @@ import { EcommerceService1 } from 'app/main/apps/ecommerce/ecommerce-1.service';
 export class EcommerceCheckoutComponent implements OnInit {
   // Public
   public contentHeader: object;
-  public products;
+  public products: Plan[] = this._ecommerceService.planesList;
   public cartLists;
   public wishlist;
+  public total = '0';
 
   public address = {
     fullNameVar: '',
@@ -31,68 +31,31 @@ export class EcommerceCheckoutComponent implements OnInit {
   // Private
   private checkoutStepper: Stepper;
 
-  /**
-   *  Constructor
-   *
-   * @param {EcommerceService} _ecommerceService
-   */
-  constructor(private _ecommerceService: EcommerceService1) {}
+  constructor(private _ecommerceService: EcommerceService) {}
 
-  // Public Methods
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * Stepper Next
-   */
   nextStep() {
     this.checkoutStepper.next();
   }
-  /**
-   * Stepper Previous
-   */
+
   previousStep() {
     this.checkoutStepper.previous();
   }
 
-  /**
-   * Validate Next Step
-   *
-   * @param addressForm
-   */
   validateNextStep(addressForm) {
     if (addressForm.valid) {
       this.nextStep();
     }
   }
 
-  // Lifecycle Hooks
-  // -----------------------------------------------------------------------------------------------------
 
-  /**
-   * On init
-   */
   ngOnInit(): void {
     // Subscribe to ProductList change
-    this._ecommerceService.onProductListChange.subscribe(res => {
+    this._ecommerceService.getProduct$().subscribe(res => {
       this.products = res;
-
-      this.products.isInWishlist = false;
-    });
-
-    // Subscribe to Cartlist change
-    this._ecommerceService.onCartListChange.subscribe(res => (this.cartLists = res));
-
-    // Subscribe to Wishlist change
-    this._ecommerceService.onWishlistChange.subscribe(res => (this.wishlist = res));
-
-    // update product is in Wishlist & is in CartList : Boolean
-    this.products.forEach(product => {
-      product.isInWishlist = this.wishlist.findIndex(p => p.productId === product.id) > -1;
-      product.isInCart = this.cartLists.findIndex(p => p.productId === product.id) > -1;
     });
 
     this.checkoutStepper = new Stepper(document.querySelector('#checkoutStepper'), {
-      linear: false,
+      linear: true,
       animation: true
     });
 
@@ -107,4 +70,22 @@ export class EcommerceCheckoutComponent implements OnInit {
       }
     };
   }
+
+  periodText(product) {
+    return this._ecommerceService.periodText(product);
+  }
+
+  calculate(product) {
+    return this._ecommerceService.calculate(product);
+  }
+
+  totalCalculate() {
+    const totalInp = document.getElementsByName('total[]');
+    let total = 0;
+    totalInp.forEach(item => {
+      total = total + Number((item as HTMLInputElement).value);
+    });
+    return total.toFixed(2);
+  }
+
 }

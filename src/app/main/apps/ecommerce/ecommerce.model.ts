@@ -4,7 +4,10 @@ export interface Plan {
     image: string;
     name: string;
     type: number;
+    isInCart?: boolean;
     period: Period[];
+    mount?: number;
+    selectedPeriod?: number;
 }
 
 export interface Period {
@@ -17,6 +20,7 @@ export interface Period {
 export interface Range {
     id: number;
     end: number;
-    prince: string;
+    price: string;
     start: number;
 }
+

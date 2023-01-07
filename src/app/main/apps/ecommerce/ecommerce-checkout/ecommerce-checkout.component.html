@@ -71,35 +71,27 @@
                   <div class="price-details">
                     <h6 class="price-title">Detalles de la Compra</h6>
                     <ul class="list-unstyled">
-                      <li class="price-detail">
-                        <div class="detail-title">
-                          <p>Licencia Individual
-                            <br>
-                            <b>15 lincencias anual</b>
-                          </p>
-                          
-                        </div>
-                        <div class="detail-amt">99.9</div>
-                      </li>
+                      <ng-container *ngFor="let product of products">
+                        <li class="price-detail"  *ngIf="product.isInCart === true">
+                          <div class="detail-title">
+                            <p>{{ product.name }}
+                              <br>
+                              <b>{{ product.mount }} lincencia{{ product.mount > 1 ? 's' : '' }} {{ periodText(product) }}</b>
+                            </p>
+                            
+                          </div>
+                          <div class="detail-amt">{{ calculate(product) }}</div>
+                          <input type="hidden" name="total[]" value="{{ calculate(product) }}">
+                        </li>
+                      </ng-container>
                       
-                      <li class="price-detail">
-                        <div class="detail-title">
-                          <p>Licencia Individual
-                            <br>
-                            <b>15 lincencias anual</b>
-                          </p>
-                          
-                        </div>
-                        <div class="detail-amt">99.9</div>
-                      </li>
-                     
-                      
+                                            
                     </ul>
                     <hr />
                     <ul class="list-unstyled">
                       <li class="price-detail">
                         <div class="detail-title detail-total">Total</div>
-                        <div class="detail-amt font-weight-bolder">100.00</div>
+                        <div class="detail-amt font-weight-bolder">{{ totalCalculate() }}</div>
                       </li>
                     </ul>
                     <button
@@ -264,35 +256,27 @@
                   <div class="price-details">
                     <h6 class="price-title">Detalles de la Compra</h6>
                     <ul class="list-unstyled">
-                      <li class="price-detail">
-                        <div class="detail-title">
-                          <p>Licencia Individual
-                            <br>
-                            <b>15 lincencias anual</b>
-                          </p>
-                          
-                        </div>
-                        <div class="detail-amt">99.9</div>
-                      </li>
+                      <ng-container *ngFor="let product of products">
+                        <li class="price-detail"  *ngIf="product.isInCart === true">
+                          <div class="detail-title">
+                            <p>{{ product.name }}
+                              <br>
+                              <b>{{ product.mount }} lincencia{{ product.mount > 1 ? 's' : '' }} {{ periodText(product) }}</b>
+                            </p>
+                            
+                          </div>
+                          <div class="detail-amt">{{ calculate(product) }}</div>
+                          <input type="hidden" name="total[]" value="{{ calculate(product) }}">
+                        </li>
+                      </ng-container>
                       
-                      <li class="price-detail">
-                        <div class="detail-title">
-                          <p>Licencia Individual
-                            <br>
-                            <b>15 lincencias anual</b>
-                          </p>
-                          
-                        </div>
-                        <div class="detail-amt">99.9</div>
-                      </li>
-                     
-                      
+                                            
                     </ul>
                     <hr />
                     <ul class="list-unstyled">
                       <li class="price-detail">
                         <div class="detail-title detail-total">Total</div>
-                        <div class="detail-amt font-weight-bolder">100.00</div>
+                        <div class="detail-amt font-weight-bolder">{{ totalCalculate() }}</div>
                       </li>
                     </ul>
                     <button
@@ -301,7 +285,7 @@
                       (click)="nextStep()"
                       rippleEffect
                     >
-                     Realizar compra
+                     Realizar pedido
                     </button>
                   </div>
                 </div>
@@ -363,29 +347,21 @@
                   <div class="price-details">
                     <h6 class="price-title">Detalles de la Compra</h6>
                     <ul class="list-unstyled">
-                      <li class="price-detail">
-                        <div class="detail-title">
-                          <p>Licencia Individual
-                            <br>
-                            <b>15 lincencias anual</b>
-                          </p>
-                          
-                        </div>
-                        <div class="detail-amt">99.9</div>
-                      </li>
+                      <ng-container *ngFor="let product of products">
+                        <li class="price-detail"  *ngIf="product.isInCart === true">
+                          <div class="detail-title">
+                            <p>{{ product.name }}
+                              <br>
+                              <b>{{ product.mount }} lincencia{{ product.mount > 1 ? 's' : '' }} {{ periodText(product) }}</b>
+                            </p>
+                            
+                          </div>
+                          <div class="detail-amt">{{ calculate(product) }}</div>
+                          <input type="hidden" name="total[]" value="{{ calculate(product) }}">
+                        </li>
+                      </ng-container>
                       
-                      <li class="price-detail">
-                        <div class="detail-title">
-                          <p>Licencia Individual
-                            <br>
-                            <b>15 lincencias anual</b>
-                          </p>
-                          
-                        </div>
-                        <div class="detail-amt">99.9</div>
-                      </li>
-                     
-                      
+                                            
                     </ul>
                     <hr />
                     <h6 class="price-title">Datos del comprador</h6>
@@ -404,11 +380,11 @@
                      
                       
                     </ul>
-                    <hr>
+                    <hr />
                     <ul class="list-unstyled">
                       <li class="price-detail">
                         <div class="detail-title detail-total">Total</div>
-                        <div class="detail-amt font-weight-bolder">100.00</div>
+                        <div class="detail-amt font-weight-bolder">{{ totalCalculate() }}</div>
                       </li>
                     </ul>
                     <button
@@ -417,9 +393,11 @@
                       (click)="nextStep()"
                       rippleEffect
                     >
-                     Pagar
+                    Pagar
                     </button>
                   </div>
+
+                  
                 </div>
               </div>
               <!-- Checkout Place Order Right ends -->
