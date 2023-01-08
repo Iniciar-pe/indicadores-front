@@ -33,11 +33,14 @@ export class NavbarCartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this._ecommerceService.getProduct$().subscribe(res => {
-      this.products = res;
-      console.log("aqui", this.products);
-      this.cartListLength = this.products.length;
+    this.products = this._ecommerceService.planesList;
+    this._ecommerceService.onProductListChange$.subscribe({
+      next: resp => {
+        console.log(resp);
+      },
+      error: err => {
+        console.log(err);
+      }
     });
 
 

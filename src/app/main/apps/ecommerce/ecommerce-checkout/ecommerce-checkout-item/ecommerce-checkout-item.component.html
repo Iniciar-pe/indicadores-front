@@ -20,6 +20,7 @@
             id="priceSwitch"
             name="priceSwitch"
             [(ngModel)]="selectedPeriod"
+            (onChange)="inputChange($event, product)" 
           />
           <label class="custom-control-label" for="priceSwitch"></label>
         </div>
@@ -49,7 +50,7 @@
   <div class="item-options text-center">
     <div class="item-wrapper">
       <div class="item-cost">
-        <h4 class="item-price">S/ {{ price }}</h4>
+        <h4 class="item-price">S/ {{ calculate() }}</h4>
       </div>
     </div>
     <button type="button" class="btn btn-light mt-1 remove-wishlist" (click)="removeFromCart(product)" rippleEffect>

@@ -50,7 +50,7 @@ export class EcommerceCheckoutComponent implements OnInit {
 
   ngOnInit(): void {
     // Subscribe to ProductList change
-    this._ecommerceService.getProduct$().subscribe(res => {
+    this._ecommerceService.onProductListChange$.subscribe(res => {
       this.products = res;
     });
 

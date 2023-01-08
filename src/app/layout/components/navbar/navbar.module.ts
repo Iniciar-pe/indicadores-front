@@ -33,7 +33,8 @@ import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
     CoreCommonModule,
     PerfectScrollbarModule,
     CoreTouchspinModule,
-    ModalLicenseModule],
+    ModalLicenseModule,
+  ],
   providers: [
     EcommerceService
   ],

@@ -182,7 +182,7 @@ export class DataEntryComponent implements OnInit {
 
   modalOpenSLCIM(modalSLCIM) {
     this.modalService.open(modalSLCIM,  {
-      centered: true,
+      scrollable: true,
       size: 'lg' // size: 'xs' | 'sm' | 'lg' | 'xl'
     });
   }

@@ -40,12 +40,12 @@ export class EcommerceCheckoutItemComponent implements OnInit {
   ngOnInit(): void {
     this.ruta = environment.apiUrl;
     this.selectedPeriod = (this.product.selectedPeriod === 1);
-    this.calculate();
+    // this.calculate();
     this.calculatePeriod();
   }
 
   calculate() {
-    this.price = this._ecommerceService.calculate(this.product);
+    return this._ecommerceService.calculate(this.product);
   }
 
   calculatePeriod() {
@@ -60,5 +60,9 @@ export class EcommerceCheckoutItemComponent implements OnInit {
 
   countChange(value, product) {
     this._ecommerceService.mount(value, product);
+  }
+
+  inputChange(value, product) {
+    this._ecommerceService.inputChange(value, product);
   }
 }

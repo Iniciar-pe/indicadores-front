@@ -1,7 +1,4 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FAQService } from 'app/main/pages/faq/faq.service';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'glossary-terms',
@@ -15,24 +12,11 @@ export class GlossaryTermsComponent implements OnInit {
   public qandA: any;
   public searchText: string;
 
-  // private
-  private _unsubscribeAll: Subject<any>;
-
-  /**
-   * Constructor
-   *
-   * @param {FAQService} _faqService
-   */
-  constructor(private _faqService: FAQService) {
-    this._unsubscribeAll = new Subject();
+  constructor() {
+ 
   }
 
-  // Lifecycle Hooks
-  // -----------------------------------------------------------------------------------------------------
 
-  /**
-   * On Changes
-   */
   ngOnInit(): void {
     this.qandA = [
       {
@@ -274,6 +258,194 @@ que dejaría de ganar por no alquilar el almacén. En otras palabras, para aprob
         question: `Gastos de venta`,
         ans: `Recursos sacrificados para gestionar la captación de clientes de por vida.`
       },
+      {
+        question: `Gastos de venta fijos`,
+        ans: `Recursos sacrificados para gestionar la captación de clientes de por vida que, dentro de un rango relevante, no cambia cuando cambia la cantidad vendida. Por ejemplo: Sueldo del gerente o responsable de ventas, gastos de teléfono de la fuerza de ventas, depreciación de los equipos de la fuerza de ventas.`
+      },
+      {
+        question: `Gastos de venta variables`,
+        ans: `Recursos sacrificados para gestionar la captación de clientes de por vida, que sí cambia cuando cambia la cantidad vendida. Por ejemplo: Comisión del gerente o responsable de ventas por unidades vendidas, comisiones de la fuerza de ventas por unidades vendidas.`
+      },
+      {
+        question: `Gastos generales de producción fijos`,
+        ans: `Rubro desembolsable y no desembolsable que, dentro de un rango relevante, no cambia cuando cambia la cantidad producida, no es inventariable, interviene en la transformación de las materias primas y los productos en proceso y no está incluido en los rubros de costos anteriores, pero que no tiene contacto con el producto terminado y/o no llega a formar parte de este. Por ejemplo:
+          <br>
+          <ul>
+            <li>Restaurante: Depreciación lineal de los equipos de cocina, seguros de los equipos e inmuebles de cocina, depreciación de las instalaciones de cocina, inspecciones de la cocina, etcétera.</li>
+            <li>Atención pediátrica: Depreciación lineal de los equipos médicos (o si los equipos fueran alquilados, gastos de alquiler); depreciación de los muebles del consultorio; etcétera.</li>
+            <li>Aceites comestibles: Depreciación de muebles de planta, gastos por Internet en planta, gastos de teléfono de planta.</li>
+            <li>Cerveza: Depreciación de los equipos de laboratorio, depreciación de los equipos de medida, depreciación de los equipos de limpieza, gastos de energía de planta.</li>
+            <li>Plátano: Depreciación lineal de las palas de campo.</li>
+            <li>En un negocio de ropa: Depreciación lineal de los equipos de producción, depreciación de los muebles e instalaciones de planta, depreciación de los equipos de seguridad, inspección de la planta, gastos de luz en la planta, etcétera.</li>
+          </ul>
+          `
+      },
+      {
+        question: `Gastos generales de producción variables`,
+        ans: `Rubro desembolsable y no desembolsable que sí cambia cuando cambia la cantidad producida, no es inventariable, interviene en la transformación de las materias primas y los productos en proceso y no está incluido en los rubros de costos anteriores, pero que no tiene contacto con el producto terminado y/o no llega a formar parte de este. Por ejemplo:
+          <br>
+          <ul>
+            <li>Restaurante: Depreciación por cantidad de menú preparado, gastos de agua para el lavado de las vajillas, gastos de energía para la preparación de alimentos.</li>
+            <li>Atención pediátrica: Depreciación por cantidad de atenciones de los equipos médicos, depreciación por cantidad de exámenes de los equipos de análisis.</li>
+            <li>Aceites comestibles: Depreciación por toneladas producidas de la máquina de encajonado, depreciación por toneladas producidas de las etiquetadoras.</li>
+            <li>Cerveza: Depreciación por hectolitros producidos de las máquinas y los equipos de fermentación, depreciación por hectolitros producidos de las máquinas y los equipos de maceración.</li>
+            <li>Plátano: Depreciación por cabezas de plátanos de las hoces de corte.</li>
+            <li>Ropa: Depreciación por cantidad producida de los equipos de producción, gastos de energía de las máquinas, depreciación por cantidad de análisis de los equipos de control de calidad.</li>
+          </ul>
+          `
+      },
+      {
+        question: `Gestión o administración`,
+        ans: `Es una ciencia social inexacta que, a través de los procesos de planificación, ejecución y control, y empleando técnicas, métodos y estilos, busca satisfacer de modo eficiente la verdadera razón por la cual se creó una organización.`
+      },
+      {
+        question: `Indicador`,
+        ans: `Marcador mensurable útil para conocer el estado y el comportamiento de un objeto que se desea interpretar. El objeto puede ser una organización, una unidad estratégica, una unidad orgánica, un proceso, un sector, un país, una región, un ambiente externo, una persona, un animal o una cosa.`
+      },
+      {
+        question: `Ingreso neto del flujo monetario`,
+        ans: `Es un indicador que mediante un monto absoluto mide el grado de eficacia en la gestión del flujo monetario de una organización. El flujo monetario comprende los ingresos (o las ventas netas), los gastos y los inventarios. La gestión del flujo monetario será eficaz si la variación absoluta de los ingresos de un período a otro es mayor a la suma de las variaciones absolutas de los gastos y del costo de capital ocasionado por los inventarios de un período a otro. En el caso que las variaciones absolutas de ambos grupos sean iguales, se calificará como una gestión indiferente o no eficaz ni ineficaz. Se considerará ineficaz cuando la variación absoluta de los ingresos de un período a otro sea inferior a la suma de las variaciones absolutas de los gastos y el costo de capital generado por los inventarios de un período a otro.`
+      },
+      {
+        question: `Inversión`,
+        ans: `Toda erogación que se espera sea útil en un periodo mayor a un año.`
+      },
+      {
+        question: `Liquidez`,
+        ans: `Capacidad para cubrir las obligaciones de corto plazo. Desde otra perspectiva, es la la capacidad para evitar pérdidas de oportunidades de ingresos por incumplimiento de las obligaciones de corto plazo.`
+      },
+      {
+        question: `Margen de utilidad bruta`,
+        ans: `O simplemente, margen bruto. Mide el rendimiento de las ventas netas o ingresos considerando los costos de los productos vendidos. Es el resultado de dividir la utilidad bruta entre las ventas netas.`
+      },
+      {
+        question: `Margen de utilidad neta`,
+        ans: `O margen neto. Mide el rendimiento de las ventas netas o ingresos considerando todos los costos, gastos e impuestos. Se calcula dividiendo la utilidad neta entre las ventas netas o ingresos.`
+      },
+      {
+        question: `Margen de utilidad operativa`,
+        ans: `O margen operativo. Indica el rendimiento de las ventas netas o ingresos considerando los costos de los productos vendidos y gastos operativos. Se obtiene dividiendo la utilidad operativa entre las ventas netas o ingresos. La utilidad operativa es la ganancia que queda después de restar a la utilidad bruta los gastos de administración y de ventas. O también, es el excedente alcanzado después de restar a las ventas netas el costo de ventas, los gastos administrativos y los gastos de venta. `
+      },
+      {
+        question: `Meta `,
+        ans: `Cuantificación y ubicación en el tiempo de un objetivo determinado. Responde a las preguntas ¿qué lograr?, ¿qué valor se creará?, ¿cuánto lograr? y ¿cuándo lograrlo?`
+      },
+      {
+        question: `Meta nuclear`,
+        ans: `Cuantificación y ubicación en el tiempo del objetivo más importante de una organización o unidad estratégica, hacia el cual convergen las demás metas.`
+      },
+      {
+        question: `Objetivo`,
+        ans: `Aquello que se pretende lograr, sin especificar el cuánto y el cuándo. Responde la pregunta ¿qué se desea lograr?`
+      },
+      {
+        question: `Patrón de comparación`,
+        ans: `Meta o valor que deberá alcanzar cada indicador y parámetro contra el cual se contrastan los resultados obtenidos en cada medición; por ende, sirve para deducir el nivel de eficiencia o eficacia del desempeño de determinado indicador.`
+      },
+      {
+        question: `Período promedio de cobro`,
+        ans: `Informa cuántos días demandará al negocio convertir las ventas a crédito en efectivo. Se relaciona con la velocidad de ingreso de efectivo. Se recomienda evaluar la efectividad de su gestión equiparándolo con el período promedio de pagos. En otras palabras, la lentitud o rapidez de las cobranzas es relativa a la lentitud o rapidez de los pagos.`
+      },
+      {
+        question: `Período promedio de inventarios`,
+        ans: `Cantidad media de días que demora el agotamiento de las existencias en materiales directos, productos en proceso y productos terminados. Desde otro punto de vista, indica el lapso de tiempo medio en días que dura trasladar las existencias del balance general al estado de resultados. Esto es, la velocidad, medida en días, con la que se renueva o repone el stock.`
+      },
+      {
+        question: `Período promedio de pago`,
+        ans: `Notifica sobre el tiempo medio que un negocio se demora en cancelar sus deudas iguales o menores a un año.`
+      },
+      {
+        question: `Precio por acción`,
+        ans: `Es la cotización monetaria en el mercado de una acción de una empresa.`
+      },
+      {
+        question: `Proceso`,
+        ans: `Conjunto de actividades que transforman elementos de entrada en resultados.`
+      },
+      {
+        question: `Productividad`,
+        ans: `Rendimiento de un recurso clave que se obtiene dividiendo las unidades físicas de producto entre las unidades físicas utilizadas de dicho recurso (Villajuana y Tuse, 2019, p.227).`
+      },
+      {
+        question: `Producto`,
+        ans: `Todo bien, tangible o intangible, entregado al cliente, que representa la razón más importante por la cual este consume, utiliza, adquiere, paga o decide su adquisición, y que responde directamente a la satisfacción de una necesidad básica.`
+      },
+      {
+        question: `Prueba ácida`,
+        ans: `O liquidez rápida. Capacidad para cubrir las obligaciones de corto plazo, sin tomar en cuenta la propiedad que tiene la organización en inventarios o existencias. Desde otra perspectiva, es la la capacidad para evitar pérdidas de oportunidades de ingresos por incumplimiento de las obligaciones de corto plazo. Sin incluir como propiedad de la organización lo que tiene en inventarios o existencias.`
+      },
+      {
+        question: `Rango relevante`,
+        ans: `Intervalo de volumen de producción o nivel de actividad, dentro del cual la necesidad de determinados recursos es la misma. Es decir, al interior de ese tramo algunos costos permanecerán invariables y serán considerados como fijos. Por ejemplo, si se estimó que un supervisor de producción puede dirigir con efectividad a 10 operadores de máquinas, cuya producción conjunta es de 1,000 unidades por mes, entonces el rango relevante será de 0 a 1,000 unidades y dentro de ese intervalo el sueldo del supervisor será un costo fijo. Sin embargo, si se tuviera la necesidad de producir 1,200 unidades, se requerirá de un supervisor adicional y por lo tanto, dicho rubro de costo se volverá en un costo fijo no tan fijo.`
+      },
+      {
+        question: `Razón de apalancamiento`,
+        ans: `Indica cuánto de la inversión total de una organización es financiada por agentes externos. Es resultado de dividir el pasivo total entre el activo total. A saber, el activo total o inversión total comprende el activo corriente más el activo no corriente o de largo, y el pasivo total es la suma del pasivo corriente y el pasivo no corriente o de largo plazo.`
+      },
+      {
+        question: `Relación deuda/capital`,
+        ans: `Expresa la cantidad de unidades monetarias de fondos externos por cada unidad monetaria de capital propio que están financiando la inversión total de una organización. Se obtiene dividiendo el pasivo total entre el patrimonio. La deuda incluye el pasivo corriente y el pasivo no corriente. Por su parte, el capital o patrimonio total, se refiere al monto invertido por los accionistas.`
+      },
+      {
+        question: `Rentabilidad`,
+        ans: `Es el rendimiento expresado en fondos generados respecto a un capital invertido o con relación a fondos que lo causaron. Es decir, es la medida del rendimiento económico de un fondo que fue apostado en una organización o unidad estratégica.`
+      },
+      {
+        question: `Retorno sobre el patrimonio`,
+        ans: `Conocido como ROE por sus siglas en inglés que significan return on equity. Calcula el rendimiento del patrimonio o del capital invertido por los accionistas de una organización o negocio. Resulta de la división de la utilidad neta entre el patrimonio. El numerador procede del estado de ganancias y pérdidas; y el patrimonio, del balance general. Su unidad de medida es el porcentaje o una tasa.`
+      },
+      {
+        question: `Retorno sobre la inversión`,
+        ans: `Conocido por su nomenclatura ROI, por provenir de las palabras en inglés return on investment. Mide el rendimiento de la inversión total. Se obtiene dividiendo la utilidad neta entre el activo total o inversión total.  El activo total es igual a la suma del activo corriente y activo no corriente que se muestra en los balances generales, o al pasivo total más el patrimonio.`
+      },
+      {
+        question: `Rotación de inventarios`,
+        ans: `Marca la cantidad de veces que las existencias se venden en un período determinado. De otra manera, podría concebirse como la frecuencia con la que las existencias salen del balance general y se trasladan al estado de ganancias y pérdidas, en determinado período. Los inventarios mientras están en el balance general son activos corrientes, pero conforme van ingresando al proceso de producción se van transformando en costos y finalmente se convierten en costo de ventas cuando se expenden o pasan a manos de los clientes externos. En los negocios donde se compran mercaderías y se venden sin ninguna transformación intrínseca, las existencias primero son activos al estar en el balance general y luego pasan directamente como costo de mercaderías vendidas (costo de ventas) al estado de ganancias y pérdidas.`
+      },
+      {
+        question: `Servicio`,
+        ans: `Se refiere a todo lo que la organización, la unidad estratégica o el negocio hace o entrega para persuadir la venta del producto y que el cliente lo ve, huele, toca, saborea y/o escucha. No es lo que se vende, es lo que se entrega o hace para convencer al cliente a que compre.`
+      },
+      {
+        question: `Solvencia `,
+        ans: `O apalancamiento. Capacidad de una organización para cumplir con sus obligaciones totales. Desde un punto de vista más desafiante, es la capacidad de una organización para acrecentar su riqueza mediante el uso de fondos externos. O también puede definirse como la capacidad de una organización para devolver de manera conforme el fondo total que recibió y lo que espera recibir en el futuro.`
+      },
+      {
+        question: `Unidad de medida`,
+        ans: `Patrón de cálculo de un indicador, que puede ser relativo o absoluto. Unidades de medida absolutas son, por ejemplo: clientes, quejas, kilovatios hora, dólares estadounidenses, kilogramos, metros, metros cuadrados, metros cúbicos, galones, etc. Las unidades de medida relativas se expresan generalmente en ratios, tasas, porcentajes, tanto por mil, partes por millón (ppm), escalas binarias del tipo “sí o no”, rangos del tipo “ABCDE” o cualquier otro término que indique la dimensión de cada resultado.`
+      },
+      {
+        question: `Unidad estratégica`,
+        ans: `Familia de productos o servicios afines que cumplen una función o satisfacen beneficios concretos de un grupo determinado de clientes externos y que es resultado de la aplicación de una tecnología específica o de la ejecución de un proceso particular. Es, por consiguiente, el resultado de conjugar tres ejes o dimensiones: grupo de clientes, beneficios específicos buscados y tecnología específica (cadena de valor). También se le denomina negocio o unidad de negocio.`
+      },
+      {
+        question: `Utilidad antes de impuestos`,
+        ans: `Es el beneficio económico que resulta de restar a los ingresos o las ventas netas, el costo de ventas, los gastos administrativos, los gastos de venta y los gastos financieros.`
+      },
+      {
+        question: `Utilidad neta`,
+        ans: `Es el beneficio económico que resulta de restar a los ingresos o las ventas netas, el costo de ventas, los gastos administrativos, los gastos de venta, los gastos financieros y el impuesto a la renta.`
+      },
+      {
+        question: `Utilidad operativa`,
+        ans: `Es el beneficio económico que resulta de restar a los ingresos o las ventas netas, el costo de ventas, los gastos administrativos y los gastos de venta.`
+      },
+      {
+        question: `Valor de mercado`,
+        ans: `Es el monto en unidades monetarias que representa la cotización de una empresa que resulta de multiplicar la cantidad total de acciones en circulación por el precio de cada acción en el mercado.`
+      },
+      {
+        question: `Valor económico agregado`,
+        ans: `El nombre del indicador de rentabilidad EVA procede de las iniciales de las palabras en inglés Economic Value Added, que significa valor económico agregado. Joel Stern y John Shiely (2002, p.23) lo definen como: “El EVA es la utilidad que queda una vez deducido el costo del capital invertido para generar dicha utilidad.” Para nosotros, el EVA es la variación de la riqueza organizacional que resulta de restar a la utilidad neta calculada convencionalmente el costo de oportunidad, sumarle las inversiones que según la contabilidad financiera se pasan como gastos y restarle la amortización de las inversiones pasadas como gastos (Villajuana, 2015, p.400).`
+      },
+      {
+        question: `Ventaja competitiva`,
+        ans: `Superioridad de una organización, una unidad estratégica o un producto, que se crea en base al talento y el esfuerzo creativo y racional de las personas, reflejado en una característica exclusiva y permanente, percibida y valorada por el cliente.`
+      },
+      {
+        question: `Verificador`,
+        ans: `Puesto o persona encargada de llenar o de utilizar un medio de verificación.`
+      }
     ];
     // content header
     this.contentHeader = {
@@ -300,10 +472,6 @@ que dejaría de ganar por no alquilar el almacén. En otras palabras, para aprob
       }
     };
   }
-  ngOnDestroy(): void {
-    // Unsubscribe from all subscriptions
-    this._unsubscribeAll.next();
-    this._unsubscribeAll.complete();
-  }
+
 
 }

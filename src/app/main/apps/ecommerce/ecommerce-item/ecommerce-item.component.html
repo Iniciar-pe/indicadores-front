@@ -2,12 +2,15 @@
 
 <div class="card-body">
   <img [src]="ruta+product.image" alt="img-placeholder" width="80" />
-  <h6 class="item-name">
-    {{ product.name }}
-  </h6>
-  <p class="card-text">
-    {{ product.description }}
-  </p>
+  <div class="container-item" >
+    <h6 class="item-name">
+      {{ product.name }}
+    </h6>
+    <p >
+      {{ product.description }}
+    </p>
+  </div>
+  
 </div>
 <div class="item-options">
   <hr>
@@ -63,7 +66,7 @@
     rippleEffect
   >
     <i data-feather="shopping-cart" class="mr-25"></i>
-    <span class="add-to-cart">Ver el carrito</span>
+    <span class="add-to-cart">Finalizar compra</span>
   </a>
   
   </div>

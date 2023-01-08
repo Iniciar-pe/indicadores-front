@@ -3,20 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { Plan } from './ecommerce.model';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 
 @Injectable()
 export class EcommerceService {
 
-    private onProductListChange$: Subject<Plan[]>;
+    private onProductListChange = new BehaviorSubject<any>({});
+    public onProductListChange$ = this.onProductListChange.asObservable();
     public planesList: Plan[];
 
     constructor(private _http: HttpClient) {
-        this.onProductListChange$ = new Subject();
-    }
-
-    getProduct$(): Observable<Plan[]> {
-      return this.onProductListChange$.asObservable();
+      this.onProductListChange = new BehaviorSubject({});
     }
 
     getPlanes() {
@@ -24,8 +21,8 @@ export class EcommerceService {
     }
 
     addProduct() {
-      console.log("ento aqui", this.planesList)
-      this.onProductListChange$.next(this.planesList);
+      console.log("addProduct aqui", this.planesList)
+      this.onProductListChange.next(this.planesList);
     }
 
     calculate(product) {
@@ -56,6 +53,15 @@ export class EcommerceService {
       this.planesList = this.planesList.map(item => {
         if (item.id === product.id) {
           item.mount = value;
+        }
+        return item;
+      });
+    }
+
+    inputChange(value, product) {
+      this.planesList = this.planesList.map(item => {
+        if (item.id === product.id) {
+          item.selectedPeriod = value;
         }
         return item;
       });
