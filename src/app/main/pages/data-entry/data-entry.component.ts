@@ -6,6 +6,7 @@ import { DataEntryService } from './data-entry.service';
 import moment from 'moment';
 import Swal from 'sweetalert2';
 import { EntryOfValuesService } from 'app/main/components/entry-of-values/entry-of-values.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -48,6 +49,7 @@ export class DataEntryComponent implements OnInit {
   constructor(
     private _dataEntryService: DataEntryService,
     private modalService: NgbModal,
+    private _router: Router,
     private _entryOfValuesService: EntryOfValuesService,
     ) {
 
@@ -259,14 +261,7 @@ export class DataEntryComponent implements OnInit {
       };
       this._dataEntryService.runProcess(data).subscribe(response => {
         this.loadingRun = false;
-        Swal.fire({
-          icon: 'success',
-          title: 'Proceso finalizado correctamente',
-          confirmButtonText: 'Aceptar',
-          customClass: {
-            confirmButton: 'btn btn-success'
-          },
-        });
+        this._router.navigate(['/admin/ratios']);
       }, err => {
         this.loadingRun = false;
       });

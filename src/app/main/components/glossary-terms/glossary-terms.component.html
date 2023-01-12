@@ -39,7 +39,7 @@
                   <!-- frequent answer and question  collapse  -->
                   <div class="accordion collapse-margin mt-2">
                     <ng-container *ngIf="(qandA | filter: searchText:'question').length; else noResults">
-                      <ngb-accordion [destroyOnHide]="false" [closeOthers]="true" activeIds="deliveryId1">
+                      <ngb-accordion [destroyOnHide]="false" [closeOthers]="true" >
                         <ngb-panel
                           id="deliveryId{{ i }}"
                           [cardClass]="'collapse-margin'"
