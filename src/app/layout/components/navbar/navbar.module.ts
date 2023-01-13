@@ -3,9 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
-  PerfectScrollbarConfigInterface,
   PerfectScrollbarModule,
-  PERFECT_SCROLLBAR_CONFIG
 } from 'ngx-perfect-scrollbar';
 
 import { CoreCommonModule } from '@core/common.module';
@@ -17,7 +15,7 @@ import { NavbarSearchComponent } from 'app/layout/components/navbar/navbar-searc
 import { NavbarCartComponent } from 'app/layout/components/navbar/navbar-cart/navbar-cart.component';
 import { NavbarNotificationComponent } from 'app/layout/components/navbar/navbar-notification/navbar-notification.component';
 import { ModalLicenseModule } from 'app/main/components/modal-license/modal-license.module';
-import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
+import { CartService } from './cart.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +34,7 @@ import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
     ModalLicenseModule,
   ],
   providers: [
-    EcommerceService
+    CartService,
   ],
   exports: [NavbarComponent]
 })

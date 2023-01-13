@@ -24,3 +24,16 @@ export interface Range {
     start: number;
 }
 
+export interface Cart {
+    id: number;
+    description: string;
+    image: string;
+    name: string;
+    type: number;
+    isInCart?: boolean;
+    mount?: number;
+    selectedPeriod?: number;
+    price?: number;
+}
+
+

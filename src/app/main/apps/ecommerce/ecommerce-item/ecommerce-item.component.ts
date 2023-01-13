@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { environment } from 'environments/environment';
-import { Period, Plan } from '../ecommerce.model';
-import { EcommerceService } from '../ecommerce.service';
+import { CartService } from '../../../../layout/components/navbar/cart.service';
+import { Plan } from '../../../../layout/components/navbar/ecommerce.model';
 
 @Component({
   selector: 'app-ecommerce-item',
@@ -18,7 +18,9 @@ export class EcommerceItemComponent implements OnInit {
   public mount = 1;
   public periodList = 1;
 
-  constructor(private ecommerceService: EcommerceService) {}
+  constructor(
+    private _cartService: CartService
+    ) {}
 
   toggleWishlist(product) {
     /**if (product.isInWishlist === true) {
@@ -33,17 +35,8 @@ export class EcommerceItemComponent implements OnInit {
   }
 
   addToCart(product: Plan) {
-    const mount = this.mount;
-    const period = this.periodList;
-    this.ecommerceService.planesList = this.ecommerceService.planesList.map(item => {
-      if (item.id === product.id) {
-        item.isInCart = true;
-        item.mount = mount;
-        item.selectedPeriod = period;
-      }
-      return item;
-    });
-    this.ecommerceService.addProduct();
+    this._cartService.addProduct(product, this.mount, this.periodList);
+    this.product.isInCart = true;
   }
 
   ngOnInit(): void {

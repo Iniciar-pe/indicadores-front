@@ -41,7 +41,7 @@ export class EcommerceCheckoutItemComponent implements OnInit {
     this.ruta = environment.apiUrl;
     this.selectedPeriod = (this.product.selectedPeriod === 1);
     // this.calculate();
-    this.calculatePeriod();
+    // this.calculatePeriod();
   }
 
   calculate() {

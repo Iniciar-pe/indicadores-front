@@ -1,7 +1,7 @@
 <li ngbDropdown class="nav-item dropdown-cart mr-25">
   <a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarCartDropdown"
     ><span [data-feather]="'shopping-cart'" [class]="'ficon'"></span
-    ><span class="badge badge-pill badge-primary badge-up cart-item-count">{{ cartListLength }}</span></a
+    ><span class="badge badge-pill badge-primary badge-up cart-item-count">{{ products?.length }}</span></a
   >
   <ul
     ngbDropdownMenu
@@ -12,7 +12,7 @@
     <li class="dropdown-menu-header">
       <div class="dropdown-header d-flex">
         <h4 class="notification-title mb-0 mr-auto">Mi carrito</h4>
-        <div class="badge badge-pill badge-light-primary">{{ cartListLength }} Elementos</div>
+        <div class="badge badge-pill badge-light-primary">{{ products?.length }} Elementos</div>
       </div>
     </li>
     <!--/ Cart header -->

@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
-import { Plan } from 'app/main/apps/ecommerce/ecommerce.model';
+import { Plan } from 'app/layout/components/navbar/ecommerce.model';
+import { CartService } from 'app/layout/components/navbar/cart.service';
 
 
 @Component({
@@ -12,14 +13,11 @@ import { Plan } from 'app/main/apps/ecommerce/ecommerce.model';
 })
 export class NavbarCartComponent implements OnInit {
   // Public
-  public products: Plan[] = this._ecommerceService.planesList;
-  public cartList = [];
+  public products = this._cartService.products;
   public cartListLength;
 
-  private _unsubscribeAll: Subject<any>;
+  constructor(private _cartService: CartService) {
 
-  constructor(private _ecommerceService: EcommerceService) {
-    this._unsubscribeAll = new Subject();
   }
 
   removeFromCart(product) {
@@ -33,16 +31,6 @@ export class NavbarCartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.products = this._ecommerceService.planesList;
-    this._ecommerceService.onProductListChange$.subscribe({
-      next: resp => {
-        console.log(resp);
-      },
-      error: err => {
-        console.log(err);
-      }
-    });
-
 
     /**
      * // Get Products

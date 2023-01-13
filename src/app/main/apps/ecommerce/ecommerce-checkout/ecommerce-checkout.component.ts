@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { CartService } from 'app/layout/components/navbar/cart.service';
 import Stepper from 'bs-stepper';
-import { Plan } from '../ecommerce.model';
+import { Cart, Plan } from '../../../../layout/components/navbar/ecommerce.model';
 import { EcommerceService } from '../ecommerce.service';
 
 @Component({
@@ -13,7 +14,7 @@ import { EcommerceService } from '../ecommerce.service';
 export class EcommerceCheckoutComponent implements OnInit {
   // Public
   public contentHeader: object;
-  public products: Plan[] = this._ecommerceService.planesList;
+  public products: Cart[] = this._cartService.products;
   public cartLists;
   public wishlist;
   public total = '0';
@@ -31,7 +32,10 @@ export class EcommerceCheckoutComponent implements OnInit {
   // Private
   private checkoutStepper: Stepper;
 
-  constructor(private _ecommerceService: EcommerceService) {}
+  constructor(
+    private _ecommerceService: EcommerceService,
+    private _cartService: CartService
+    ) {}
 
   nextStep() {
     this.checkoutStepper.next();
@@ -49,10 +53,6 @@ export class EcommerceCheckoutComponent implements OnInit {
 
 
   ngOnInit(): void {
-    // Subscribe to ProductList change
-    this._ecommerceService.onProductListChange$.subscribe(res => {
-      this.products = res;
-    });
 
     this.checkoutStepper = new Stepper(document.querySelector('#checkoutStepper'), {
       linear: true,
