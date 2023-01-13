@@ -20,7 +20,7 @@
             id="priceSwitch"
             name="priceSwitch"
             [(ngModel)]="selectedPeriod"
-            (onChange)="inputChange($event, product)" 
+            (change)="inputChange($event)" 
           />
           <label class="custom-control-label" for="priceSwitch"></label>
         </div>
@@ -40,7 +40,7 @@
           [minValue]="1" 
           [maxValue]="10"
           [button]="true"
-          (onChange)="countChange($event, product)" 
+          (onChange)="countChange($event)" 
           ></core-touchspin>
       </div>
     </div>
@@ -50,10 +50,10 @@
   <div class="item-options text-center">
     <div class="item-wrapper">
       <div class="item-cost">
-        <h4 class="item-price">S/ </h4>
+        <h4 class="item-price">S/ {{ product.price }}</h4>
       </div>
     </div>
-    <button type="button" class="btn btn-light mt-1 remove-wishlist" (click)="removeFromCart(product)" rippleEffect>
+    <button type="button" class="btn btn-light mt-1 remove-wishlist" (click)="removeFromCart()" rippleEffect>
       <i data-feather="x" class="align-middle mr-25"></i>
       <span>Eliminar</span>
     </button>

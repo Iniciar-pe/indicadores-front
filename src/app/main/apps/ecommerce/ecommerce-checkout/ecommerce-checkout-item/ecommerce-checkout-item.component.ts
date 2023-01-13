@@ -3,6 +3,7 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { environment } from 'environments/environment';
 import { EcommerceService } from '../../ecommerce.service';
 import moment from 'moment';
+import { CartService } from 'app/layout/components/navbar/cart.service';
 
 @Component({
   selector: 'app-ecommerce-checkout-item',
@@ -18,11 +19,17 @@ export class EcommerceCheckoutItemComponent implements OnInit {
   price: string;
   date: string;
   dateEnd: string;
+  mount: number;
 
-  constructor(private _ecommerceService: EcommerceService) {}
+  constructor(
+    private _ecommerceService: EcommerceService,
+    private _cartService: CartService
+    ) {
 
-  removeFromCart(product) {
-    this._ecommerceService.removeFromCart(product);
+    }
+
+  removeFromCart() {
+    this._cartService.removeFromCart(this.product);
   }
 
   toggleWishlist(product) {
@@ -38,14 +45,11 @@ export class EcommerceCheckoutItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.mount = this.product.mount;
     this.ruta = environment.apiUrl;
     this.selectedPeriod = (this.product.selectedPeriod === 1);
     // this.calculate();
     // this.calculatePeriod();
-  }
-
-  calculate() {
-    return this._ecommerceService.calculate(this.product);
   }
 
   calculatePeriod() {
@@ -58,11 +62,14 @@ export class EcommerceCheckoutItemComponent implements OnInit {
     this.dateEnd = now.add(numberPeriod, 'month').format('DD/MM/YYYY');
   }
 
-  countChange(value, product) {
-    this._ecommerceService.mount(value, product);
+  countChange(value) {
+    this.mount = value;
+    const plan = this._ecommerceService.planesList.filter(item => item.id === this.product.id)[0];
+    this._cartService.updateProduct(plan, this.product, value, this.selectedPeriod);
   }
 
-  inputChange(value, product) {
-    this._ecommerceService.inputChange(value, product);
+  inputChange(value) {
+    const plan = this._ecommerceService.planesList.filter(item => item.id === this.product.id)[0];
+    this._cartService.updateProduct(plan, this.product, this.mount, this.selectedPeriod);
   }
 }

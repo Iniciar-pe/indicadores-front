@@ -36,6 +36,7 @@ export class EcommerceWishlistComponent implements OnInit {
     this.ecommerceService.getPlanes().subscribe(data => {
       this.products = data.planes;
       this.period = data.period;
+      this.ecommerceService.planesList = data.planes;
       // this._cartService.products =  this._cartService.parsePlanToCart(data.planes);
     });
   }

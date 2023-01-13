@@ -33,7 +33,8 @@ export interface Cart {
     isInCart?: boolean;
     mount?: number;
     selectedPeriod?: number;
-    price?: number;
+    periodText?: string;
+    price?: string;
 }
 
 

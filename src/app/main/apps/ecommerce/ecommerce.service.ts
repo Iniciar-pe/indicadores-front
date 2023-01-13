@@ -25,39 +25,6 @@ export class EcommerceService {
       this.onProductListChange.next(this.planesList);
     }
 
-    calculate(product) {
-      const end = 9999999999;
-      const price = this.planesList
-        .filter(item => item.id === product.id)[0].period
-        .filter(val => val.id === product.selectedPeriod)[0].range
-        .filter(value => value.start <= product.mount && product.mount <= (value.end ? value.end : end))[0].price;
-      return String(Number(Number(price) * product.mount).toFixed(2));
-    }
-
-    periodText(product) {
-      return this.planesList
-      .filter(item => item.id === product.id)[0].period
-      .filter(val => val.id === product.selectedPeriod)[0].description;
-    }
-
-    removeFromCart(product) {
-      this.planesList = this.planesList.map(item => {
-        if (item.id === product.id) {
-          item.isInCart = false;
-        }
-        return item;
-      });
-    }
-
-    mount(value, product) {
-      this.planesList = this.planesList.map(item => {
-        if (item.id === product.id) {
-          item.mount = value;
-        }
-        return item;
-      });
-    }
-
     inputChange(value, product) {
       this.planesList = this.planesList.map(item => {
         if (item.id === product.id) {

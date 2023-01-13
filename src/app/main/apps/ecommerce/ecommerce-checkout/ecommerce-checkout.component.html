@@ -75,12 +75,11 @@
                           <div class="detail-title">
                             <p>{{ product.name }}
                               <br>
-                              <b>{{ product.mount }} lincencia{{ product.mount > 1 ? 's' : '' }} {{ periodText(product) }}</b>
+                              <b>{{ product.mount }} lincencia{{ product.mount > 1 ? 's' : '' }} {{ product.periodText }}</b>
                             </p>
                             
                           </div>
-                          <div class="detail-amt">{{ calculate(product) }}</div>
-                          <input type="hidden" name="total[]" value="{{ calculate(product) }}">
+                          <div class="detail-amt">{{ product.price }}</div>
                         </li>
                       </ng-container>
                       
@@ -113,8 +112,7 @@
           <form
             id="checkout-address"
             class="list-view product-checkout"
-            (ngSubmit)="(addressForm.form.valid)"
-            #addressForm="ngForm"
+            [formGroup]="form" (ngSubmit)="submitPlan()"
           >
             <!-- Checkout Customer Address Left starts -->
             <div class="card">
@@ -131,20 +129,18 @@
                       <label for="checkout-name">Nombre completo</label>
                       <input
                         type="text"
-                        id="checkout-name"
                         class="form-control"
-                        [class.error]="addressForm.submitted && fullNameRef.invalid"
-                        name="fullname"
                         placeholder="John Doe"
-                        [(ngModel)]="address.fullNameVar"
-                        #fullNameRef="ngModel"
+                        formControlName="name"
+                        [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+                        name="name"
+                        id="name"
                         required
+                        maxlength="250"
                       />
-                      <span *ngIf="addressForm.submitted && fullNameRef.invalid" class="invalid-form">
-                        <small class="form-text text-danger" *ngIf="fullNameRef.errors.required"
-                          >Este campo es obligatorio!</small
-                        >
-                      </span>
+                      <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                        <div *ngIf="f.name.errors.required">El campo es requerido</div>
+                      </div>
                     </div>
                   </div>
                   <div class="col-sm-12">
@@ -152,41 +148,37 @@
                       <label for="checkout-number">Número de teléfono:</label>
                       <input
                         type="number"
-                        id="checkout-number"
                         class="form-control"
-                        [class.error]="addressForm.submitted && numberRef.invalid"
-                        name="mnumber"
                         placeholder="0123456789"
-                        [(ngModel)]="address.numberVar"
-                        #numberRef="ngModel"
                         required
+                        formControlName="number"
+                        [ngClass]="{ 'is-invalid': submitted && f.number.errors }"
+                        name="number"
+                        id="number"
+                        maxlength="9"
                       />
-                      <span *ngIf="addressForm.submitted && numberRef.invalid" class="invalid-form">
-                        <small class="form-text text-danger" *ngIf="numberRef.errors.required"
-                          >Este campo es obligatorio!</small
-                        >
-                      </span>
+                      <div *ngIf="submitted && f.number.errors" class="invalid-feedback">
+                        <div *ngIf="f.number.errors.required">El campo es requerido</div>
+                      </div>
                     </div>
                   </div>
                   <div class="col-sm-12">
                     <div class="form-group mb-2">
                       <label for="checkout-apt-number">Dirección:</label>
                       <input
-                        type="number"
-                        id="checkout-apt-number"
+                        type="text"
                         class="form-control"
-                        [class.error]="addressForm.submitted && flatRef.invalid"
-                        name="apt-number"
                         placeholder="9447 Glen Eagles Drive"
-                        [(ngModel)]="address.flatVar"
-                        #flatRef="ngModel"
                         required
+                        formControlName="address"
+                        [ngClass]="{ 'is-invalid': submitted && f.address.errors }"
+                        name="address"
+                        id="address"
+                        maxlength="250"
                       />
-                      <span *ngIf="addressForm.submitted && flatRef.invalid" class="invalid-form">
-                        <small class="form-text text-danger" *ngIf="flatRef.errors.required"
-                          >Este campo es obligatorio!</small
-                        >
-                      </span>
+                      <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                        <div *ngIf="f.address.errors.required">El campo es requerido</div>
+                      </div>
                     </div>
                   </div>
                   <div class="col-md-6 col-sm-12">
@@ -194,12 +186,18 @@
                       <label for="checkout-landmark">País</label>
                       <input
                         type="text"
-                        id="pais"
                         class="form-control"
-                        name="apt-number"
                         placeholder="Pais"
                         required
+                        formControlName="country"
+                        [ngClass]="{ 'is-invalid': submitted && f.country.errors }"
+                        name="country"
+                        id="country"
+                        maxlength="20"
                       />
+                      <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
+                        <div *ngIf="f.country.errors.required">El campo es requerido</div>
+                      </div>
                     </div>
                   </div>
                   <div class="col-md-6 col-sm-12">
@@ -207,12 +205,18 @@
                       <label for="checkout-landmark">Cuidad</label>
                       <input
                         type="text"
-                        id="pais"
                         class="form-control"
-                        name="apt-number"
                         placeholder="Cuidad"
                         required
+                        formControlName="city"
+                        [ngClass]="{ 'is-invalid': submitted && f.city.errors }"
+                        name="city"
+                        id="city"
+                        maxlength="20"
                       />
+                      <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+                        <div *ngIf="f.city.errors.required">El campo es requerido</div>
+                      </div>
                     </div>
                   </div>
                   <div class="col-md-6 col-sm-12">
@@ -220,12 +224,18 @@
                       <label for="checkout-landmark">Código postal</label>
                       <input
                         type="text"
-                        id="pais"
                         class="form-control"
-                        name="apt-number"
                         placeholder="Código postal"
                         required
+                        formControlName="code"
+                        [ngClass]="{ 'is-invalid': submitted && f.code.errors }"
+                        name="code"
+                        id="code"
+                        maxlength="20"
                       />
+                      <div *ngIf="submitted && f.code.errors" class="invalid-feedback">
+                        <div *ngIf="f.code.errors.required">El campo es requerido</div>
+                      </div>
                     </div>
                   </div>
             
@@ -233,7 +243,7 @@
                     <button
                       type="submit"
                       class="btn btn-primary btn-next delivery-address"
-                      (click)="nextStep()"
+                      (click)="submitPlan()"
                       rippleEffect
                     >
                       Ir a Pagos
@@ -258,12 +268,11 @@
                           <div class="detail-title">
                             <p>{{ product.name }}
                               <br>
-                              <b>{{ product.mount }} lincencia{{ product.mount > 1 ? 's' : '' }} {{ periodText(product) }}</b>
+                              <b>{{ product.mount }} lincencia{{ product.mount > 1 ? 's' : '' }} {{ product.periodText }}</b>
                             </p>
                             
                           </div>
-                          <div class="detail-amt">{{ calculate(product) }}</div>
-                          <input type="hidden" name="total[]" value="{{ calculate(product) }}">
+                          <div class="detail-amt">{{ product.price }}</div>
                         </li>
                       </ng-container>
                       
@@ -276,9 +285,8 @@
                       </li>
                     </ul>
                     <button
-                      type="button"
+                      type="submit"
                       class="btn btn-primary btn-block btn-next place-order"
-                      (click)="nextStep()"
                       rippleEffect
                     >
                      Realizar pedido
@@ -306,7 +314,7 @@
                   <ul class="other-payment-options list-unstyled">
                     <li class="py-50">
                       <div class="custom-control custom-radio">
-                        <input type="radio" id="customColorRadio2" name="paymentOptions" class="custom-control-input" />
+                        <input type="radio" id="customColorRadio2" name="paymentOptions" [(ngModel)]="card" value="1" class="custom-control-input" />
                         <label class="custom-control-label" for="customColorRadio2"> Tarjeta de crédito/débito </label>
                       </div>
                       <div class="ml-2 mt-2 mb-2">
@@ -315,7 +323,7 @@
                     </li>
                     <li class="py-50">
                       <div class="custom-control custom-radio">
-                        <input type="radio" id="customColorRadio3" name="paymentOptions" class="custom-control-input" />
+                        <input type="radio" id="customColorRadio3" name="paymentOptions" [(ngModel)]="card" value="2" class="custom-control-input" />
                         <label class="custom-control-label" for="customColorRadio3"> Tranferencia Bancaria </label>
                       </div>
                       <div class="ml-2 mt-2">
@@ -345,12 +353,11 @@
                           <div class="detail-title">
                             <p>{{ product.name }}
                               <br>
-                              <b>{{ product.mount }} lincencia{{ product.mount > 1 ? 's' : '' }} {{ periodText(product) }}</b>
+                              <b>{{ product.mount }} lincencia{{ product.mount > 1 ? 's' : '' }} {{ product.periodText }}</b>
                             </p>
                             
                           </div>
-                          <div class="detail-amt">{{ calculate(product) }}</div>
-                          <input type="hidden" name="total[]" value="{{ calculate(product) }}">
+                          <div class="detail-amt">{{ product.price }}</div>
                         </li>
                       </ng-container>
                       
