@@ -1,4 +1,4 @@
-<div class="card ecommerce-card">
+<div class="card ecommerce-card" style="margin-bottom: 2%;">
   <div class="item-img">
       <img [src]="ruta+product.image"
       style="width: 100px;" width="80" alt="img-placeholder" />
@@ -38,13 +38,14 @@
           [numberValue]="product.mount" 
           [stepValue]="1" 
           [minValue]="1" 
-          [maxValue]="10"
+          [maxValue]="100000"
           [button]="true"
           (onChange)="countChange($event)" 
           ></core-touchspin>
       </div>
     </div>
-    <p class="delivery-date">{{ date }} - {{ dateEnd }}</p>
+    <p class="delivery-date">Valor unitario: S/{{ product.value }}</p>
+    <p class="delivery-date">Vigencia: {{ date }} - {{ dateEnd }}</p>
     
   </div>
   <div class="item-options text-center">

@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { User } from 'app/auth/models';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthenticationService } from 'app/auth/service';
 import { CartService } from 'app/layout/components/navbar/cart.service';
 import Stepper from 'bs-stepper';
 import { Cart, Plan } from '../../../../layout/components/navbar/ecommerce.model';
@@ -19,7 +21,7 @@ export class EcommerceCheckoutComponent implements OnInit {
   form: FormGroup;
   public submitted = false;
   public card = '1';
-
+  public currentUser: User;
   get f() {
     return this.form.controls;
   }
@@ -30,6 +32,7 @@ export class EcommerceCheckoutComponent implements OnInit {
   constructor(
     private _cartService: CartService,
     private _formBuilder: FormBuilder,
+    private _authenticationService: AuthenticationService,
     ) {}
 
   nextStep() {
@@ -48,13 +51,14 @@ export class EcommerceCheckoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._authenticationService.currentUser.subscribe(x => (this.currentUser = x));
 
     this.form = this._formBuilder.group({
-      name: ['', [Validators.required]],
-      number: ['', [Validators.required]],
-      address: ['', [Validators.required]],
-      country: ['', [Validators.required]],
-      city: ['', [Validators.required]],
+      name: [this.currentUser.firstName + ' ' + this.currentUser.lastName, [Validators.required]],
+      number: [this.currentUser.number, [Validators.required]],
+      address: [this.currentUser.address, [Validators.required]],
+      country: [this.currentUser.country, [Validators.required]],
+      city: [this.currentUser.city, [Validators.required]],
       code: ['', [Validators.required]]
     });
 

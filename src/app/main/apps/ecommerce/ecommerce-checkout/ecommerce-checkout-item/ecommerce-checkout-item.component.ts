@@ -49,14 +49,14 @@ export class EcommerceCheckoutItemComponent implements OnInit {
     this.ruta = environment.apiUrl;
     this.selectedPeriod = (this.product.selectedPeriod === 1);
     // this.calculate();
-    // this.calculatePeriod();
+    this.calculatePeriod();
   }
 
   calculatePeriod() {
     const numberPeriod = this._ecommerceService.planesList
       .filter(item => item.id === this.product.id)[0].period
       .filter(val => val.id === this.product.selectedPeriod)[0].number;
-    console.log(numberPeriod);
+    console.log("entro ", numberPeriod);
     const now = moment();
     this.date = now.format('DD/MM/YYYY');
     this.dateEnd = now.add(numberPeriod, 'month').format('DD/MM/YYYY');

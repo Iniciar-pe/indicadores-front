@@ -22,6 +22,10 @@ export class EcommerceWishlistComponent implements OnInit {
     private _cartService: CartService
   ) {}
 
+  get isProduct() {
+    return this._cartService._products.filter(item => item.isInCart === true).length > 0;
+  }
+
   ngOnInit(): void {
     this.getPlanes();
     // content header
@@ -40,4 +44,9 @@ export class EcommerceWishlistComponent implements OnInit {
       // this._cartService.products =  this._cartService.parsePlanToCart(data.planes);
     });
   }
+
+  totalCalculate() {
+    return this._cartService.totalCalculate();
+  }
+  
 }

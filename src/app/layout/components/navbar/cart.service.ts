@@ -41,19 +41,33 @@ export class CartService {
   }
 
   addProduct(product: Plan, mount: number, period: number) {
-
-    this._products.push({
-      id: product.id,
-      image: product.image,
-      description: product.description,
-      name: product.name,
-      type: product.type,
-      isInCart: true,
-      selectedPeriod: period,
-      mount: mount,
-      periodText: this.periodText(product, period),
-      price: this.calculate(product, period, mount)
-    } as Cart);
+    if (!this.exist(product.id)) {
+      this._products.push({
+        id: product.id,
+        image: product.image,
+        description: product.description,
+        name: product.name,
+        type: product.type,
+        isInCart: true,
+        selectedPeriod: period,
+        mount: mount,
+        value: this.calculateUnitary(product, period, 1),
+        periodText: this.periodText(product, period),
+        price: this.calculate(product, period, mount)
+      } as Cart);
+    } else {
+      this._products.map(item => {
+        if (item.id === product.id) {
+          item.isInCart = true;
+          item.selectedPeriod = period;
+          item.mount = mount;
+          item.value = this.calculateUnitary(product, period, 1);
+          item.periodText = this.periodText(product, period);
+          item.price = this.calculate(product, period, mount);
+        }
+        return item;
+      });
+    }
 
   }
 
@@ -65,15 +79,24 @@ export class CartService {
     return String(Number(Number(price) * mount).toFixed(2));
   }
 
+  calculateUnitary(product: Plan, period: number, mount: number) {
+    const end = 9999999999;
+    const price = product.period
+      .filter(val => val.id === Number(period))[0].range
+      .filter(value => value.start <= mount && mount <= (value.end ? value.end : end))[0].price;
+    return Number(price).toFixed(2);
+  }
+
   periodText(product: Plan, period: number) {
     return product.period.filter(val => val.id === Number(period))[0].description;
   }
 
   totalCalculate() {
-    return this._products.reduce(function (accumulator, value) {
-      return Number(accumulator) + Number(value.price);
-    }, 0).toFixed(2);
-
+    return this._products
+      .filter(item => item.isInCart === true)
+      .reduce(function (accumulator, value) {
+        return Number(accumulator) + Number(value.price);
+      }, 0).toFixed(2);
   }
 
   updateProduct(plan: Plan, product: Cart, mount: number, period: boolean) {
@@ -101,6 +124,10 @@ export class CartService {
       this._router.navigate(['/apps/comercio/lista']);
     }
 
+  }
+
+  exist(value: number) {
+    return this._products.filter(item => item.id === value).length > 0;
   }
 
 }

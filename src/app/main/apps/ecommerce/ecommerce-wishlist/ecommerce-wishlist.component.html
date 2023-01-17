@@ -1,21 +1,29 @@
 <!-- Ecommerce Wishlist -->
 <div class="content-wrapper container-xxl p-0">
   <div class="row">
-    <div class="col-lg-9 col-7">
+    <div class="col-lg-6 col-md-6 col-12">
       <app-content-header [contentHeader]="contentHeader"></app-content-header>
     </div>
-    <div class="col-lg-3 col-5">
-      <a
+    <div class="col-lg-3 col-md-3 col-12">
+      <p 
+        *ngIf="isProduct"
+        style="text-align: right;margin-top: 5%;"
+        ><span [data-feather]="'check'" ></span>&nbsp;Total a pagar: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S/ {{ totalCalculate() }}</p>
+    </div>
+    <div class="col-lg-3 col-md-3 col-12">
+      <button
           class="btn btn-info btn-cart"
           rippleEffect
           routerLink="/apps/comercio/verificar"
+          [disabled]="!isProduct"
+          style="width: 100%;"
         >
           Finalizar Compra
-        </a>
+        </button>
     </div>
   </div>
   
-  <div class="content-body">
+  <div class="content-body" style="margin-top: 1%;">
     <section class="row">
       <ng-container *ngFor="let product of products">
         <div class="col-lg-4 col-md-12 tablet">

@@ -1,6 +1,6 @@
 <div class="content-wrapper container-xxl p-0">
   <app-content-header [contentHeader]="contentHeader"></app-content-header>
-  <div class="content-body">
+  <div class="content-body" x>
     <div class="bs-stepper checkout-tab-steps" id="checkoutStepper">
       <!-- Wizard starts -->
       <div class="bs-stepper-header">
@@ -87,8 +87,8 @@
                     </ul>
                     <ul class="list-unstyled">
                       <li class="price-detail">
-                        <div class="detail-title detail-total">Total</div>
-                        <div class="detail-amt font-weight-bolder">{{ totalCalculate() }}</div>
+                        <div class="detail-title detail-total" style="color: #b42995;">Total</div>
+                        <div class="detail-amt font-weight-bolder" style="color: #b42995;">{{ totalCalculate() }}</div>
                       </li>
                     </ul>
                     <button
@@ -280,8 +280,8 @@
                     </ul>
                     <ul class="list-unstyled">
                       <li class="price-detail">
-                        <div class="detail-title detail-total">Total</div>
-                        <div class="detail-amt font-weight-bolder">{{ totalCalculate() }}</div>
+                        <div class="detail-title detail-total" style="color: #b42995;">Total</div>
+                        <div class="detail-amt font-weight-bolder" style="color: #b42995;">{{ totalCalculate() }}</div>
                       </li>
                     </ul>
                     <button
@@ -302,7 +302,7 @@
         <!-- Checkout Customer Address Ends -->
 
         <!-- Checkout Payment Starts -->
-        <div id="step-payment" class="content">
+        <div id="step-payment" class="content" >
           <form id="checkout-payment" class="list-view product-checkout" onsubmit="return false;">
             <div class="payment-type">
               <div class="card">
@@ -367,19 +367,19 @@
                     <ul class="list-unstyled">
                       <li class="price-detail">
                         <div class="detail-title">
-                          <p>Carlos Zavala
+                          <p> {{ this.f.name.value }} 
                           <br>
-                            983833893
+                          {{ this.f.number.value }}
                           <br>
-                            Av. Jose prado 879 - Lima - Perú</p>
+                          {{ this.f.address.value }} - {{ this.f.city.value }}  - {{ this.f.country.value }} </p>
                         </div>
                       </li>
                       
                     </ul>
                     <ul class="list-unstyled">
                       <li class="price-detail">
-                        <div class="detail-title detail-total">Total</div>
-                        <div class="detail-amt font-weight-bolder">{{ totalCalculate() }}</div>
+                        <div class="detail-title detail-total" style="color: #b42995;">Total</div>
+                        <div class="detail-amt font-weight-bolder" style="color: #b42995;">{{ totalCalculate() }}</div>
                       </li>
                     </ul>
                     <button

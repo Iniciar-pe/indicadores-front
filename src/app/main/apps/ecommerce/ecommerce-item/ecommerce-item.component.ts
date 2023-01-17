@@ -42,4 +42,9 @@ export class EcommerceItemComponent implements OnInit {
   ngOnInit(): void {
     this.ruta = environment.apiUrl;
   }
+
+  deleteCart() {
+    this._cartService.removeFromCart(this.product);
+    this.product.isInCart = false;
+  }
 }
