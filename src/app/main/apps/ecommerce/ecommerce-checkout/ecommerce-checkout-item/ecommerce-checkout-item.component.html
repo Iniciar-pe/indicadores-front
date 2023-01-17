@@ -1,42 +1,60 @@
-<div class="card ecommerce-card">
+<div class="card ecommerce-card" style="margin-bottom: 2%;">
   <div class="item-img">
-      <img [src]="'assets/images/elements/icono-licencia-individual.png'"
+      <img [src]="ruta+product.image"
       style="width: 100px;" width="80" alt="img-placeholder" />
   </div>
   <div class="card-body">
-    <div class="item-name">
-        <h6 class="mb-0 text-primary" style="font-weight: bold;">
-          Licencia Individual
-        </h6>
-    </div>
+    <h6 class="mb-1 text-primary" style="font-weight: bold;">
+      {{ product.name }}
+    </h6>
 
-    <p>Anual</p>
+    <div class="form-group">
+      <div class="d-flex align-items-start justify-content-start mb-0">
+        <h6 class="mr-1 mb-0">
+          Anual
+        </h6>
+        <div class="custom-control custom-switch">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="priceSwitch"
+            name="priceSwitch"
+            [(ngModel)]="selectedPeriod"
+            (change)="inputChange($event)" 
+          />
+          <label class="custom-control-label" for="priceSwitch"></label>
+        </div>
+        <h6 class="ml-50 mb-0">
+          Semestral
+        </h6>
+      </div>
+      
+    </div>
     
     <div class="item-quantity">
       <span class="quantity-title">Cantidad:</span>
       <div class="quantity-counter-wrapper">
         <core-touchspin 
-          [numberValue]="1" 
+          [numberValue]="product.mount" 
           [stepValue]="1" 
           [minValue]="1" 
-          [maxValue]="10"
+          [maxValue]="100000"
           [button]="true"
+          (onChange)="countChange($event)" 
           ></core-touchspin>
       </div>
     </div>
-    <p class="delivery-date">01/01/2022 - 31/12/2022</p>
+    <p class="delivery-date">Valor unitario: S/{{ product.value }}</p>
+    <p class="delivery-date">Vigencia: {{ date }} - {{ dateEnd }}</p>
     
   </div>
   <div class="item-options text-center">
     <div class="item-wrapper">
       <div class="item-cost">
-        <h4 class="item-price">S/ 10.00</h4>
-        <p class="card-text shipping" *ngIf="product.hasFreeShipping">
-          <span class="badge badge-pill badge-light-success">Free Shipping</span>
-        </p>
+        <h4 class="item-price">S/ {{ product.price }}</h4>
       </div>
     </div>
-    <button type="button" class="btn btn-light mt-1 remove-wishlist" (click)="removeFromCart(product)" rippleEffect>
+    <button type="button" class="btn btn-light mt-1 remove-wishlist" (click)="removeFromCart()" rippleEffect>
       <i data-feather="x" class="align-middle mr-25"></i>
       <span>Eliminar</span>
     </button>

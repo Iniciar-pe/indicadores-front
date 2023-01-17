@@ -9,6 +9,18 @@
     line-height: 1.45;
 }
 
+.main-menu.menu-light .navigation .navigation-header span {
+    font-weight: 600 !important;
+}
+
 .menu-title {
     white-space: break-spaces !important;
+}
+
+.main-menu.menu-light .navigation .navigation-header {
+    color: #474747 !important;
+}
+
+.bs-stepper .bs-stepper-header .step.active .step-trigger .bs-stepper-box {
+    box-shadow: none !important;
 }

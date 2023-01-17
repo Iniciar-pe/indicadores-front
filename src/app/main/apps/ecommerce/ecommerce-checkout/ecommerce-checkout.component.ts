@@ -1,8 +1,11 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-
+import { User } from 'app/auth/models';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthenticationService } from 'app/auth/service';
+import { CartService } from 'app/layout/components/navbar/cart.service';
 import Stepper from 'bs-stepper';
-
-import { EcommerceService1 } from 'app/main/apps/ecommerce/ecommerce-1.service';
+import { Cart, Plan } from '../../../../layout/components/navbar/ecommerce.model';
+import { EcommerceService } from '../ecommerce.service';
 
 @Component({
   selector: 'app-ecommerce-checkout',
@@ -14,85 +17,54 @@ import { EcommerceService1 } from 'app/main/apps/ecommerce/ecommerce-1.service';
 export class EcommerceCheckoutComponent implements OnInit {
   // Public
   public contentHeader: object;
-  public products;
-  public cartLists;
-  public wishlist;
-
-  public address = {
-    fullNameVar: '',
-    numberVar: '',
-    flatVar: '',
-    landmarkVar: '',
-    cityVar: '',
-    pincodeVar: '',
-    stateVar: ''
-  };
+  public products: Cart[] = this._cartService.products;
+  form: FormGroup;
+  public submitted = false;
+  public card = '1';
+  public currentUser: User;
+  get f() {
+    return this.form.controls;
+  }
 
   // Private
   private checkoutStepper: Stepper;
 
-  /**
-   *  Constructor
-   *
-   * @param {EcommerceService} _ecommerceService
-   */
-  constructor(private _ecommerceService: EcommerceService1) {}
+  constructor(
+    private _cartService: CartService,
+    private _formBuilder: FormBuilder,
+    private _authenticationService: AuthenticationService,
+    ) {}
 
-  // Public Methods
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * Stepper Next
-   */
   nextStep() {
     this.checkoutStepper.next();
   }
-  /**
-   * Stepper Previous
-   */
-  previousStep() {
-    this.checkoutStepper.previous();
-  }
 
-  /**
-   * Validate Next Step
-   *
-   * @param addressForm
-   */
-  validateNextStep(addressForm) {
-    if (addressForm.valid) {
+  submitPlan() {
+    this.submitted = true;
+    if (this.form.valid) {
       this.nextStep();
     }
   }
 
-  // Lifecycle Hooks
-  // -----------------------------------------------------------------------------------------------------
+  previousStep() {
+    this.checkoutStepper.previous();
+  }
 
-  /**
-   * On init
-   */
   ngOnInit(): void {
-    // Subscribe to ProductList change
-    this._ecommerceService.onProductListChange.subscribe(res => {
-      this.products = res;
+    this._authenticationService.currentUser.subscribe(x => (this.currentUser = x));
 
-      this.products.isInWishlist = false;
+    this.form = this._formBuilder.group({
+      name: [this.currentUser.firstName + ' ' + this.currentUser.lastName, [Validators.required]],
+      number: [this.currentUser.number, [Validators.required]],
+      address: [this.currentUser.address, [Validators.required]],
+      country: [this.currentUser.country, [Validators.required]],
+      city: [this.currentUser.city, [Validators.required]],
+      code: ['', [Validators.required]]
     });
 
-    // Subscribe to Cartlist change
-    this._ecommerceService.onCartListChange.subscribe(res => (this.cartLists = res));
-
-    // Subscribe to Wishlist change
-    this._ecommerceService.onWishlistChange.subscribe(res => (this.wishlist = res));
-
-    // update product is in Wishlist & is in CartList : Boolean
-    this.products.forEach(product => {
-      product.isInWishlist = this.wishlist.findIndex(p => p.productId === product.id) > -1;
-      product.isInCart = this.cartLists.findIndex(p => p.productId === product.id) > -1;
-    });
 
     this.checkoutStepper = new Stepper(document.querySelector('#checkoutStepper'), {
-      linear: false,
+      linear: true,
       animation: true
     });
 
@@ -107,4 +79,9 @@ export class EcommerceCheckoutComponent implements OnInit {
       }
     };
   }
+
+  totalCalculate() {
+    return this._cartService.totalCalculate();
+  }
+
 }

@@ -101,7 +101,6 @@ const appRoutes: Routes = [
       scrollPositionRestoration: 'enabled', // Add options right here
       relativeLinkResolution: 'legacy',
       anchorScrolling: 'disabled',
-      
     }),
     NgbModule,
     ToastrModule.forRoot(),

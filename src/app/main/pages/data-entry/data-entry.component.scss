@@ -7,8 +7,47 @@
     background-color: #f2faff;
 }
 
+.result-content {
+    align-items: center; 
+    display: flex;
+}
+
+.result-button {
+    align-items: center;
+    display: flex;
+}
+
 @media only screen and (max-width: 768px) {
     .separator-card {
         margin-top: 1rem;
     }
+
+    .result-content {
+        display: flex;
+    }
+
+    .result-button {
+        align-items: center;
+        align-content: center;
+        display: flex;
+        justify-content: center;
+        padding: 50px;
+    }
+
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  
+    .result-content {
+        display: flex;
+    }
+    
+    .result-button {
+        align-items: center;
+        align-content: center;
+        display: flex;
+        justify-content: center;
+        padding: 50px;
+    }
+    
 }

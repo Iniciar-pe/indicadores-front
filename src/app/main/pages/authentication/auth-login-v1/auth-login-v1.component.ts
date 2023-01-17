@@ -8,6 +8,7 @@ import { CoreConfigService } from '@core/services/config.service';
 import { AuthenticationService } from 'app/auth/service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginSocialService } from '../login-social.service';
+import { environment } from 'environments/environment';
 @Component({
   selector: 'app-auth-login-v1',
   templateUrl: './auth-login-v1.component.html',
@@ -27,9 +28,9 @@ export class AuthLoginV1Component implements OnInit {
   private _unsubscribeAll: Subject<any>;
 
   linkedInCredentials = {
-    clientId: "78eygsqp7carij",
-    redirectUrl: "http://localhost:4200/",
-    scope: "r_liteprofile%r_emailaddress" // To read basic user profile data and email
+    clientId: '78eygsqp7carij',
+    redirect_uri: environment.front + '/admin/response',
+    scope: 'r_liteprofile%r_emailaddress' // To read basic user profile data and email
   };
 
   constructor(
@@ -38,8 +39,9 @@ export class AuthLoginV1Component implements OnInit {
     private _authenticationService: AuthenticationService,
     private _router: Router,
     private _route: ActivatedRoute,
-    private loginSocialService: LoginSocialService
+    private loginSocialService: LoginSocialService,
   ) {
+
     this._unsubscribeAll = new Subject();
 
     // Configure the layout
@@ -66,7 +68,7 @@ export class AuthLoginV1Component implements OnInit {
   }
 
  login() {
-    window.location.href = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=78eygsqp7carij&redirect_uri=http://localhost:4200/admin/response&scope=r_liteprofile%20r_emailaddress&state=DCEeFWf45A53sdfKef424`;
+    window.location.href = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=78eygsqp7carij&redirect_uri=${this.linkedInCredentials.redirect_uri}&scope=r_liteprofile%20r_emailaddress&state=DCEeFWf45A53sdfKef424`;
   }
 
   togglePasswordTextType() {
@@ -115,8 +117,6 @@ export class AuthLoginV1Component implements OnInit {
     });
   }
 
-  
-
   loginGoogle() {
     this.loginSocialService.loginGoogle().then(response => {
       this.loginService(response.user.email, response.user.email, response.user.displayName)
@@ -127,7 +127,7 @@ export class AuthLoginV1Component implements OnInit {
     this.loginSocialService.loginFaceBook().then(response => {
       console.log(response);
       this.loginService(response.user.email, response.user.email, response.user.displayName)
-    })
+    });
   }
 
   loginService(email, password, name) {
@@ -136,22 +136,27 @@ export class AuthLoginV1Component implements OnInit {
       password: password,
       firstName: name,
       password_confirmation: password
-    }
-   
+    };
+
     this._authenticationService.registerSocial(user)
       .pipe(first())
       .subscribe(
       data => {
-        this._router.navigate([this.returnUrl]);
-        console.log('data', data)
-       
+        if( data?.action === '2') {
+          this.loginSocialService.userResponse = user;
+          this._router.navigate(['/admin/registro']);
+        } else {
+          this._router.navigate([this.returnUrl]);
+        }
+        // 
+        console.log('data', data);
       },
       error => {
         console.log(error);
       }
     );
   }
-  
+
   ngOnDestroy(): void {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();

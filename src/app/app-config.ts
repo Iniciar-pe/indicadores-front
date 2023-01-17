@@ -17,7 +17,7 @@ import { CoreConfig } from '@core/types';
 export const coreConfig: CoreConfig = {
   app: {
     appName     : 'Vuexy',                                        // App Name
-    appTitle    : 'Villa Juana - Consultores', // App Title
+    appTitle    : 'Villajuana - Consultores', // App Title
     appLogoImage: 'assets/images/logo/logo.png',                 // App Logo
     appLogoText : 'assets/images/logo/logo_text.png',                // App Logo Text
     appLogocom : 'assets/images/logo/logo_complete.png',    // App Logo Text

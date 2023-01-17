@@ -5,6 +5,8 @@ import { Business, DataEntry, RequestDataEntry, DatePeriod } from './data-entry.
 import { DataEntryService } from './data-entry.service';
 import moment from 'moment';
 import Swal from 'sweetalert2';
+import { EntryOfValuesService } from 'app/main/components/entry-of-values/entry-of-values.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -46,7 +48,9 @@ export class DataEntryComponent implements OnInit {
 
   constructor(
     private _dataEntryService: DataEntryService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private _router: Router,
+    private _entryOfValuesService: EntryOfValuesService,
     ) {
 
   }
@@ -82,6 +86,7 @@ export class DataEntryComponent implements OnInit {
         this.dataEntry = response;
       }
       this.criterionResponse = response.criterion;
+      this.criterion = response.criterion.id;
       if (response.criterion) {
         this.data.period = response.criterion?.period;
         this.data.month = response.criterion?.startMonth;
@@ -178,7 +183,10 @@ export class DataEntryComponent implements OnInit {
   }
 
   modalOpenSLCIM(modalSLCIM) {
-    this.modalService.open(modalSLCIM, { scrollable: true });
+    this.modalService.open(modalSLCIM,  {
+      scrollable: true,
+      size: 'lg' // size: 'xs' | 'sm' | 'lg' | 'xl'
+    });
   }
 
   endDateMonth(date) {
@@ -224,7 +232,7 @@ export class DataEntryComponent implements OnInit {
       Number(moment(startMonth).subtract(period, 'month').format('MM')) - 1,
       1);
     const endMonthPeriod = new Date(
-      Number(moment(startMonth).subtract(period, 'month').format('YYYY')),
+      Number(moment(startMonth).subtract(1, 'month').format('YYYY')),
       Number(moment(startMonth).subtract(1, 'month').format('MM')),
       0);
 
@@ -245,23 +253,47 @@ export class DataEntryComponent implements OnInit {
   }
 
   runProcess() {
-    this.loadingRun = true;
-    const data = {
-      criterion: this.criterion
-    };
-    this._dataEntryService.runProcess(data).subscribe(response => {
-      this.loadingRun = false;
+    if (this.validateValues()) {
+      this.loadingRun = true;
+      const data = {
+        criterion: this.criterion,
+        business: this.business.id
+      };
+      this._dataEntryService.runProcess(data).subscribe(response => {
+        this.loadingRun = false;
+        this._router.navigate(['/admin/ratios']);
+      }, err => {
+        this.loadingRun = false;
+      });
+    } else {
       Swal.fire({
-        icon: 'success',
-        title: 'Proceso finalizado correctamente',
+        icon: 'error',
+        title: 'Ongreso de valores no completado',
         confirmButtonText: 'Aceptar',
         customClass: {
-          confirmButton: 'btn btn-success'
+          confirmButton: 'btn btn-danger'
         },
       });
-    }, err => {
-      this.loadingRun = false;
+    }
+  }
+
+  validateValues() {
+    const data =  this.childRef.rows.filter(item => {
+      if (item.previousEdit !== 'I' && item.currentEdit !== 'I') {
+        if (Number(item.previousPeriod.replace(',', '')) > 0 && Number(item.currentPeriod.replace(',', '')) > 0) {
+          return item;
+        }
+      } else if (item.previousEdit !== 'I' && item.currentEdit === 'I') {
+        if (Number(item.previousPeriod.replace(',', '')) > 0) {
+          return item;
+        }
+      } else if (item.previousEdit === 'I' && item.currentEdit !== 'I') {
+        if (Number(item.currentPeriod.replace(',', '')) > 0) {
+          return item;
+        }
+      }
     });
+    return data.length === this.childRef.rows.length;
   }
 
 }

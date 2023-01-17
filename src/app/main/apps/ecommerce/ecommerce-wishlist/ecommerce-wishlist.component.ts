@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Period, Plan } from '../ecommerce.model';
+import { CartService } from '../../../../layout/components/navbar/cart.service';
+import { Cart, Period, Plan } from '../../../../layout/components/navbar/ecommerce.model';
 import { EcommerceService } from '../ecommerce.service';
 
 @Component({
@@ -12,13 +13,18 @@ import { EcommerceService } from '../ecommerce.service';
 export class EcommerceWishlistComponent implements OnInit {
 
   public contentHeader: object;
-  public products: Plan[];
+  public products: Cart[];
   public period: Period;
   public wishlist;
 
   constructor(
-    private ecommerceService: EcommerceService
+    private ecommerceService: EcommerceService,
+    private _cartService: CartService
   ) {}
+
+  get isProduct() {
+    return this._cartService._products.filter(item => item.isInCart === true).length > 0;
+  }
 
   ngOnInit(): void {
     this.getPlanes();
@@ -34,7 +40,13 @@ export class EcommerceWishlistComponent implements OnInit {
     this.ecommerceService.getPlanes().subscribe(data => {
       this.products = data.planes;
       this.period = data.period;
-      this.ecommerceService.planesList = this.products;
+      this.ecommerceService.planesList = data.planes;
+      // this._cartService.products =  this._cartService.parsePlanToCart(data.planes);
     });
   }
+
+  totalCalculate() {
+    return this._cartService.totalCalculate();
+  }
+  
 }

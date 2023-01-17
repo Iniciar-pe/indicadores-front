@@ -21,6 +21,24 @@
         margin: 0% 5% 5% 5%;
         padding-bottom: 0px !important;
     }
+    .img-description {
+        width: 100%;
+        height: 133px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  
+    .card {
+        padding-bottom: 0px;
+        height: 100%;
+    }
+
+    .img-description {
+        width: 100%;
+        height: 157px;
+    }
+    
 }
 
 @media (min-width:1025px) {
@@ -35,5 +53,9 @@
     .img{
         margin: 5% 5% 0% 0%;
         padding-bottom: 0px !important;
+    }
+    .img-description {
+        width: 100%;
+        height: 133px;
     }
 }

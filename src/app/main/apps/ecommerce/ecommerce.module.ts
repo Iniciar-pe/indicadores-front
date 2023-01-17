@@ -19,11 +19,6 @@ import { EcommerceWishlistComponent } from 'app/main/apps/ecommerce/ecommerce-wi
 import { EcommerceCheckoutComponent } from 'app/main/apps/ecommerce/ecommerce-checkout/ecommerce-checkout.component';
 import { EcommerceCheckoutItemComponent } from 'app/main/apps/ecommerce/ecommerce-checkout/ecommerce-checkout-item/ecommerce-checkout-item.component';
 
-const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
-  direction: 'horizontal',
-  observer: true
-};
-
 // routing
 const routes: Routes = [
   {
@@ -58,10 +53,6 @@ const routes: Routes = [
     NouisliderModule
   ],
   providers: [
-    {
-      provide: SWIPER_CONFIG,
-      useValue: DEFAULT_SWIPER_CONFIG
-    },
     EcommerceService
   ]
 })

@@ -9,5 +9,6 @@ export const environment = {
   },
   production: true,
   hmr: false,
-  apiUrl: 'https://backend-indicadores.back-devaztweb.com'
+  apiUrl: 'https://backend-indicadores.back-devaztweb.com',
+  front: 'https://frontend-indicadores.devaztweb.com'
 };

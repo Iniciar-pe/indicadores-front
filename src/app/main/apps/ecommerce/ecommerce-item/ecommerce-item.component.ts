@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { EcommerceService1 } from 'app/main/apps/ecommerce/ecommerce-1.service';
 import { environment } from 'environments/environment';
-import { Period } from '../ecommerce.model';
+import { CartService } from '../../../../layout/components/navbar/cart.service';
+import { Plan } from '../../../../layout/components/navbar/ecommerce.model';
 
 @Component({
   selector: 'app-ecommerce-item',
@@ -12,15 +12,18 @@ import { Period } from '../ecommerce.model';
 })
 export class EcommerceItemComponent implements OnInit {
   // Input Decorotor
-  @Input() product;
-  @Input() isWishlistOpen = false;
+  @Input() product: Plan;
   public ruta: string;
   @Input() period;
+  public mount = 1;
+  public periodList = 1;
 
-  constructor(private _ecommerceService: EcommerceService1) {}
+  constructor(
+    private _cartService: CartService
+    ) {}
 
   toggleWishlist(product) {
-    if (product.isInWishlist === true) {
+    /**if (product.isInWishlist === true) {
       this._ecommerceService.removeFromWishlist(product.id).then(res => {
         product.isInWishlist = false;
       });
@@ -28,16 +31,20 @@ export class EcommerceItemComponent implements OnInit {
       this._ecommerceService.addToWishlist(product.id).then(res => {
         product.isInWishlist = true;
       });
-    }
+    } */
   }
 
-  addToCart(product) {
-    this._ecommerceService.addToCart(product.id).then(res => {
-      product.isInCart = true;
-    });
+  addToCart(product: Plan) {
+    this._cartService.addProduct(product, this.mount, this.periodList);
+    this.product.isInCart = true;
   }
 
   ngOnInit(): void {
     this.ruta = environment.apiUrl;
+  }
+
+  deleteCart() {
+    this._cartService.removeFromCart(this.product);
+    this.product.isInCart = false;
   }
 }

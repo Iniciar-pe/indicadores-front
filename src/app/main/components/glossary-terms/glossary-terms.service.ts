@@ -6,7 +6,7 @@ import { ValuesRequest } from 'app/main/pages/data-entry/data-entry.model';
 @Injectable({
   providedIn:'root'
 })
-export class EntryOfValuesService {
+export class GlosaaryTermsService {
 
     constructor(private _http: HttpClient) {}
 

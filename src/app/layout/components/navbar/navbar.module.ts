@@ -3,9 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
-  PerfectScrollbarConfigInterface,
   PerfectScrollbarModule,
-  PERFECT_SCROLLBAR_CONFIG
 } from 'ngx-perfect-scrollbar';
 
 import { CoreCommonModule } from '@core/common.module';
@@ -17,11 +15,7 @@ import { NavbarSearchComponent } from 'app/layout/components/navbar/navbar-searc
 import { NavbarCartComponent } from 'app/layout/components/navbar/navbar-cart/navbar-cart.component';
 import { NavbarNotificationComponent } from 'app/layout/components/navbar/navbar-notification/navbar-notification.component';
 import { ModalLicenseModule } from 'app/main/components/modal-license/modal-license.module';
-
-const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  suppressScrollX: true,
-  wheelPropagation: false
-};
+import { CartService } from './cart.service';
 
 @NgModule({
   declarations: [
@@ -31,12 +25,16 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NavbarCartComponent,
     NavbarNotificationComponent
   ],
-  imports: [RouterModule, NgbModule, CoreCommonModule, PerfectScrollbarModule, CoreTouchspinModule, ModalLicenseModule],
+  imports: [
+    RouterModule,
+    NgbModule,
+    CoreCommonModule,
+    PerfectScrollbarModule,
+    CoreTouchspinModule,
+    ModalLicenseModule,
+  ],
   providers: [
-    {
-      provide: PERFECT_SCROLLBAR_CONFIG,
-      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-    }
+    CartService,
   ],
   exports: [NavbarComponent]
 })

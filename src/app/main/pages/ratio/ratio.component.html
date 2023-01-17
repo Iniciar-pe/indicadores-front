@@ -7,14 +7,14 @@
         [datePeriod]="datePeriod"
       ></header-business>
 <br>
-        <div class="row">
-          <div class="col">
-            <app-content-header [contentHeader]="contentHeader"></app-content-header>
-          </div>
-          <div class="col-3">
-            <button type="button" class="btn btn-outline-primary" style="float: right;" rippleEffect (click)="modalOpenSLCIM(modalSLCIM)">Glosario de términos</button>
-          </div>
+      <div class="row">
+        <div class="col-lg-9 col-8">
+          <app-content-header [contentHeader]="contentHeader"></app-content-header>
         </div>
+        <div class="col-lg-3 col-4">
+          <button type="button" class="btn btn-outline-primary" style="float: right;" rippleEffect (click)="modalOpenSLCIM(modalSLCIM)">Glosario de términos</button>
+        </div>
+      </div>
 
         <div class="row separator-card">
         <div class="col-12">
@@ -22,7 +22,7 @@
          <div class="card">
 
           <div class="row">
-            <div class="col-12 col-md-3">
+            <div class="col-sm-12 col-md-3 col-lg-3">
               <div class="card-left card" style="box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%) !important; ">
                 <div class="card-header d-flex flex-column align-items-start">
                   <div class="avatar bg-light-primary">
@@ -35,7 +35,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-12 col-md-3 separator-card" >
+            <div class="col-sm-12 col-md-3 col-lg-3 separator-card" >
               <div class="card-rigth card" style="box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%) !important; ">
                 <div class="card-header d-flex flex-column align-items-start">
                   <div class="avatar bg-light-success">
@@ -49,10 +49,10 @@
               </div>
               
             </div>
-            <div class="col-md-6 separator-card">
+            <div class="col-sm-12 col-md-6 col-lg-6 separator-card">
               <div class="card img " style="box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%) !important; ">
                 <div class="card-header d-flex flex-column align-items-start" style="padding: 0;">
-                  <img src="assets/images/logo/ratio.png" alt="" style="width: 100%;height: 133px;">
+                  <img src="assets/images/logo/ratio.png" class="img-description" alt="" >
                 </div>
               </div>
             </div>
@@ -205,48 +205,8 @@
         </button>
       </div>
       <div class="modal-body" tabindex="0" ngbAutofocus>
-        <div class="container">
-          <p>
-            Biscuit powder jelly beans. Lollipop candy canes croissant icing chocolate cake. Cake fruitcake
-            powder pudding pastry.
-          </p>
-    
-          <p>
-            Tootsie roll oat cake I love bear claw I love caramels caramels halvah chocolate bar. Cotton
-            candy gummi bears pudding pie apple pie cookie. Cheesecake jujubes lemon drops danish dessert I
-            love caramels powder.
-          </p>
-    
-          <p>
-            Chocolate cake icing tiramisu liquorice toffee donut sweet roll cake. Cupcake dessert icing
-            dragée dessert. Liquorice jujubes cake tart pie donut. Cotton candy candy canes lollipop
-            liquorice chocolate marzipan muffin pie liquorice.
-          </p>
-          <p>
-            Powder cookie jelly beans sugar plum ice cream. Candy canes I love powder sugar plum tiramisu.
-            Liquorice pudding chocolate cake cupcake topping biscuit. Lemon drops apple pie sesame snaps
-            tootsie roll carrot cake soufflé halvah. Biscuit powder jelly beans. Lollipop candy canes
-            croissant icing chocolate cake. Cake fruitcake powder pudding pastry.
-          </p>
-    
-          <p>
-            Tootsie roll oat cake I love bear claw I love caramels caramels halvah chocolate bar. Cotton
-            candy gummi bears pudding pie apple pie cookie. Cheesecake jujubes lemon drops danish dessert I
-            love caramels powder.
-          </p>
-    
-          <p>
-            Chocolate cake icing tiramisu liquorice toffee donut sweet roll cake. Cupcake dessert icing
-            dragée dessert. Liquorice jujubes cake tart pie donut. Cotton candy candy canes lollipop
-            liquorice chocolate marzipan muffin pie liquorice.
-          </p>
-    
-          <p>
-            Powder cookie jelly beans sugar plum ice cream. Candy canes I love powder sugar plum tiramisu.
-            Liquorice pudding chocolate cake cupcake topping biscuit. Lemon drops apple pie sesame snaps
-            tootsie roll carrot cake soufflé halvah. Biscuit powder jelly beans. Lollipop candy canes
-            croissant icing chocolate cake. Cake fruitcake powder pudding pastry.
-          </p>
+        <div style="padding: 2rem;">
+          <glossary-terms></glossary-terms>
         </div>
   
       </div>

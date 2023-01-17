@@ -13,6 +13,7 @@ import { FacebookAuthProvider, GoogleAuthProvider, signInWithPopup } from '@fire
 export class LoginSocialService {
   //public
   public currentUser: Observable<User>;
+  public userResponse: any;
 
   //private
   private currentUserSubject: BehaviorSubject<User>;
@@ -74,17 +75,7 @@ export class LoginSocialService {
    }
 
    promiseError(err: HttpErrorResponse): HttpErrorResponse {
-    console.log(err)
     return err;
   }
 
 }
-
-
-
-/**
- * quitar el personalizar 
- * manejar errores 
- * formula acento
- * 
- */

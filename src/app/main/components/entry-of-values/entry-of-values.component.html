@@ -77,7 +77,7 @@
                       <p class="font-medium-1 font-weight-bold line-height-1 mb-25">
                         <b>{{ row.description }}</b>
                       </p>
-                      <p class="font-medium-1 font-weight-bold line-height-1 mb-25" style="color: #808080;"> al último día del {{ datePeriod?.period | namePeriod }} {{ row.previousEdit != 'S' ? 'actual' : '' }} {{ row.currentEdit != 'S' ? 'anterior' : '' }}</p>
+                      <p class="font-medium-1 font-weight-bold line-height-1 mb-25" style="color: #808080;"> al último día del {{ datePeriod?.period | namePeriod }} {{ row.previousEdit != 'A' ? 'actual' : '' }} {{ row.currentEdit != 'A' ? 'anterior' : '' }}</p>
                     </div>
                   </div>
                 </ng-template>
@@ -107,7 +107,7 @@
                       >
                       <input
                         [readonly]="businessType === '2'"
-                        style="text-align:right;"
+                        style="text-align:right;font-weight: 600;"
                         autofocus
                         class="form-control form-control-sm text-data"
                         (blur)="inlineEditingUpdateAge($event, 'previousPeriod', rowIndex, row)"
@@ -117,7 +117,7 @@
                         (keypress)="validateFormat($event)"
                         (blur)="transformAmount($event, row, 'previousPeriod')"
                         [(ngModel)]="row.previousPeriod"
-                        [value]="transform(row.previousPeriod, row, 'previousPeriod')"
+                        [value]="row.previousPeriod"
                         [tabIndex]="(rowIndex + rowIndex) + 1"
                       />
                      
@@ -152,7 +152,7 @@
                       
                       <input
                         [readonly]="businessType === '2'"
-                        style="text-align:right;"
+                        style="text-align:right;font-weight: 600;"
                         autofocus
                         class="form-control form-control-sm text-data"
                         (blur)="inlineEditingUpdateSalary($event, 'currentPeriod', rowIndex, row)"
@@ -162,7 +162,7 @@
                         (keypress)="validateFormat($event)"
                         (blur)="transformAmount($event, row, 'currentPeriod')"
                         [(ngModel)]="row.currentPeriod"
-                        [value]="transform(row.currentPeriod, row, 'currentPeriod')"
+                        [value]="row.currentPeriod"
                         [tabIndex]="(rowIndex + rowIndex) + 2"
                       />
                     </center>
