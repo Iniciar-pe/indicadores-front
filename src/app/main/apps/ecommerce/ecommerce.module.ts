@@ -18,6 +18,8 @@ import { EcommerceItemComponent } from 'app/main/apps/ecommerce/ecommerce-item/e
 import { EcommerceWishlistComponent } from 'app/main/apps/ecommerce/ecommerce-wishlist/ecommerce-wishlist.component';
 import { EcommerceCheckoutComponent } from 'app/main/apps/ecommerce/ecommerce-checkout/ecommerce-checkout.component';
 import { EcommerceCheckoutItemComponent } from 'app/main/apps/ecommerce/ecommerce-checkout/ecommerce-checkout-item/ecommerce-checkout-item.component';
+import { PagoProvider } from './pago';
+
 
 // routing
 const routes: Routes = [
@@ -53,7 +55,8 @@ const routes: Routes = [
     NouisliderModule
   ],
   providers: [
-    EcommerceService
+    EcommerceService,
+    PagoProvider
   ]
 })
 export class EcommerceModule {}

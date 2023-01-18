@@ -6,6 +6,7 @@ import { CartService } from 'app/layout/components/navbar/cart.service';
 import Stepper from 'bs-stepper';
 import { Cart, Plan } from '../../../../layout/components/navbar/ecommerce.model';
 import { EcommerceService } from '../ecommerce.service';
+import { PagoProvider } from '../pago';
 
 @Component({
   selector: 'app-ecommerce-checkout',
@@ -33,6 +34,7 @@ export class EcommerceCheckoutComponent implements OnInit {
     private _cartService: CartService,
     private _formBuilder: FormBuilder,
     private _authenticationService: AuthenticationService,
+    private pago: PagoProvider
     ) {}
 
   nextStep() {
@@ -51,6 +53,7 @@ export class EcommerceCheckoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.pago.initCulqi();
     this._authenticationService.currentUser.subscribe(x => (this.currentUser = x));
 
     this.form = this._formBuilder.group({
@@ -82,6 +85,13 @@ export class EcommerceCheckoutComponent implements OnInit {
 
   totalCalculate() {
     return this._cartService.totalCalculate();
+  }
+
+  openCheckout () {
+
+    
+    this.pago.cfgFormulario("Pago por servicio", 1000);
+    this.pago.open();
   }
 
 }

@@ -155,5 +155,19 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- Vuexy root component -->
     <app-root> </app-root>
     <!-- / Vuexy root component -->
+
+  <script src="https://checkout.culqi.com/js/v3"></script>
+  <script>
+    function culqi() {
+      if (Culqi.token) {
+        var token = Culqi.token.id;
+        var payment_event = new CustomEvent("payment_event", {
+          detail: token,
+        });
+        document.dispatchEvent(payment_event);
+      }
+    }
+
+  </script>
   </body>
 </html>
