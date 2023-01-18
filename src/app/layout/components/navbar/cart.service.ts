@@ -61,7 +61,7 @@ export class CartService {
           item.isInCart = true;
           item.selectedPeriod = period;
           item.mount = mount;
-          item.value = this.calculateUnitary(product, period, 1);
+          item.value = this.calculateUnitary(product, period, mount);
           item.periodText = this.periodText(product, period);
           item.price = this.calculate(product, period, mount);
         }
@@ -106,6 +106,7 @@ export class CartService {
         item.mount = mount;
         item.periodText = this.periodText(plan, (period ? 1 : 2));
         item.price = this.calculate(plan, (period ? 1 : 2), mount);
+        item.value = this.calculateUnitary(plan,  (period ? 1 : 2), mount);
       }
       return item;
     });

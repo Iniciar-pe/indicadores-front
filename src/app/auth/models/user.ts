@@ -13,4 +13,5 @@ export class User {
   address?: string;
   country?: string;
   city?: string;
+  code?: string;
 }

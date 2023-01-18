@@ -41,10 +41,10 @@ export class CoreTouchspinComponent implements OnInit {
   }
 
   increment() {
-    if (this.stepValue == undefined) {
-      this.numberValue += 1;
+    if (this.stepValue === undefined) {
+      this.numberValue = Number(this.numberValue) + 1;
     } else {
-      this.numberValue += this.stepValue;
+      this.numberValue = Number(this.numberValue) + Number(this.stepValue);
     }
 
     this.emitChange(this.numberValue);

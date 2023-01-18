@@ -59,7 +59,7 @@ export class EcommerceCheckoutComponent implements OnInit {
       address: [this.currentUser.address, [Validators.required]],
       country: [this.currentUser.country, [Validators.required]],
       city: [this.currentUser.city, [Validators.required]],
-      code: ['', [Validators.required]]
+      code: [this.currentUser.code, [Validators.required]]
     });
 
 
