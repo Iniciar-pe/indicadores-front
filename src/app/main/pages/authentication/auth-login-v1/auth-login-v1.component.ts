@@ -92,7 +92,7 @@ export class AuthLoginV1Component implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this._router.navigate([this.returnUrl]);
+          this._router.navigate(['/admin/entrada-de-datos']);
         },
         error => {
           this.error = error;
@@ -146,7 +146,7 @@ export class AuthLoginV1Component implements OnInit {
           this.loginSocialService.userResponse = user;
           this._router.navigate(['/admin/registro']);
         } else {
-          this._router.navigate([this.returnUrl]);
+          this._router.navigate(['/admin/entrada-de-datos']);
         }
         // 
         console.log('data', data);

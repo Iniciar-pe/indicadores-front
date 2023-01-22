@@ -48,5 +48,5 @@ export class EcommerceWishlistComponent implements OnInit {
   totalCalculate() {
     return this._cartService.totalCalculate();
   }
-  
+
 }

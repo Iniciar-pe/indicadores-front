@@ -20,18 +20,7 @@ export class EcommerceService {
       return this._http.get<any>(`${environment.apiUrl}/api/ecommerce/get-planes`);
     }
 
-    addProduct() {
-      console.log("addProduct aqui", this.planesList)
-      this.onProductListChange.next(this.planesList);
+    addPlanes(data) {
+      return this._http.post<any>(`${environment.apiUrl}/api/ecommerce/add`, data);
     }
-
-    inputChange(value, product) {
-      this.planesList = this.planesList.map(item => {
-        if (item.id === product.id) {
-          item.selectedPeriod = value;
-        }
-        return item;
-      });
-    }
-
 }

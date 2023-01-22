@@ -81,6 +81,24 @@ export class AuthenticationService {
       );
   }
 
+  updateUser(user: User) {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    currentUser.id = user.id;
+    currentUser.email = user.email;
+    currentUser.firstName = user.firstName;
+    currentUser.lastName = user.lastName;
+    currentUser.avatar = user.avatar;
+    currentUser.number = user.number;
+    currentUser.address = user.address;
+    currentUser.country = user.country;
+    currentUser.city = user.city;
+    currentUser.code = user.code;
+
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    this.currentUserSubject.next(currentUser);
+  }
+
   /**
    * User logout
    *

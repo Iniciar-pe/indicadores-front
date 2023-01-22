@@ -4,8 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from 'app/auth/service';
 import { CartService } from 'app/layout/components/navbar/cart.service';
 import Stepper from 'bs-stepper';
-import { Cart, Plan } from '../../../../layout/components/navbar/ecommerce.model';
-import { EcommerceService } from '../ecommerce.service';
+import { Cart } from '../../../../layout/components/navbar/ecommerce.model';
+import moment from 'moment';
+import { PagoProvider } from '../pago';
 
 @Component({
   selector: 'app-ecommerce-checkout',
@@ -22,10 +23,14 @@ export class EcommerceCheckoutComponent implements OnInit {
   public submitted = false;
   public card = '1';
   public currentUser: User;
+
   get f() {
     return this.form.controls;
   }
 
+  get loading() {
+    return this.pago.loading;
+  }
   // Private
   private checkoutStepper: Stepper;
 
@@ -33,6 +38,7 @@ export class EcommerceCheckoutComponent implements OnInit {
     private _cartService: CartService,
     private _formBuilder: FormBuilder,
     private _authenticationService: AuthenticationService,
+    private pago: PagoProvider
     ) {}
 
   nextStep() {
@@ -51,6 +57,7 @@ export class EcommerceCheckoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.pago.initCulqi();
     this._authenticationService.currentUser.subscribe(x => (this.currentUser = x));
 
     this.form = this._formBuilder.group({
@@ -59,12 +66,12 @@ export class EcommerceCheckoutComponent implements OnInit {
       address: [this.currentUser.address, [Validators.required]],
       country: [this.currentUser.country, [Validators.required]],
       city: [this.currentUser.city, [Validators.required]],
-      code: ['', [Validators.required]]
+      code: [this.currentUser.code, [Validators.required]]
     });
 
 
     this.checkoutStepper = new Stepper(document.querySelector('#checkoutStepper'), {
-      linear: true,
+      linear: false,
       animation: true
     });
 
@@ -82,6 +89,29 @@ export class EcommerceCheckoutComponent implements OnInit {
 
   totalCalculate() {
     return this._cartService.totalCalculate();
+  }
+
+  openCheckout () {
+    this.pago.loading = true;
+    const now = moment();
+
+    const cart = {
+      name: this.f.name.value,
+      phone: this.f.number.value,
+      address: this.f.address.value,
+      country: this.f.country.value,
+      city: this.f.city.value,
+      code: this.f.code.value,
+      date: now.format('YYYY-MM-DD'),
+      hour: now.format('HH:mm:ss'),
+      total: this.totalCalculate(),
+      method: this.card,
+      response: '',
+      detail: JSON.stringify(this._cartService._products.filter(e => e.isInCart === true))
+    };
+
+    this.pago.cfgFormulario(cart, Number(this.totalCalculate().replace('.', '')));
+    this.pago.open();
   }
 
 }

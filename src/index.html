@@ -17,7 +17,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <meta charset="utf-8" />
     <title>Villajuana - Consultores</title>
     <base href="/" />
-    <meta charset="utf-8" />
+    
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
@@ -38,7 +38,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgjNW0WA93qphgZW-joXVR6VC3IiYFjfo"></script>
 
     <!--! Remove this if not needed, Required only for quill editor code highlight -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
 
     <!-- Vuexy loading Screen CSS -->
     <style type="text/css">
@@ -155,5 +155,28 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- Vuexy root component -->
     <app-root> </app-root>
     <!-- / Vuexy root component -->
+
+  <script src="https://checkout.culqi.com/js/v3"></script>
+  <script>
+    function culqi() {
+      if (Culqi.token) {
+        var token = Culqi.token.id;
+        var payment_event = new CustomEvent("payment_event", {
+          detail: token,
+          error: Culqi.error
+        });
+        
+      } else {
+        var token = '';
+        var payment_event = new CustomEvent("payment_event", {
+          detail: token,
+          error: Culqi.error
+        });
+        console.log('Error : ',Culqi.error);
+      }
+      document.dispatchEvent(payment_event);
+    }
+
+  </script>
   </body>
 </html>

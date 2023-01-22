@@ -12,6 +12,11 @@ export class CartService {
   constructor(
     private _router: Router,
   ) {
+
+    if (localStorage.getItem('carts')) {
+      this._products = JSON.parse(localStorage.getItem('carts'));
+    }
+    
     if (this._products.filter(item => item.isInCart).length <= 0) {
       this._router.navigate(['/apps/comercio/lista']);
     }
@@ -61,14 +66,14 @@ export class CartService {
           item.isInCart = true;
           item.selectedPeriod = period;
           item.mount = mount;
-          item.value = this.calculateUnitary(product, period, 1);
+          item.value = this.calculateUnitary(product, period, mount);
           item.periodText = this.periodText(product, period);
           item.price = this.calculate(product, period, mount);
         }
         return item;
       });
     }
-
+    localStorage.setItem('carts', JSON.stringify(this._products));
   }
 
   calculate(product: Plan, period: number, mount: number) {
@@ -106,10 +111,11 @@ export class CartService {
         item.mount = mount;
         item.periodText = this.periodText(plan, (period ? 1 : 2));
         item.price = this.calculate(plan, (period ? 1 : 2), mount);
+        item.value = this.calculateUnitary(plan,  (period ? 1 : 2), mount);
       }
       return item;
     });
-
+    localStorage.setItem('carts', JSON.stringify(this._products));
   }
 
   removeFromCart(product) {
@@ -123,7 +129,7 @@ export class CartService {
     if (this._products.filter(item => item.isInCart === true).length <= 0) {
       this._router.navigate(['/apps/comercio/lista']);
     }
-
+    localStorage.setItem('carts', JSON.stringify(this._products));
   }
 
   exist(value: number) {

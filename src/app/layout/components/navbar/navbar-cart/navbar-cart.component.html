@@ -1,7 +1,7 @@
 <li ngbDropdown class="nav-item dropdown-cart mr-25">
   <a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarCartDropdown"
     ><span [data-feather]="'shopping-cart'" [class]="'ficon'"></span
-    ><span class="badge badge-pill badge-primary badge-up cart-item-count">{{ products?.length }}</span></a
+    ><span class="badge badge-pill badge-primary badge-up cart-item-count">{{ elementActive }}</span></a
   >
   <ul
     ngbDropdownMenu
@@ -12,35 +12,32 @@
     <li class="dropdown-menu-header">
       <div class="dropdown-header d-flex">
         <h4 class="notification-title mb-0 mr-auto">Mi carrito</h4>
-        <div class="badge badge-pill badge-light-primary">{{ products?.length }} Elementos</div>
+        <div class="badge badge-pill badge-light-primary">{{ elementActive }} Elementos</div>
       </div>
     </li>
     <!--/ Cart header -->
 
     <!-- Cart content -->
     <li class="scrollable-container media-list" [perfectScrollbar]>
-      <ng-container *ngIf="products?.length">
+      <ng-container *ngIf="elementActive">
         <ng-container *ngFor="let product of products">
           <div class="media align-items-center" *ngIf="product?.isInCart === true">
-            <img class="d-block rounded mr-1" [src]="product.image" alt="donuts" width="62" />
+            <img class="d-block rounded mr-1" [src]="ruta + product.image" alt="product" width="62" />
             <div class="media-body">
               <button class="btn p-0" (click)="removeFromCart(product)">
                 <i class="ficon cart-item-remove" data-feather="x"></i>
               </button>
               <div class="media-heading">
                 <h6 class="cart-item-title">
-                  <a class="text-body" [routerLink]="'/apps/e-commerce/ecommerce-details/' + product.id">{{
-                    product.name
-                  }}</a>
+                  {{ product.name }}
                 </h6>
-                <small class="cart-item-by">{{ product.brand }}</small>
               </div>
               <div class="cart-item-qty">
                 <div class="input-group touchspin-cart">
-                  <core-touchspin [numberValue]="10" [stepValue]="1" [minValue]="1" [maxValue]="10"></core-touchspin>
+                  <core-touchspin [numberValue]="product.mount" [stepValue]="1" [minValue]="1" [maxValue]="10"></core-touchspin>
                 </div>
               </div>
-              <h5 class="cart-item-price">S/{{ product.price }}</h5>
+              <h5 class="cart-item-price">{{ product.price | currency:'S/' }}</h5>
             </div>
           </div>
         </ng-container>
@@ -52,7 +49,7 @@
     <li class="dropdown-menu-footer">
       <div class="d-flex justify-content-between mb-1">
         <h6 class="font-weight-bolder mb-0">Total:</h6>
-        <h6 class="text-primary font-weight-bolder mb-0">S/10.00</h6>
+        <h6 class="text-primary font-weight-bolder mb-0">{{ totalCalculate() | currency:'S/' }}</h6>
       </div>
       <a class="btn btn-primary btn-block" routerLink="/apps/comercio/verificar">Ir a comprar</a>
     </li>

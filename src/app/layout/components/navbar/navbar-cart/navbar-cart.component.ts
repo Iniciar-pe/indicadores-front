@@ -1,37 +1,38 @@
 import { Component, OnInit } from '@angular/core';
-
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
-import { Plan } from 'app/layout/components/navbar/ecommerce.model';
 import { CartService } from 'app/layout/components/navbar/cart.service';
+import { environment } from 'environments/environment';
 
 
 @Component({
   selector: 'app-navbar-cart',
   templateUrl: './navbar-cart.component.html'
 })
+
 export class NavbarCartComponent implements OnInit {
   // Public
   public products = this._cartService.products;
   public cartListLength;
+  public ruta: string;
+
+  get elementActive() {
+    return this.products.filter(item => item.isInCart === true).length;
+  }
 
   constructor(private _cartService: CartService) {
 
   }
 
+  totalCalculate() {
+    return this._cartService.totalCalculate();
+  }
+
   removeFromCart(product) {
-    /**
-     * if (product.isInCart === true) {
-      this._ecommerceService.removeFromCart(product.id).then(res => {
-        product.isInCart = false;
-      });
-    }
-     */
+    this._cartService.removeFromCart(product);
   }
 
   ngOnInit(): void {
-
+    
+    this.ruta = environment.apiUrl;
     /**
      * // Get Products
     this._ecommerceService.getProducts();

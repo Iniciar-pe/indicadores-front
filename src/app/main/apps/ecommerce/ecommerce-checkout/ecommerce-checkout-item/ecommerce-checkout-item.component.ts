@@ -53,10 +53,11 @@ export class EcommerceCheckoutItemComponent implements OnInit {
   }
 
   calculatePeriod() {
+    this.product.selectedPeriod = (this.selectedPeriod ? 1 : 2);
     const numberPeriod = this._ecommerceService.planesList
       .filter(item => item.id === this.product.id)[0].period
       .filter(val => val.id === this.product.selectedPeriod)[0].number;
-    console.log("entro ", numberPeriod);
+
     const now = moment();
     this.date = now.format('DD/MM/YYYY');
     this.dateEnd = now.add(numberPeriod, 'month').format('DD/MM/YYYY');
@@ -66,10 +67,12 @@ export class EcommerceCheckoutItemComponent implements OnInit {
     this.mount = value;
     const plan = this._ecommerceService.planesList.filter(item => item.id === this.product.id)[0];
     this._cartService.updateProduct(plan, this.product, value, this.selectedPeriod);
+    this.calculatePeriod();
   }
 
   inputChange(value) {
     const plan = this._ecommerceService.planesList.filter(item => item.id === this.product.id)[0];
     this._cartService.updateProduct(plan, this.product, this.mount, this.selectedPeriod);
+    this.calculatePeriod();
   }
 }
