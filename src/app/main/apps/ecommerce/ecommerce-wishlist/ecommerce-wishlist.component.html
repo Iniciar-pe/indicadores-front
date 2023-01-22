@@ -8,7 +8,7 @@
       <p 
         *ngIf="isProduct"
         style="text-align: right;margin-top: 5%;"
-        ><span [data-feather]="'check'" ></span>&nbsp;Total a pagar: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S/ {{ totalCalculate() }}</p>
+        ><span [data-feather]="'check'" ></span>&nbsp;Total a pagar: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ totalCalculate() | currency:'S/' }}</p>
     </div>
     <div class="col-lg-3 col-md-3 col-12">
       <button

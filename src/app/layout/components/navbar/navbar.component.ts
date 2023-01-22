@@ -15,6 +15,7 @@ import { User } from 'app/auth/models';
 
 import { coreConfig } from 'app/app-config';
 import { Router } from '@angular/router';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-navbar',
@@ -31,16 +32,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public prevSkin: string;
 
   public currentUser: User;
-
+  ruta: string;
   public languageOptions: any;
   public navigation: any;
   public selectedLanguage: any;
   eventsSubject: Subject<void> = new Subject<void>();
 
   emitEventToChild() {
-    
     this.eventsSubject.next();
   }
+
   @HostBinding('class.fixed-top')
   public isFixed = false;
 
@@ -68,17 +69,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   // Private
   private _unsubscribeAll: Subject<any>;
 
-  /**
-   * Constructor
-   *
-   * @param {Router} _router
-   * @param {AuthenticationService} _authenticationService
-   * @param {CoreConfigService} _coreConfigService
-   * @param {CoreSidebarService} _coreSidebarService
-   * @param {CoreMediaService} _coreMediaService
-   * @param {MediaObserver} _mediaObserver
-   * @param {TranslateService} _translateService
-   */
   constructor(
     private _router: Router,
     private _authenticationService: AuthenticationService,
@@ -113,23 +103,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this._unsubscribeAll = new Subject();
   }
 
-  // Public Methods
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * Toggle sidebar open
-   *
-   * @param key
-   */
   toggleSidebar(key): void {
     this._coreSidebarService.getSidebarRegistry(key).toggleOpen();
   }
 
-  /**
-   * Set the language
-   *
-   * @param language
-   */
   setLanguage(language): void {
     // Set the selected language for the navbar on change
     this.selectedLanguage = language;
@@ -174,13 +151,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this._router.navigate(['/admin/login']);
   }
 
-  // Lifecycle Hooks
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * On init
-   */
   ngOnInit(): void {
+    this.ruta = environment.apiUrl;
     // get the currentUser details from localStorage
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 

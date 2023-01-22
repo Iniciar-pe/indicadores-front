@@ -1,3 +1,7 @@
 @import '@core/scss/base/pages/app-ecommerce.scss';
 @import '@core/scss/angular/libs/form-wizard.component.scss';
 @import '@core/scss/base/plugins/forms/form-validation.scss';
+
+.custom-switch-checkout .custom-control-label::before {
+    background-color: #3bb4ff !important;
+}

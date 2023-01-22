@@ -1,14 +1,15 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import { AccountSettingsService } from 'app/main/pages/account-settings/account-settings.service';
-import { User } from 'app/auth/models';
 import { PasswordResponse, UserRespose } from 'app/main/models/user.model';
 import { environment } from 'environments/environment';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { CustomValidators } from '../authentication/auth-register-v2/customValidators';
+import { AuthenticationService } from 'app/auth/service/authentication.service';
+import { User } from 'app/auth/models';
+
 @Component({
   selector: 'app-account-settings',
   templateUrl: './account-settings.component.html',
@@ -25,6 +26,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   public submittedPassword = false;
   loading = false;
   loadingPassword = false;
+  public currentUser: User;
 
   get f() {
     return this.form.controls;
@@ -55,8 +57,8 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
     passwordPrevious: '',
     password: '',
     confirmPassword: ''
-  }
-  
+  };
+
   public birthDateOptions: FlatpickrOptions = {
     altInput: true
   };
@@ -68,10 +70,10 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
 
   constructor(
     private _accountSettingsService: AccountSettingsService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private _authenticationService: AuthenticationService,
     ) {
     this._unsubscribeAll = new Subject();
-    
   }
 
   togglePasswordTextTypeOld() {
@@ -86,13 +88,12 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
     this.passwordTextTypeRetype = !this.passwordTextTypeRetype;
   }
 
-  
   uploadImage(event: any) {
     if (event.target.files && event.target.files[0]) {
-      let reader = new FileReader();
+      const reader = new FileReader();
 
-      reader.onload = (event: any) => {
-        this.avatarImage = event.target.result;
+      reader.onload = (e: any) => {
+        this.avatarImage = e.target.result;
       };
 
       reader.readAsDataURL(event.target.files[0]);
@@ -109,7 +110,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
     }
   }
 
-  messageError(){
+  messageError() {
     this.loading = false;
     Swal.fire({
       icon: 'error',
@@ -126,22 +127,38 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
     this._accountSettingsService.getUser().subscribe((value: UserRespose) => {
       this.userResponse = value;
       this.avatarImage = environment.apiUrl + value.foto;
-      this.f.user.setValue(this.userResponse.usuario)
-      this.f.email.setValue(this.userResponse.email)
-      this.f.nombres.setValue(this.userResponse.nombres)
-      this.f.apellidos.setValue(this.userResponse.apellidos)
-      this.f.movil.setValue(this.userResponse.movil)
-      this.f.fecha_nacimiento.setValue(this.userResponse.fecha_nacimiento)
-      this.f.direccion.setValue(this.userResponse.direccion)
-      this.f.sexo.setValue(this.userResponse.sexo)
-      this.f.pais.setValue(this.userResponse.pais)
-      this.f.ciudad.setValue(this.userResponse.ciudad)
-      this.f.ubi_codigo.setValue(this.userResponse.ubi_codigo)
-    })
-    
+      this.f.user.setValue(this.userResponse.usuario);
+      this.f.email.setValue(this.userResponse.email);
+      this.f.nombres.setValue(this.userResponse.nombres);
+      this.f.apellidos.setValue(this.userResponse.apellidos);
+      this.f.movil.setValue(this.userResponse.movil);
+      this.f.fecha_nacimiento.setValue(this.userResponse.fecha_nacimiento);
+      this.f.direccion.setValue(this.userResponse.direccion);
+      this.f.sexo.setValue(this.userResponse.sexo);
+      this.f.pais.setValue(this.userResponse.pais);
+      this.f.ciudad.setValue(this.userResponse.ciudad);
+      this.f.ubi_codigo.setValue(this.userResponse.ubi_codigo);
+
+      const userCurrent = {
+        id: this.userResponse.id_usuario,
+        email: this.userResponse.email,
+        firstName: this.userResponse.nombres,
+        lastName: this.userResponse.apellidos,
+        avatar: value.foto,
+        number: this.userResponse.movil,
+        address: this.userResponse.direccion,
+        country: this.userResponse.pais,
+        city: this.userResponse.ciudad,
+        code: this.userResponse.ubi_codigo,
+      } as User;
+
+      this._authenticationService.updateUser(userCurrent);
+    });
   }
 
-  submit(){
+  submit() {
+
+    
     this.loading = true;
     const usuario = {
       id_usuario: this.userResponse.id_usuario,
@@ -152,24 +169,22 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       phone: this.f.movil.value,
       direccion: this.f.direccion.value,
       fecha_nacimiento: this.f.fecha_nacimiento.value,
-      sexo:this.f.sexo.value,
-      pais:this.f.pais.value,
-      ciudad:this.f.ciudad.value,
-      ubi_codigo:this.f.ubi_codigo.value
-    }
+      sexo: this.f.sexo.value,
+      pais: this.f.pais.value,
+      ciudad: this.f.ciudad.value,
+      ubi_codigo: this.f.ubi_codigo.value
+    };
 
     this._accountSettingsService.editUser(usuario).subscribe(value => {
       this.getUSer();
       this.loading = false;
       this.messageSuccess();
-    })
-
-    
+    });
   }
-  
+
   ngOnInit() {
     this.getUSer();
-    this.form =this._formBuilder.group({
+    this.form = this._formBuilder.group({
       id_usuario: [this.userResponse.id_usuario, [Validators.required]],
       user: [this.userResponse.usuario, [Validators.required]],
       email: [this.userResponse.email, [Validators.required]],
@@ -195,8 +210,8 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
     {
       // check whether our password and confirm password match
       validator: CustomValidators.passwordMatchValidator
-   })
-    
+   });
+
     this.contentHeader = {
       headerTitle: 'Mi Cuenta',
       actionButton: true,
@@ -222,18 +237,18 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
     };
   }
 
-  messageSuccess(){
+  messageSuccess() {
     Swal.fire({
       icon: 'success',
       title: 'El registro se actualizo correctamente',
-      //text: 'intente dentro de unos minutos.',
+      // text: 'intente dentro de unos minutos.',
       confirmButtonText: 'Aceptar',
       customClass: {
         confirmButton: 'btn btn-success'
       },
     });
   }
-  
+
   ngOnDestroy(): void {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();
@@ -247,7 +262,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       email: this.f.email.value,
       password: this.fP.passwordPrevious.value,
       confirmPassword: this.fP.password.value,
-    }
+    };
 
     this._accountSettingsService.editPassword(usuario).subscribe(value => {
 
@@ -255,7 +270,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       this.messageSuccess();
     }, err => {
       this.loadingPassword = false;
-    })
+    });
   }
 
 

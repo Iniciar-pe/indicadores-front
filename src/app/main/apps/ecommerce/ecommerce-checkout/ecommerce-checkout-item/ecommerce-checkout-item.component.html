@@ -13,7 +13,7 @@
         <h6 class="mr-1 mb-0">
           Anual
         </h6>
-        <div class="custom-control custom-switch">
+        <div class="custom-control custom-switch custom-switch-checkout">
           <input
             type="checkbox"
             class="custom-control-input"
@@ -37,20 +37,20 @@
         <core-touchspin 
           [numberValue]="product.mount"
           [minValue]="1" 
-          [maxValue]="100000"
+          [maxValue]="1000"
           [button]="true"
           (onChange)="countChange($event)" 
           ></core-touchspin>
       </div>
     </div>
-    <p class="delivery-date">Valor unitario: S/{{ product.value }}</p>
+    <p class="delivery-date">Valor unitario: {{ product.value | currency:'S/' }}</p>
     <p class="delivery-date">Vigencia: {{ date }} - {{ dateEnd }}</p>
     
   </div>
   <div class="item-options text-center">
     <div class="item-wrapper">
       <div class="item-cost">
-        <h4 class="item-price">S/ {{ product.price }}</h4>
+        <h4 class="item-price">{{ product.price | currency:'S/' }}</h4>
       </div>
     </div>
     <button type="button" class="btn btn-light mt-1 remove-wishlist" (click)="removeFromCart()" rippleEffect>

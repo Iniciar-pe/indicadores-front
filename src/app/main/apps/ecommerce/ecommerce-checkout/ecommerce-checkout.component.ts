@@ -4,8 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from 'app/auth/service';
 import { CartService } from 'app/layout/components/navbar/cart.service';
 import Stepper from 'bs-stepper';
-import { Cart, Plan } from '../../../../layout/components/navbar/ecommerce.model';
-import { EcommerceService } from '../ecommerce.service';
+import { Cart } from '../../../../layout/components/navbar/ecommerce.model';
+import moment from 'moment';
 import { PagoProvider } from '../pago';
 
 @Component({
@@ -23,10 +23,14 @@ export class EcommerceCheckoutComponent implements OnInit {
   public submitted = false;
   public card = '1';
   public currentUser: User;
+
   get f() {
     return this.form.controls;
   }
 
+  get loading() {
+    return this.pago.loading;
+  }
   // Private
   private checkoutStepper: Stepper;
 
@@ -67,7 +71,7 @@ export class EcommerceCheckoutComponent implements OnInit {
 
 
     this.checkoutStepper = new Stepper(document.querySelector('#checkoutStepper'), {
-      linear: true,
+      linear: false,
       animation: true
     });
 
@@ -88,9 +92,25 @@ export class EcommerceCheckoutComponent implements OnInit {
   }
 
   openCheckout () {
+    this.pago.loading = true;
+    const now = moment();
 
-    
-    this.pago.cfgFormulario("Pago por servicio", 1000);
+    const cart = {
+      name: this.f.name.value,
+      phone: this.f.number.value,
+      address: this.f.address.value,
+      country: this.f.country.value,
+      city: this.f.city.value,
+      code: this.f.code.value,
+      date: now.format('YYYY-MM-DD'),
+      hour: now.format('HH:mm:ss'),
+      total: this.totalCalculate(),
+      method: this.card,
+      response: '',
+      detail: JSON.stringify(this._cartService._products.filter(e => e.isInCart === true))
+    };
+
+    this.pago.cfgFormulario(cart, Number(this.totalCalculate().replace('.', '')));
     this.pago.open();
   }
 

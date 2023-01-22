@@ -79,7 +79,7 @@
                             </p>
                             
                           </div>
-                          <div class="detail-amt">{{ product.price }}</div>
+                          <div class="detail-amt">{{ product.price | currency:'S/' }}</div>
                         </li>
                       </ng-container>
                       
@@ -88,7 +88,7 @@
                     <ul class="list-unstyled">
                       <li class="price-detail">
                         <div class="detail-title detail-total" style="color: #b42995;">Total</div>
-                        <div class="detail-amt font-weight-bolder" style="color: #b42995;">{{ totalCalculate() }}</div>
+                        <div class="detail-amt font-weight-bolder" style="color: #b42995;">{{ totalCalculate() | currency:'S/' }}</div>
                       </li>
                     </ul>
                     <button
@@ -272,7 +272,7 @@
                             </p>
                             
                           </div>
-                          <div class="detail-amt">{{ product.price }}</div>
+                          <div class="detail-amt">{{ product.price | currency:'S/' }}</div>
                         </li>
                       </ng-container>
                       
@@ -281,7 +281,7 @@
                     <ul class="list-unstyled">
                       <li class="price-detail">
                         <div class="detail-title detail-total" style="color: #b42995;">Total</div>
-                        <div class="detail-amt font-weight-bolder" style="color: #b42995;">{{ totalCalculate() }}</div>
+                        <div class="detail-amt font-weight-bolder" style="color: #b42995;">{{ totalCalculate() | currency:'S/' }}</div>
                       </li>
                     </ul>
                     <button
@@ -357,7 +357,7 @@
                             </p>
                             
                           </div>
-                          <div class="detail-amt">{{ product.price }}</div>
+                          <div class="detail-amt">{{ product.price | currency:'S/' }}</div>
                         </li>
                       </ng-container>
                       
@@ -379,7 +379,7 @@
                     <ul class="list-unstyled">
                       <li class="price-detail">
                         <div class="detail-title detail-total" style="color: #b42995;">Total</div>
-                        <div class="detail-amt font-weight-bolder" style="color: #b42995;">{{ totalCalculate() }}</div>
+                        <div class="detail-amt font-weight-bolder" style="color: #b42995;">{{ totalCalculate() | currency:'S/' }}</div>
                       </li>
                     </ul>
                     <button
@@ -388,6 +388,7 @@
                       (click)="openCheckout()"
                       rippleEffect
                     >
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                     Pagar
                     </button>
                   </div>
