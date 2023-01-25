@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { User } from 'app/auth/models';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from 'app/auth/service';
@@ -7,6 +7,8 @@ import Stepper from 'bs-stepper';
 import { Cart } from '../../../../layout/components/navbar/ecommerce.model';
 import moment from 'moment';
 import { PagoProvider } from '../pago';
+import Swal from 'sweetalert2';
+import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 
 @Component({
   selector: 'app-ecommerce-checkout',
@@ -23,6 +25,9 @@ export class EcommerceCheckoutComponent implements OnInit {
   public submitted = false;
   public card = '1';
   public currentUser: User;
+  public cart: any;
+  public iPay = true;
+  @ViewChild('saveSwal') private saveSwal: SwalComponent;
 
   get f() {
     return this.form.controls;
@@ -30,6 +35,10 @@ export class EcommerceCheckoutComponent implements OnInit {
 
   get loading() {
     return this.pago.loading;
+  }
+
+  get iPayCard() {
+    return this.pago.iPayCard;
   }
   // Private
   private checkoutStepper: Stepper;
@@ -39,7 +48,9 @@ export class EcommerceCheckoutComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _authenticationService: AuthenticationService,
     private pago: PagoProvider
-    ) {}
+    ) {
+      this.pago.iPayCard = true;
+    }
 
   nextStep() {
     this.checkoutStepper.next();
@@ -92,10 +103,9 @@ export class EcommerceCheckoutComponent implements OnInit {
   }
 
   openCheckout () {
-    this.pago.loading = true;
     const now = moment();
 
-    const cart = {
+    this.cart = {
       name: this.f.name.value,
       phone: this.f.number.value,
       address: this.f.address.value,
@@ -110,8 +120,26 @@ export class EcommerceCheckoutComponent implements OnInit {
       detail: JSON.stringify(this._cartService._products.filter(e => e.isInCart === true))
     };
 
-    this.pago.cfgFormulario(cart, Number(this.totalCalculate().replace('.', '')));
-    this.pago.open();
+
+    if (this.card === '1') {
+      this.pago.cfgFormulario(this.cart, Number(this.totalCalculate().replace('.', '')));
+      this.pago.open();
+    } else {
+      this.saveSwal.fire();
+    }
+
+  }
+
+  addCartToBackend() {
+    this.pago.loading = true;
+    this.pago.addCartToBackend(this.cart).subscribe(response => {
+      this.pago.loading = false;
+      this._cartService.finallyCart();
+      this.iPay = false;
+    }, err => {
+      this.pago.loading = false;
+      this._cartService.finallyCart();
+    });
   }
 
 }

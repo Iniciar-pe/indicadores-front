@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
 import { Cart, Plan } from './ecommerce.model';
+import moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,7 @@ export class CartService {
     if (localStorage.getItem('carts')) {
       this._products = JSON.parse(localStorage.getItem('carts'));
     }
-    
+
     if (this._products.filter(item => item.isInCart).length <= 0) {
       this._router.navigate(['/apps/comercio/lista']);
     }
@@ -58,7 +60,7 @@ export class CartService {
         mount: mount,
         value: this.calculateUnitary(product, period, 1),
         periodText: this.periodText(product, period),
-        price: this.calculate(product, period, mount)
+        price: this.calculate(product, period, mount),
       } as Cart);
     } else {
       this._products.map(item => {
@@ -73,6 +75,15 @@ export class CartService {
         return item;
       });
     }
+    localStorage.setItem('carts', JSON.stringify(this._products));
+  }
+
+  calculatePeriod(product, period, numberPeriod) {
+    product.selectedPeriod = period;
+
+    const now = moment();
+    product.date = now.format('YYYY-MM-DD');
+    product.dateEnd = now.add(numberPeriod, 'month').format('YYYY-MM-DD');
     localStorage.setItem('carts', JSON.stringify(this._products));
   }
 
@@ -134,6 +145,13 @@ export class CartService {
 
   exist(value: number) {
     return this._products.filter(item => item.id === value).length > 0;
+  }
+
+  finallyCart() {
+    this._products.map(item => {
+      item.isInCart = false;
+    });
+    localStorage.setItem('carts', JSON.stringify(this._products));
   }
 
 }

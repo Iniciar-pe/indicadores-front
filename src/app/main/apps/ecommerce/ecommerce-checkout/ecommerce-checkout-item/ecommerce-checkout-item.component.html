@@ -10,7 +10,8 @@
 
     <div class="form-group">
       <div class="d-flex align-items-start justify-content-start mb-0">
-        <h6 class="mr-1 mb-0">
+        <h6 class="mr-1 mb-0" 
+          [style.color]="!selectedPeriod ? '#3bb4ff': ''">
           Anual
         </h6>
         <div class="custom-control custom-switch custom-switch-checkout">
@@ -24,7 +25,8 @@
           />
           <label class="custom-control-label" [for]="'priceSwitch'+product.id"></label>
         </div>
-        <h6 class="ml-50 mb-0">
+        <h6 class="ml-50 mb-0"
+        [style.color]="selectedPeriod ? '#3bb4ff': ''">
           Semestral
         </h6>
       </div>
@@ -44,7 +46,7 @@
       </div>
     </div>
     <p class="delivery-date">Valor unitario: {{ product.value | currency:'S/' }}</p>
-    <p class="delivery-date">Vigencia: {{ date }} - {{ dateEnd }}</p>
+    <p class="delivery-date">Vigencia: {{ product.date | date: 'dd/MM/yyyy' }} - {{ product.dateEnd | date: 'dd/MM/yyyy' }}</p>
     
   </div>
   <div class="item-options text-center">

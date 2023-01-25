@@ -19,6 +19,8 @@ import { EcommerceWishlistComponent } from 'app/main/apps/ecommerce/ecommerce-wi
 import { EcommerceCheckoutComponent } from 'app/main/apps/ecommerce/ecommerce-checkout/ecommerce-checkout.component';
 import { EcommerceCheckoutItemComponent } from 'app/main/apps/ecommerce/ecommerce-checkout/ecommerce-checkout-item/ecommerce-checkout-item.component';
 import { PagoProvider } from './pago';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { ResultComponent } from './result/result.component';
 
 
 // routing
@@ -32,6 +34,11 @@ const routes: Routes = [
     path: 'verificar',
     component: EcommerceCheckoutComponent,
     data: { animation: 'EcommerceCheckoutComponent' }
+  },
+  {
+    path: 'resultado',
+    component: ResultComponent,
+    data: { animation: 'ResultComponent' }
   },
 ];
 
@@ -52,7 +59,8 @@ const routes: Routes = [
     CoreSidebarModule,
     CoreCommonModule,
     NgbModule,
-    NouisliderModule
+    NouisliderModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [
     EcommerceService,

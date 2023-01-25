@@ -36,6 +36,8 @@ export interface Cart {
     selectedPeriod?: number;
     periodText?: string;
     price?: string;
+    date?: string;
+    dateEnd?: string;
 }
 
 

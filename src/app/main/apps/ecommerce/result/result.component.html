@@ -1,0 +1,32 @@
+<!-- Ecommerce Wishlist -->
+<div class="content-wrapper container-xxl p-0">
+  
+  <div class="content-body" style="margin-top: 1%;">
+    <section class="row mt-5" style="text-align: center;">
+      <div class="col-lg-4"></div>
+      <div class="col-lg-4">
+        <h1 style="color: #3bb4ff;font-weight: bold;">¡Muchas gracias!</h1>
+        <p>Su compra se ha realizado con exito.</p>
+        <p>Podra ver las licencias adquiridas en la plataforma de manera inmediata</p>
+        <br>
+        <div class="form-group" style="border: 1px solid #40b6ff;
+        padding: 2%;
+        border-radius: 5px;">
+          Número de pedido: {{ order }}
+        </div>
+        <br>
+        <br>
+        <button
+          type="button"
+          class="btn btn-primary btn-block btn-next place-order"
+          rippleEffect
+          (click)="goTo()"
+        >
+          Aceptar
+        </button>
+      </div>
+      <div class="col-lg-4"></div>
+    </section>
+  </div>
+</div>
+<!--/ Ecommerce Wishlist -->

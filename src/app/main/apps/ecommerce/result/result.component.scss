@@ -1,0 +1,16 @@
+@import '@core/scss/base/pages/app-ecommerce.scss';
+
+.ecommerce-application .grid-view.wishlist-items {
+    grid-template-columns: 1fr 1fr 1fr !important;
+}
+
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  
+    .tablet {
+        padding-left: 15%;
+        padding-right: 15%;
+    }
+    
+}
+
