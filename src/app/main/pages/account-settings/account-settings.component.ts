@@ -66,6 +66,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   public passwordTextTypeNew = false;
   public passwordTextTypeRetype = false;
   public avatarImage: string;
+  public orders = [];
   private _unsubscribeAll: Subject<any>;
 
   constructor(
@@ -184,6 +185,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getUSer();
+    this.getOders();
     this.form = this._formBuilder.group({
       id_usuario: [this.userResponse.id_usuario, [Validators.required]],
       user: [this.userResponse.usuario, [Validators.required]],
@@ -273,5 +275,10 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
     });
   }
 
+  getOders() {
+     this._accountSettingsService.getOders().subscribe(item => {
+      this.orders = item.orders;
+    })
+  }
 
 }

@@ -56,5 +56,9 @@ export class AccountSettingsService {
     uploadImage(file: any) {
       return this._http.post<any>(`${environment.apiUrl}/api/auth/upload-image`, file, this.options);
     }
+
+    getOders() {
+      return this._http.get<any>(`${environment.apiUrl}/api/ecommerce/get`);
+    }
   
 }
