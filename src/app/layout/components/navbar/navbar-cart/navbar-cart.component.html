@@ -34,7 +34,13 @@
               </div>
               <div class="cart-item-qty">
                 <div class="input-group touchspin-cart">
-                  <core-touchspin [numberValue]="product.mount" [stepValue]="1" [minValue]="1" [maxValue]="10"></core-touchspin>
+                  <core-touchspin 
+                    [numberValue]="product.mount" 
+                    [stepValue]="1" 
+                    [minValue]="1" 
+                    [maxValue]="10"
+                    [disable]="true"
+                    ></core-touchspin>
                 </div>
               </div>
               <h5 class="cart-item-price">{{ product.price | currency:'S/' }}</h5>
