@@ -351,7 +351,10 @@
                 font-size: 1.2rem;">
                     <div class="row">
                       <div class="col-3">
-
+                        <img src="assets/images/elements/icon-correo.png" alt="" style="
+                            width: 100%;
+                            margin-top: 5%;
+                        ">
                       </div>
                       <div class="col-7">
                         <p>Por favor, envíe el voucher de pago a:</p>
@@ -377,7 +380,10 @@
                 font-size: 1.2rem;">
                     <div class="row">
                       <div class="col-3">
-
+                        <img src="assets/images/elements/icon-tarjeta-no-pasa.png" alt="" style="
+                        width: 100%;
+                        margin-top: 5%;
+                    ">
                       </div>
                       <div class="col-7">
                         <b style="color:red">Su medio de pago fue rechazado</b>
@@ -394,7 +400,7 @@
                         <button
                           type="button"
                           class="btn btn-primary btn-block btn-next place-order"
-                          (click)="openCheckout()"
+                          (click)="iPayCard = true"
                           rippleEffect
                           [disabled]="!iPay"
                         >Intentar nuevamente realizar pago</button>
@@ -411,9 +417,9 @@
                 </div>
                 <div class="card-body">
       
-                  <div class="price-details">
-                    <h6 class="price-title">Detalles de la Compra</h6>
-                    <ul class="list-unstyled">
+                  <div class="price-details" >
+                    <h6 class="price-title" *ngIf="productsCart">Detalles de la Compra</h6>
+                    <ul class="list-unstyled" *ngIf="productsCart">
                       <ng-container *ngFor="let product of products">
                         <li class="price-detail"  *ngIf="product.isInCart === true">
                           <div class="detail-title">
@@ -429,8 +435,8 @@
                       
                                             
                     </ul>
-                    <h6 class="price-title">Datos del comprador</h6>
-                    <ul class="list-unstyled">
+                    <h6 class="price-title" *ngIf="productsCart">Datos del comprador</h6>
+                    <ul class="list-unstyled" *ngIf="productsCart">
                       <li class="price-detail">
                         <div class="detail-title">
                           <p> {{ this.f.name.value }} 
@@ -445,7 +451,7 @@
                     <ul class="list-unstyled">
                       <li class="price-detail">
                         <div class="detail-title detail-total" style="color: #b42995;">Total</div>
-                        <div class="detail-amt font-weight-bolder" style="color: #b42995;">{{ totalCalculate() | currency:'S/' }}</div>
+                        <div class="detail-amt font-weight-bolder" style="color: #b42995;">{{ getTotal || totalCalculate() | currency:'S/' }}</div>
                       </li>
                     </ul>
                     <button

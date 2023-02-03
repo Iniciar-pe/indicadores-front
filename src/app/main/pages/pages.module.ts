@@ -26,6 +26,7 @@ import { DataEntryModule } from './data-entry/data-entry.module';
 import { RatioModule } from './ratio/ratio.module';
 import { AbstractModule } from './abstract/abstract.module';
 import { FlujoModule } from './flujo/flujo.module';
+import { DistributionModule } from './distribution/distribution.module';
 
 @NgModule({
   declarations: [],
@@ -53,7 +54,8 @@ import { FlujoModule } from './flujo/flujo.module';
     DataEntryModule,
     RatioModule,
     AbstractModule,
-    FlujoModule
+    FlujoModule,
+    DistributionModule
   ],
 
   providers: []

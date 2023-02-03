@@ -65,7 +65,7 @@ export const menu: CoreMenu[] = [
             translate: 'MENU.LICENCIAS.UX.BUSINESS_I',
             type: 'item',
             icon: 'circle',
-            url: '#'
+            url: 'admin/distribution'
           },
           {
             id: 'components-avatar',

@@ -14,6 +14,8 @@ export class PagoProvider {
   public iPayCard = true;
   private cart: any;
   public order: any;
+  public linear = false;
+  public total;
   settings: any = {
     title: '',
     currency: '',
@@ -50,10 +52,12 @@ export class PagoProvider {
         response => {
           this.cart.response = JSON.stringify(response);
           this.addCartToBackend(this.cart).subscribe(res => {
+            this.total = res.total;
             this.order = res.order;
             this._cartService.finallyCart();
             this.loading = false;
             this._router.navigate(['/apps/comercio/resultado']);
+            this.linear = true;
           }, err => {
             this._cartService.finallyCart();
             this.loading = false;

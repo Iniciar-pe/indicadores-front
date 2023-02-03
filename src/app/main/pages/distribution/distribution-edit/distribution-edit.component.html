@@ -1,0 +1,99 @@
+<!-- app-content-header start -->
+<ng-container >
+  <div class="content-header row">
+      <div class="col-12 col-md-4 mb-2">
+        <b>{{ distribution.name }}</b>
+      </div>
+      <div class="col-12 col-md-8 mb-2">
+        <div class="form-group">
+          <div class="d-flex align-items-end justify-content-end mb-0">
+            <h6 class="mr-1 mb-0">
+              <div class="badge badge-pill badge-light-warning">Inactivo</div>
+            </h6>
+            <div class="custom-control custom-switch">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="priceSwitch"
+                name="priceSwitch"
+              />
+              <label class="custom-control-label" for="priceSwitch"></label>
+            </div>
+            <h6 class="ml-50 mb-0">
+              <div class="badge badge-pill badge-light-success">Activo</div>
+            </h6>
+          </div>
+          
+        </div>
+      </div>
+
+      <div class="col-12">
+        <form>
+          <div class="row">
+            <div class="col">
+
+              <div class="mb-3">
+                <label for="name" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="name" aria-describedby="emailHelp">
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              </div>
+
+            </div>
+            <div class="col">
+              <div class="mb-3">
+                <label for="ape" class="form-label">Apellidos</label>
+                <input type="text" class="form-control" id="ape">
+              </div>
+              
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="exampleInputPassword1">
+              </div>
+            </div>
+          </div>
+          
+        </form>
+      </div>
+
+      <div class="col-6">
+        <div class="card">
+          <div class="card-header">
+              Empresa
+          </div>
+          <div class="card-body">
+            <ng-container >
+              <div class="row">
+                <div class="col">
+
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customCheck1" />
+                    <label class="custom-control-label" for="customCheck1">Checked</label>
+                  </div>
+                  
+                </div>
+                <div class="col">
+
+                  <a
+                        href="javascript:void(0);"
+                        class="hide-arrow"
+                        id="dropdownBrowserState"
+                      >
+                        <i data-feather="edit" class="text-primary cursor-pointer mr-50"></i>
+                      </a>
+
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div ></div>
+      </div>
+    
+  </div>
+</ng-container>
+<!-- app-content-header end -->

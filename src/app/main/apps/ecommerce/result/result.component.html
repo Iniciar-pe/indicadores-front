@@ -3,29 +3,45 @@
   
   <div class="content-body" style="margin-top: 1%;">
     <section class="row mt-5" style="text-align: center;">
-      <div class="col-lg-4"></div>
       <div class="col-lg-4">
+        <img src="assets/images/elements/ilus-compra-exitosa.png" alt="" style="
+                            width: 100%;
+                            margin-top: 5%;
+                            height: 550px;
+                        ">
+      </div>
+      <div class="col-lg-4" style="font-size: 1.2rem;padding-top: 5%;">
         <h1 style="color: #3bb4ff;font-weight: bold;">¡Muchas gracias!</h1>
+        <br>
         <p>Su compra se ha realizado con exito.</p>
         <p>Podra ver las licencias adquiridas en la plataforma de manera inmediata</p>
         <br>
         <div class="form-group" style="border: 1px solid #40b6ff;
         padding: 2%;
-        border-radius: 5px;">
+        border-radius: 5px;margin-left: 5%;
+        margin-right: 5%;
+        ">
           Número de pedido: {{ order }}
         </div>
         <br>
-        <br>
         <button
           type="button"
-          class="btn btn-primary btn-block btn-next place-order"
+          class="btn btn-primary btn-next place-order"
           rippleEffect
           (click)="goTo()"
+          style="padding-left: 15%;
+          padding-right: 15%;"
         >
           Aceptar
         </button>
       </div>
-      <div class="col-lg-4"></div>
+      <div class="col-lg-4">
+        <img src="assets/images/elements/ilus-compra-exitosa1.png" alt="" style="
+            width: 100%;
+            margin-top: 5%;
+            height: 550px;
+        ">
+      </div>
     </section>
   </div>
 </div>

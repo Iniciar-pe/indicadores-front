@@ -40,6 +40,19 @@ export class EcommerceCheckoutComponent implements OnInit {
   get iPayCard() {
     return this.pago.iPayCard;
   }
+
+  set iPayCard(iPayCard) {
+    this.pago.iPayCard = iPayCard;
+  }
+
+  get getTotal() {
+    return this.pago.total;
+  }
+
+  get productsCart() {
+    return this.products.filter(item => item.isInCart === true)?.length;
+  }
+
   // Private
   private checkoutStepper: Stepper;
 
@@ -133,9 +146,12 @@ export class EcommerceCheckoutComponent implements OnInit {
   addCartToBackend() {
     this.pago.loading = true;
     this.pago.addCartToBackend(this.cart).subscribe(response => {
+      this.pago.total = response.total;
       this.pago.loading = false;
       this._cartService.finallyCart();
       this.iPay = false;
+      this.pago.linear = true;
+      this.checkoutStepper.to
     }, err => {
       this.pago.loading = false;
       this._cartService.finallyCart();
