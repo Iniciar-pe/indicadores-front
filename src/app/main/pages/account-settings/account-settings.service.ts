@@ -29,18 +29,6 @@ export class AccountSettingsService {
       return this._http.get<any>(`${environment.apiUrl}/api/auth/me`);
     }
 
-    addLicenses(data: any) {
-      return this._http.post<any>(`${environment.apiUrl}/api/licenses/add`, data);
-    }
-
-    editLicenses(data: any) {
-      return this._http.put<any>(`${environment.apiUrl}/api/licenses/edit`, data);
-    }
-
-    deleteLicense(data: any){
-      return this._http.post<any>(`${environment.apiUrl}/api/licenses/delete`, data);
-    }
-
     infoPlan(){
       return this._http.get<any>(`${environment.apiUrl}/api/master/get-licenses`);
     }
@@ -56,5 +44,9 @@ export class AccountSettingsService {
     uploadImage(file: any) {
       return this._http.post<any>(`${environment.apiUrl}/api/auth/upload-image`, file, this.options);
     }
-  
+
+    getOders() {
+      return this._http.get<any>(`${environment.apiUrl}/api/ecommerce/get`);
+    }
+
 }

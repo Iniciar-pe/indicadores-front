@@ -34,7 +34,13 @@
               </div>
               <div class="cart-item-qty">
                 <div class="input-group touchspin-cart">
-                  <core-touchspin [numberValue]="product.mount" [stepValue]="1" [minValue]="1" [maxValue]="10"></core-touchspin>
+                  <core-touchspin 
+                    [numberValue]="product.mount" 
+                    [stepValue]="1" 
+                    [minValue]="1" 
+                    [maxValue]="10"
+                    [disable]="true"
+                    ></core-touchspin>
                 </div>
               </div>
               <h5 class="cart-item-price">{{ product.price | currency:'S/' }}</h5>
@@ -51,7 +57,7 @@
         <h6 class="font-weight-bolder mb-0">Total:</h6>
         <h6 class="text-primary font-weight-bolder mb-0">{{ totalCalculate() | currency:'S/' }}</h6>
       </div>
-      <a class="btn btn-primary btn-block" routerLink="/apps/comercio/verificar">Ir a comprar</a>
+      <a class="btn btn-primary btn-block" routerLink="/apps/comercio/verificar">Realizar pago</a>
     </li>
     <!--/ Cart footer -->
   </ul>

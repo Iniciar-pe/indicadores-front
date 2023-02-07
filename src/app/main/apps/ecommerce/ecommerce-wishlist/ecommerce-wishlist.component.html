@@ -9,9 +9,11 @@
         *ngIf="isProduct"
         style="text-align: right;margin-top: 5%;"
         ><span [data-feather]="'check'" ></span>&nbsp;Total a pagar: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ totalCalculate() | currency:'S/' }}</p>
-    </div>
+      <br>
+      </div>
     <div class="col-lg-3 col-md-3 col-12">
       <button
+          *ngIf="isProduct"
           class="btn btn-info btn-cart"
           rippleEffect
           routerLink="/apps/comercio/verificar"
@@ -20,6 +22,15 @@
         >
           Finalizar Compra
         </button>
+        <button 
+          *ngIf="!isProduct"
+          type="button" 
+          class="btn btn-outline-primary" 
+          [disabled]="!isProduct" 
+          rippleEffect
+          style="width: 100%;"
+        >Finalizar Compra</button>
+        <br>
     </div>
   </div>
   

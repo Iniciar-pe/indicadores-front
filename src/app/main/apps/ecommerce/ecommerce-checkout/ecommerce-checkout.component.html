@@ -64,8 +64,11 @@
             <!-- Checkout Place Order Right starts -->
             <div class="checkout-options">
               <div class="card">
+                <div class="card-header">
+                  DETALLE
+                </div>
                 <div class="card-body">
-                  <label class="section-label mb-1">Detalle</label>
+                  
                   
                   <div class="price-details">
                     <h6 class="price-title">Detalles de la Compra</h6>
@@ -97,7 +100,7 @@
                       (click)="nextStep()"
                       rippleEffect
                     >
-                     Realizar pedido
+                     Realizar pago
                     </button>
                   </div>
                 </div>
@@ -246,7 +249,7 @@
                       (click)="submitPlan()"
                       rippleEffect
                     >
-                      Ir a Pagos
+                    Realizar pago
                     </button>
                   </div>
                 </div>
@@ -257,8 +260,10 @@
             <!-- Checkout Customer Address Right starts -->
             <div class="checkout-options">
               <div class="card">
+                <div class="card-header">
+                  DETALLE
+                </div>
                 <div class="card-body">
-                  <label class="section-label mb-1">Detalle</label>
                   
                   <div class="price-details">
                     <h6 class="price-title">Detalles de la Compra</h6>
@@ -289,7 +294,7 @@
                       class="btn btn-primary btn-block btn-next place-order"
                       rippleEffect
                     >
-                     Realizar pedido
+                    Realizar pago
                     </button>
                   </div>
                 </div>
@@ -305,7 +310,7 @@
         <div id="step-payment" class="content" >
           <form id="checkout-payment" class="list-view product-checkout" onsubmit="return false;">
             <div class="payment-type">
-              <div class="card">
+              <div class="card" *ngIf="iPay  && iPayCard">
                 <div class="card-header flex-column align-items-start">
                   <h4 class="card-title">Opciones de pago</h4>
                   <p class="card-text text-muted mt-25">Asegúrese de hacer clic en la opción de pago correcta</p>
@@ -324,7 +329,7 @@
                     <li class="py-50">
                       <div class="custom-control custom-radio">
                         <input type="radio" id="customColorRadio3" name="paymentOptions" [(ngModel)]="card" value="2" class="custom-control-input" />
-                        <label class="custom-control-label" for="customColorRadio3"> Tranferencia Bancaria </label>
+                        <label class="custom-control-label" for="customColorRadio3"> Transferencia Bancaria </label>
                       </div>
                       <div class="ml-2 mt-2">
                         <p>Consultoria Villajuana  SAC <br>
@@ -339,15 +344,82 @@
                   
                 </div>
               </div>
+              <div class="card" *ngIf="!iPay">
+               
+                <div class="card-body" style="padding-top: 10%;
+                padding-bottom: 10%;
+                font-size: 1.2rem;">
+                    <div class="row">
+                      <div class="col-3">
+                        <img src="assets/images/elements/icon-correo.png" alt="" style="
+                            width: 100%;
+                            margin-top: 5%;
+                        ">
+                      </div>
+                      <div class="col-7">
+                        <p>Por favor, envíe el voucher de pago a:</p>
+                        <b style="color:#3bb4ff">pagos@drrate.com</b>
+                        <br>
+                        <p>
+                          Datos para transferencia<br>
+                          Consultoria Villajuana SAC<br>
+                          RUC: 20500090000<br>
+                          Cta. Corriente BBVA: 0011-0000-0000101<br>
+                          CCI: 0011 000 0000000000
+                          <br><br>
+                          Quedamos atentos
+                        </p>
+                      </div>
+                    </div>
+                </div>
+              </div>
+              <div class="card" *ngIf="!iPayCard">
+               
+                <div class="card-body" style="padding-top: 10%;
+                padding-bottom: 10%;
+                font-size: 1.2rem;">
+                    <div class="row">
+                      <div class="col-3">
+                        <img src="assets/images/elements/icon-tarjeta-no-pasa.png" alt="" style="
+                        width: 100%;
+                        margin-top: 5%;
+                    ">
+                      </div>
+                      <div class="col-7">
+                        <b style="color:red">Su medio de pago fue rechazado</b>
+                        <br><br>
+                        <p>
+                          Lo sentimos se ha producido un error inesperado durante el proceso 
+                          de pago. Por favor, verifique que su tarjeta esté activa 
+                          para compras por internet y tenga saldo disponible. Luego, 
+                          vuelva a intentar realizar el pago.
+                        </p>
+                        <br>
+                        <p>* Si el problema continua, por favor comuniquese con su banco.</p>
+                        <br>
+                        <button
+                          type="button"
+                          class="btn btn-primary btn-block btn-next place-order"
+                          (click)="iPayCard = true"
+                          rippleEffect
+                          [disabled]="!iPay"
+                        >Intentar nuevamente realizar pago</button>
+
+                      </div>
+                    </div>
+                </div>
+              </div>
             </div>
             <div class="checkout-options">
               <div class="card">
+                <div class="card-header">
+                  DETALLE
+                </div>
                 <div class="card-body">
-                  <label class="section-label mb-1">Detalle</label>
       
-                  <div class="price-details">
-                    <h6 class="price-title">Detalles de la Compra</h6>
-                    <ul class="list-unstyled">
+                  <div class="price-details" >
+                    <h6 class="price-title" *ngIf="productsCart">Detalles de la Compra</h6>
+                    <ul class="list-unstyled" *ngIf="productsCart">
                       <ng-container *ngFor="let product of products">
                         <li class="price-detail"  *ngIf="product.isInCart === true">
                           <div class="detail-title">
@@ -363,8 +435,8 @@
                       
                                             
                     </ul>
-                    <h6 class="price-title">Datos del comprador</h6>
-                    <ul class="list-unstyled">
+                    <h6 class="price-title" *ngIf="productsCart">Datos del comprador</h6>
+                    <ul class="list-unstyled" *ngIf="productsCart">
                       <li class="price-detail">
                         <div class="detail-title">
                           <p> {{ this.f.name.value }} 
@@ -379,7 +451,7 @@
                     <ul class="list-unstyled">
                       <li class="price-detail">
                         <div class="detail-title detail-total" style="color: #b42995;">Total</div>
-                        <div class="detail-amt font-weight-bolder" style="color: #b42995;">{{ totalCalculate() | currency:'S/' }}</div>
+                        <div class="detail-amt font-weight-bolder" style="color: #b42995;">{{ getTotal || totalCalculate() | currency:'S/' }}</div>
                       </li>
                     </ul>
                     <button
@@ -387,10 +459,24 @@
                       class="btn btn-primary btn-block btn-next place-order"
                       (click)="openCheckout()"
                       rippleEffect
+                      [disabled]="!iPay || !iPayCard"
                     >
                     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                    Pagar
+                    Realizar pago
                     </button>
+                    <swal
+                      #saveSwal
+                      title="¿Seguro de procesar esta operación?"
+                      text=""
+                      icon="question"
+                      [showCancelButton]="true"
+                      [focusCancel]="true"
+                      confirmButtonColor= "#3BB4FF"
+                      cancelButtonColor= "#E42728"
+                      confirmButtonText= "Aceptar"
+                      cancelButtonText= "Cancelar"
+                      (confirm)="addCartToBackend()">
+                    </swal>
                   </div>
 
                   

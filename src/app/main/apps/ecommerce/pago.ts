@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import Swal from 'sweetalert2';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { environment } from 'environments/environment';
+import { CartService } from 'app/layout/components/navbar/cart.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 declare let Culqi: any;
 
@@ -9,7 +11,11 @@ declare let Culqi: any;
 export class PagoProvider {
 
   public loading = false;
+  public iPayCard = true;
   private cart: any;
+  public order: any;
+  public linear = false;
+  public total;
   settings: any = {
     title: '',
     currency: '',
@@ -19,20 +25,14 @@ export class PagoProvider {
 
   constructor(
     private http: HttpClient,
+    private _cartService: CartService,
+    private _router: Router,
     ) {
     document.addEventListener('payment_event', (token: any) => {
-
+      this.loading = true;
       if (token.detail === '') {
         this.loading = false;
-        Swal.fire({
-          icon: 'error',
-          title: '',
-          text: 'Hubo algunos problemas al intentar validar tu compra. Contáctanos para ayudarte.',
-          confirmButtonText: 'Aceptar',
-          customClass: {
-            confirmButton: 'btn btn-danger'
-          },
-        });
+        this.iPayCard = false;
         return;
       }
       const token_id = token.detail;
@@ -52,39 +52,22 @@ export class PagoProvider {
         response => {
           this.cart.response = JSON.stringify(response);
           this.addCartToBackend(this.cart).subscribe(res => {
+            this.total = res.total;
+            this.order = res.order;
+            this._cartService.finallyCart();
             this.loading = false;
-            Swal.fire({
-              icon: 'success',
-              title: response?.outcome.user_message,
-              confirmButtonText: 'Aceptar',
-              customClass: {
-                confirmButton: 'btn btn-success'
-              },
-            });
+            this._router.navigate(['/apps/comercio/resultado']);
+            this.linear = true;
           }, err => {
+            this._cartService.finallyCart();
             this.loading = false;
-            Swal.fire({
-              icon: 'error',
-              title: '',
-              text: 'Hubo algunos problemas al intentar validar tu compra. Contáctanos para ayudarte.',
-              confirmButtonText: 'Aceptar',
-              customClass: {
-                confirmButton: 'btn btn-danger'
-              },
-            });
+            this.iPayCard = false;
           });
 
         }, error => {
+          this._cartService.finallyCart();
           this.loading = false;
-          Swal.fire({
-            icon: 'error',
-            title: '',
-            text: 'Hubo algunos problemas al intentar validar tu compra. Contáctanos para ayudarte.',
-            confirmButtonText: 'Aceptar',
-            customClass: {
-              confirmButton: 'btn btn-danger'
-            },
-          });
+          this.iPayCard = false;
         });
     }, false);
   }

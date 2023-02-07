@@ -1,0 +1,267 @@
+<!-- app-content-header start -->
+<ng-container >
+  <form class="form-horizontal" [formGroup]="form" (ngSubmit)="submitPlan()" >
+  <div class="content-header row">
+      <div class="col-12 col-md-4 mb-2">
+        <b>{{ distribution.name }}</b>
+      </div>
+      
+      <div class="col-12 col-md-8 mb-2">
+        <div class="d-flex align-items-end justify-content-end mb-0">
+          <div class="badge badge-pill badge-info mb-1" style="width: 170px;">ID: {{ distribution.id ? distribution.id : '' }}</div>
+        </div>
+        <div class="form-group">
+          <div class="d-flex align-items-end justify-content-end mb-0">
+            <h6 class="mr-1 mb-0">
+              <div class="badge badge-pill badge-light-warning">Inactivo</div>
+            </h6>
+            <div class="custom-control custom-switch">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="priceSwitch"
+                name="priceSwitch"
+                formControlName="status"
+              />
+              <label class="custom-control-label" for="priceSwitch"></label>
+            </div>
+            <h6 class="ml-50 mb-0">
+              <div class="badge badge-pill badge-light-success">Activo</div>
+            </h6>
+          </div>
+          
+        </div>
+      </div>
+
+      <div class="col-12">
+      
+          <div class="row">
+            <div class="col">
+
+              <div class="mb-3">
+                <label for="name" class="form-label">Nombre</label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  formControlName="name"
+                  id="name" name="name"
+                  [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+                  placeholder="Nombre "
+                  maxlength = "50"
+                >
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input 
+                  type="email" 
+                  class="form-control"
+                  aria-describedby="emailHelp"
+                  formControlName="email"
+                  id="email" 
+                  name="email"
+                  [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                  placeholder="Email "
+                  maxlength = "50"
+                >
+              </div>
+
+            </div>
+            <div class="col">
+              <div class="mb-3">
+                <label for="lastName" class="form-label">Apellidos</label>
+                <input 
+                  type="text" 
+                  class="form-control"
+                  formControlName="lastName"
+                  id="lastName" 
+                  name="lastName"
+                  [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
+                  placeholder="Apellidos "
+                  maxlength = "50"
+                >
+              </div>
+              
+              <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input 
+                  type="password"
+                  class="form-control" 
+                  aria-describedby="emailHelp"
+                  formControlName="password"
+                  id="password" 
+                  name="password"
+                  [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+                  placeholder="Contraseña "
+                  maxlength = "50"
+                >
+              </div>
+            </div>
+          </div>
+          
+       
+      </div>
+
+      
+  </div>
+</form>
+  <div class="row">
+    <div class="col-6">
+      <div class="card">
+        <div class="card-header mb-1" style="background: #f4f4f4;font-weight: bold;">
+            Empresa
+        </div>
+        <div class="card-body">
+          <ng-container >
+            <div class="row mb-1" *ngFor="let item of business">
+              <div class="col-9">
+
+                <div class="custom-control custom-checkbox">
+                  <input 
+                    type="checkbox" 
+                    class="custom-control-input" 
+                    id="business{{ item.id }}" 
+                    name="business{{ item.id }}" 
+                    [(ngModel)]="item.isActive"
+                    [disabled]="validateGroup(item)"
+                  />
+                  <label class="custom-control-label" for="business{{ item.id }}">{{ item.name }}</label>
+                </div>
+                
+              </div>
+              <div class="col-3">
+                <a
+                  href="javascript:void(0);"
+                  class="hide-arrow"
+                  id="dropdownBrowserState"
+                  (click)="modalOpenSLCIM(modalSLCIM, 1, item)"
+                >
+                  <i data-feather="edit" class="text-primary cursor-pointer mr-50"></i>
+                </a>
+                <a
+                  href="javascript:void(0);"
+                  class="hide-arrow"
+                  id="dropdownBrowserState"
+                  [swal]="{
+                    title: '¿Está seguro de eliminar este registro?',
+                    text: 'Esta acción no se puede revertir.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#7367F0',
+                    cancelButtonColor: '#E42728',
+                    confirmButtonText: 'Si, eliminar',
+                    cancelButtonText: 'Cancelar',
+                    customClass: {
+                      confirmButton: 'btn btn-primary',
+                      cancelButton: 'btn btn-danger ml-1'
+                    }
+                  }"
+                  (confirm)="deleteBusiness(item)"
+                >
+                  <i data-feather="trash" class="text-danger cursor-pointer mr-50"></i>
+                </a>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="card">
+        <div class="card-header mb-1" style="background: #f4f4f4;font-weight: bold;">
+            Grupo de compra
+        </div>
+        <div class="card-body">
+          <ng-container >
+            <div class="row mb-1" *ngFor="let item of group; let i = index">
+              <div class="col">
+                <div class="form-check">
+                  <input 
+                    class="form-check-input" 
+                    type="radio" 
+                    name="group" 
+                    [value]="item.id" 
+                    id="group{{item.id}}" 
+                    [(ngModel)]="distribution.group">
+                  <label class="form-check-label" for="group{{item.id}}">
+                    Grupo de compra {{ i }} (vencimiento {{ item.end | date: 'dd/MM/yyyy' }})
+                  </label>
+                  <br>
+                    <span>{{ item.cant }} restantes de {{ item.number }}</span>
+                </div>
+                
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  <div class="col-12">
+    <button type="button" class="btn btn-primary" rippleEffect (click)="modalOpenSLCIM(modalSLCIM, 0)">
+      <i data-feather="plus" class="mr-0 mr-sm-1"></i>
+        Agregar empresa
+    </button>
+    <button type="button" class="btn btn-outline-primary " style="float: right;" (click)="goBack()">
+      Anular
+    </button>
+    <button type="button" class="btn btn-primary mr-1" (click)="submitPlan()" style="float: right;">
+      <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+      Aceptar
+    </button>
+    
+  </div>
+  </div>
+
+</ng-container>
+
+<ng-template #modalSLCIM let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="myModalLabel1">Agregar Empresa individual</h4>
+    <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" tabindex="0" ngbAutofocus>
+    <div class="container pb-1">
+      <div class="row mt-2">
+        <div class="col">
+  
+          <div class="mb-3">
+            <label for="ruc" class="form-label">RUC</label>
+            <input 
+              type="number" 
+              class="form-control"
+              id="ruc" 
+              name="ruc"
+              maxlength="11"
+              oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+              [(ngModel)]="ruc"
+            >
+          </div>
+  
+        </div>
+        <div class="col">
+          <div class="mb-3">
+            <label for="name" class="form-label">Nombre</label>
+            <input 
+              type="text" 
+              class="form-control"
+              id="name" 
+              name="name"
+              maxlength="100"
+              [(ngModel)]="name"
+            >
+          </div>
+  
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="addBusiness()">
+      <span *ngIf="loadingModal" class="spinner-border spinner-border-sm mr-1"></span>
+      Aceptar
+    </button>
+  </div>
+</ng-template>
+<!-- app-content-header end -->
