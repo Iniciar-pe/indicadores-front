@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CoreCommonModule } from '@core/common.module';
 
 import { DistributionEditComponent } from './distribution-edit.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [DistributionEditComponent],
@@ -15,6 +16,7 @@ import { DistributionEditComponent } from './distribution-edit.component';
     RouterModule,
     CoreCommonModule,
     NgbModule,
+    SweetAlert2Module.forRoot()
   ],
   exports: [DistributionEditComponent],
 })

@@ -3,6 +3,9 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ColumnMode } from '@swimlane/ngx-datatable';
 import { DistributionService } from './distribution.service';
 import { DistributionModel } from './distribution.model';
+import { AuthenticationService } from 'app/auth/service';
+import { User } from 'app/auth/models';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -19,20 +22,23 @@ export class DistributionComponent implements OnInit {
   public dsitributionEdit = false;
   public basicSelectedOption: number = 5;
   public ColumnMode = ColumnMode;
+  public currentUser: User;
+  public type;
 
-  constructor(private distributionService: DistributionService) {
-
+  constructor(
+    private distributionService: DistributionService,
+    private _authenticationService: AuthenticationService,
+    private route: ActivatedRoute
+    ) {
+    this._authenticationService.currentUser.subscribe(x => (this.currentUser = x));
+    this.route.data.subscribe(item => this.type = item.type);
   }
 
   ngOnInit() {
-    this.distributionService.get().subscribe(response => {
-      this.rows = response.license as DistributionModel[];
-      this.tempData = this.rows;
-    });
-
+    this.getList();
     // content header
     this.contentHeader = {
-      headerTitle: 'Empresa individual',
+      headerTitle: this.type === '1' ? 'Empresa individual' : 'Empresa con sucursales',
       actionButton: true,
       breadcrumb: {
         type: '',
@@ -41,9 +47,27 @@ export class DistributionComponent implements OnInit {
     };
   }
 
-  distritbutionEdit(row) {
+  getList() {
+    
+    this.distributionService.get(this.type).subscribe(response => {
+      this.rows = response.license as DistributionModel[];
+      this.tempData = this.rows;
+    });
+  }
+
+  distritbutionEdit(row: DistributionModel) {
     this.dsitributionEdit = true;
-    this.distribution = row;
+    this.distribution = row as DistributionModel;
+  }
+
+  distritbutionNew() {
+    this.dsitributionEdit = true;
+    this.distribution = {} as DistributionModel;
+  }
+
+  goBack() {
+    this.getList();
+    this.dsitributionEdit = false;
   }
 
 

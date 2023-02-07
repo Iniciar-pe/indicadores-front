@@ -18,10 +18,16 @@ import { DistributionService } from './distribution.service';
 
 const routes: Routes = [
   {
-    path: 'distribution',
+    path: 'distribution-individual',
     component: DistributionComponent,
     canActivate: [AuthGuard],
-    data: { animation: 'distribution' }
+    data: { type: '1' }
+  },
+  {
+    path: 'distribution-sucursal',
+    component: DistributionComponent,
+    canActivate: [AuthGuard],
+    data: { type: '2' }
   }
 ];
 
