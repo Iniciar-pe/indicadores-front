@@ -27,6 +27,7 @@ import { RatioModule } from './ratio/ratio.module';
 import { AbstractModule } from './abstract/abstract.module';
 import { FlujoModule } from './flujo/flujo.module';
 import { DistributionModule } from './distribution/distribution.module';
+import { DonateModule } from './donate/donate.module';
 
 @NgModule({
   declarations: [],
@@ -55,7 +56,8 @@ import { DistributionModule } from './distribution/distribution.module';
     RatioModule,
     AbstractModule,
     FlujoModule,
-    DistributionModule
+    DistributionModule,
+    DonateModule
   ],
 
   providers: []

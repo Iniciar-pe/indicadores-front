@@ -1,0 +1,138 @@
+<div class="content-wrapper container-xxl p-0">
+  <div class="content-body">
+    <!-- content-header component -->
+    <app-content-header [contentHeader]="contentHeader"></app-content-header>
+
+
+    
+    <div class="card">
+
+      <div class="card-body">
+        <section id="ngx-datatable-kitchen-sink">
+          <div class="row mb-2">
+            <div class="col-12 mb-50" style="text-align: right;">
+              <button class="btn btn-info ml-1" rippleEffect >
+                <i data-feather="plus" class="mr-0 mr-sm-1"></i
+                ><span class="d-none d-sm-inline-block">Comprar más licencias</span>
+              </button>
+            </div>
+          </div>
+
+          <ngx-datatable
+          class="bootstrap core-bootstrap"
+          [headerHeight]="40"
+          [rowHeight]="58"
+          [limit]="basicSelectedOption"
+          [columnMode]="ColumnMode.force"
+          [footerHeight]="50"
+          [rows]="rows"
+          [scrollbarH]="true"
+          >
+            <ngx-datatable-column name="ID" prop="full_name" [width]="10">
+              <ng-template let-row="row" let-name="value" let-rowIndex='rowIndex' ngx-datatable-cell-template>
+                <div class="d-flex align-items-center">
+                  <div class="cell-line-height">
+                    <p 
+                      class="font-medium-1 font-weight-bold line-height-1 mb-25"
+                      >
+                      {{  row.id }}
+                    </p>
+                  </div>
+                </div>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Usuario" prop="description" >
+              <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+                <div class="d-flex align-items-center">
+                  <div class="cell-line-height">
+                    <p 
+                    class="font-medium-1 font-weight-bold line-height-1 mb-25"
+                    [ngClass]="{
+                      'text-info': row.status == '2',
+                      'text-warning': row.status == '1'
+                    }"
+                    >
+                    {{  row.status == '1' ? 'Por asignar' : row.status == '2' ? 'Pendiente' : row.name }}
+                    </p>
+                  </div>
+                </div>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Fecha de registro" prop="name" >
+              <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+                <div class="d-flex align-items-center">
+                  <div class="cell-line-height">
+                    <p 
+                    class="font-medium-1 font-weight-bold line-height-1 mb-25"
+                    [ngClass]="{
+                      'text-info': row.status == '2',
+                      'text-warning': row.status == '1'
+                    }"
+                    >
+                    {{  row.status == '1' ? 'Por asignar' : row.status == '2' ? 'Pendiente' : row.date }}
+                    </p>
+                  </div>
+                </div>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Acciones" [width]="10" [sortable]="false">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                <div class="d-flex align-items-center">
+                  <a class="nav-link nav-link-style btn" (click)="copyText(ruta+row.token)">
+                    <span  class="ficon font-medium-5 feather icon-moon"></span>
+                  </a>
+                  <a class="nav-link nav-link-style btn" >
+                    <span  class="ficon font-medium-5 feather icon-moon"></span>
+                  </a>
+                </div>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Estado" prop="status" [width]="10">
+              <ng-template let-status="value" ngx-datatable-cell-template>
+                <div 
+                  class="badge badge-pill"
+                  [ngClass]="{
+                    'badge-light-success': status == '3',
+                    'badge-light-info': status == '2',
+                    'badge-light-warning': status == '1'
+                  }"
+                >
+                  {{  status == '1' ? 'Por asignar' : status == '2' ? 'Enviado' : 'Registrado' }}
+                  
+                </div>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Comentarios" prop="email" >
+              <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+                
+                  {{ row.comment }}
+                
+              </ng-template>
+            </ngx-datatable-column>
+            
+          </ngx-datatable>
+        
+      </section>
+   
+      </div>
+    </div>
+
+
+    
+
+
+
+    
+
+
+   
+
+
+  
+  </div>
+</div>

@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CustomValidators } from './customValidators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LoginSocialService } from '../login-social.service';
+import moment from 'moment';
 
 @Component({
   selector: 'app-auth-register-v2',
@@ -27,6 +28,7 @@ export class AuthRegisterV2Component implements OnInit {
   public error = '';
   public returnUrl: string;
   public loading = false;
+  public token = '';
   // Private
   private _unsubscribeAll: Subject<any>;
 
@@ -44,6 +46,9 @@ export class AuthRegisterV2Component implements OnInit {
     private _route: ActivatedRoute,
     private loginSocialService: LoginSocialService
   ) {
+    const urlTree = this._router.parseUrl(this._router.url);
+
+    this.token = urlTree.queryParams['url'];
     this._unsubscribeAll = new Subject();
 
     // Configure the layout
@@ -91,7 +96,7 @@ export class AuthRegisterV2Component implements OnInit {
       return;
     }
     this.loading = true;
-
+    const now = moment();
     const user = {
       email: this.f.email.value,
       password: this.f.password.value,
@@ -104,6 +109,8 @@ export class AuthRegisterV2Component implements OnInit {
       policy: this.f.policy.value,
       data: this.f.data.value,
       businessExist: this.f.businessExist.value ? 'S' : 'N',
+      token: this.token,
+      date: now.format('YYYY-MM-DD'),
     };
 
     this._authenticationService.register(user).pipe(first()).subscribe(

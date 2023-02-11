@@ -48,23 +48,13 @@
                   [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
                   placeholder="Nombre "
                   maxlength = "50"
+                  tabindex="1"
                 >
+                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                  <div *ngIf="f.name.errors.required">El campo es requerido</div>
+                </div>
               </div>
-              <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input 
-                  type="email" 
-                  class="form-control"
-                  aria-describedby="emailHelp"
-                  formControlName="email"
-                  id="email" 
-                  name="email"
-                  [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
-                  placeholder="Email "
-                  maxlength = "50"
-                >
-              </div>
-
+              
             </div>
             <div class="col">
               <div class="mb-3">
@@ -78,9 +68,38 @@
                   [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
                   placeholder="Apellidos "
                   maxlength = "50"
+                  tabindex="2"
                 >
+                <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                  <div *ngIf="f.lastName.errors.required">El campo es requerido</div>
+                </div>
               </div>
               
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input 
+                  type="email" 
+                  class="form-control"
+                  aria-describedby="emailHelp"
+                  formControlName="email"
+                  id="email" 
+                  name="email"
+                  [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                  placeholder="Email "
+                  maxlength = "50"
+                  tabindex="3"
+                >
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                  <div *ngIf="f.email.errors.required">El campo es requerido</div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
               <div class="mb-3">
                 <label for="password" class="form-label">Contraseña</label>
                 <input 
@@ -93,7 +112,9 @@
                   [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
                   placeholder="Contraseña "
                   maxlength = "50"
+                  tabindex="4"
                 >
+                
               </div>
             </div>
           </div>
@@ -201,7 +222,7 @@
         Agregar empresa
     </button>
     <button type="button" class="btn btn-outline-primary " style="float: right;" (click)="goBack()">
-      Anular
+      Cancelar
     </button>
     <button type="button" class="btn btn-primary mr-1" (click)="submitPlan()" style="float: right;">
       <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
@@ -235,7 +256,10 @@
               maxlength="11"
               oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
               [(ngModel)]="ruc"
-            >
+              tabindex="1"
+              required
+            > 
+            <div style="color: red;" *ngIf="submittedModal && ruc == ''" >El campo es requerido</div>
           </div>
   
         </div>
@@ -249,7 +273,43 @@
               name="name"
               maxlength="100"
               [(ngModel)]="name"
+              tabindex="2"
+              required
             >
+            <div *ngIf="submittedModal && name == ''" style="color: red;">
+              <div >El campo es requerido</div>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+
+      <div class="row mt-2" *ngIf="typeBusiness == '2'" >
+        <div class="col">
+  
+          <div class="mb-3">
+            <label for="ruc" class="form-label">Tipo de empresa</label>
+            <select name="" [(ngModel)]="businessType" class="form-control" required>
+              <option value="">Seleccione</option>
+              <option value="2">Empresa con sucursales</option>
+              <option value="3">Soy sucursal de una empresa</option>
+            </select>
+            <div *ngIf="submittedModal && businessType == ''" style="color: red;">
+              <div >El campo es requerido</div>
+            </div>
+          </div>
+  
+        </div>
+        <div class="col">
+          <div class="mb-3">
+            <label for="name" class="form-label">Empresa padre</label>
+            <select name="" [(ngModel)]="father" class="form-control" [disabled]="businessType != '3'" required>
+              <option value="">Seleccione</option>
+              <option [value]="item.id" *ngFor="let item of listB">{{ item.name }}</option>
+            </select>
+            <div *ngIf="submittedModal && father == ''" style="color: red;">
+              <div >El campo es requerido</div>
+            </div>
           </div>
   
         </div>
