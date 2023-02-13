@@ -7,6 +7,8 @@ import { AuthenticationService } from 'app/auth/service';
 import { User } from 'app/auth/models';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'environments/environment';
+import { EmailService } from 'app/main/apps/email/email.service';
+import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 
 @Component({
   selector: 'app-user',
@@ -21,9 +23,12 @@ export class DonateComponent implements OnInit {
   public basicSelectedOption: number = 5;
   public ColumnMode = ColumnMode;
   public ruta;
+  public openComposeRef;
 
   constructor(
     private donateService: DonateService,
+    private _emailService: EmailService,
+    private _coreSidebarService: CoreSidebarService
     ) {
   }
 
@@ -60,6 +65,12 @@ export class DonateComponent implements OnInit {
       document.execCommand('copy');
       document.body.removeChild(selBox);
 
+    }
+
+    openCompose() {
+      this.openComposeRef = true;
+      this._emailService.composeEmail(this.openComposeRef);
+      this._coreSidebarService.getSidebarRegistry('email-sidebar')?.toggleOpen();
     }
 
 }

@@ -13,6 +13,13 @@ import { ContentHeaderModule } from 'app/layout/components/content-header/conten
 import { AuthGuard } from 'app/auth/helpers/auth.guards';
 import { DonateComponent } from './donate.component';
 import { DonateService } from './donate.service';
+import { EmailService } from 'app/main/apps/email/email.service';
+import { EmailComposeComponent } from 'app/main/apps/email/email-compose/email-compose.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { QuillModule } from 'ngx-quill';
+import { CorePipesModule } from '@core/pipes/pipes.module';
+import { CoreSidebarModule } from '@core/components';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
 
 const routes: Routes = [
@@ -24,7 +31,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [DonateComponent],
+  declarations: [
+    DonateComponent,
+    EmailComposeComponent
+  ],
   imports: [
     RouterModule.forChild(routes),
     NgbModule,
@@ -33,8 +43,12 @@ const routes: Routes = [
     ContentHeaderModule,
     CardSnippetModule,
     NgxDatatableModule,
-    CsvModule,
+    NgSelectModule,
+    QuillModule.forRoot(),
+    CorePipesModule,
+    CoreSidebarModule,
+    PerfectScrollbarModule
   ],
-  providers: [DonateService],
+  providers: [DonateService, EmailService],
 })
 export class DonateModule {}
