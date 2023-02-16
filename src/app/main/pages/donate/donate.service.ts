@@ -16,4 +16,8 @@ export class DonateService {
     return this._httpClient.get<any>(`${environment.apiUrl}/api/donate/get`);
   }
 
+  mail(data) {
+    return this._httpClient.post<any>(`${environment.apiUrl}/api/donate/mail`, data);
+  }
+
 }

@@ -24,6 +24,8 @@ export class DonateComponent implements OnInit {
   public ColumnMode = ColumnMode;
   public ruta;
   public openComposeRef;
+  public to: string;
+  public link: string;
 
   constructor(
     private donateService: DonateService,
@@ -52,7 +54,17 @@ export class DonateComponent implements OnInit {
     });
   }
 
-  copyText(val: string){
+  copyText(row) {
+    const val = `
+    <p>Estimado(a):</p>
+
+    Tenemos el gusto de invitarte a utilizar Dr Rate para
+    tus indicadores financieros
+
+    ingrese aqui ${this.ruta + row.token}
+
+    Sabemos que le sera de gran utilidad
+    `;
     const selBox = document.createElement('textarea');
       selBox.style.position = 'fixed';
       selBox.style.left = '0';
@@ -67,7 +79,9 @@ export class DonateComponent implements OnInit {
 
     }
 
-    openCompose() {
+    openCompose(row) {
+      this.to = row.email;
+      this.link = this.ruta + row.token;
       this.openComposeRef = true;
       this._emailService.composeEmail(this.openComposeRef);
       this._coreSidebarService.getSidebarRegistry('email-sidebar')?.toggleOpen();

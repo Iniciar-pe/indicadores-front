@@ -71,7 +71,7 @@
                       'text-warning': row.status == '1'
                     }"
                     >
-                    {{  row.status == '1' ? 'Por asignar' : row.status == '2' ? 'Pendiente' : row.date }}
+                    {{  row.status == '1' ? 'Por asignar' : row.status == '2' ? 'Pendiente' : row.date | date: 'dd/MM/yyyy' }}
                     </p>
                   </div>
                 </div>
@@ -80,8 +80,8 @@
 
             <ngx-datatable-column name="Acciones"  [sortable]="false">
               <ng-template let-row="row" ngx-datatable-cell-template>
-                <div class="d-flex align-items-center">
-                  <a class="nav-link nav-link-style btn" style="display: flex;" (click)="copyText(ruta+row.token)">
+                <div class="d-flex align-items-center" *ngIf="row.status != '3',">
+                  <a class="nav-link nav-link-style btn" style="display: flex;" (click)="copyText(row)">
                     <i [data-feather]="'send'" [size]="18" class="mr-50"></i>
                     <span style="text-align: left;">Copiar <br>invitación</span>
                   </a>
@@ -89,7 +89,7 @@
                     class="nav-link nav-link-style btn" 
                     style="display: flex;"
                     data-target="#compose-mail"
-                    (click)="openCompose()"
+                    (click)="openCompose(row)"
                   >
                     <i [data-feather]="'mail'" [size]="18" class="mr-50"></i>
                     <span style="text-align: left;">Enviar <br>correo</span>
@@ -128,18 +128,6 @@
    
       </div>
     </div>
-
-
-    
-    
-
-
-    
-
-
-   
-
-
   
   </div>
 </div>
@@ -154,7 +142,10 @@
     collapsibleSidebar="bs-gt-lg"
   >
   </core-sidebar>
-    <app-email-compose></app-email-compose>
+    <app-email-compose 
+      [to]="to"
+      [link]="link"
+    ></app-email-compose>
    
   </div>
 </div>

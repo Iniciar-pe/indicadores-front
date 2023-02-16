@@ -5,5 +5,6 @@ export interface Donate {
     date: string;
     comment: string;
     token: string;
+    email: string;
 }
 

@@ -21,61 +21,23 @@
               <label for="email-to" class="form-label">Para: </label>
               <div class="flex-grow-1">
                 <div class="form-group">
-                  <ng-select
-                    #selectRef
-                    [items]="emailToSelect"
-                    [multiple]="true"
-                    [closeOnSelect]="false"
-                    [searchable]="false"
-                    bindLabel="name"
-                    placeholder="Select people"
-                    name="selectTo"
-                  >
-                    <ng-template ng-option-tmp let-item="item">
-                      <div class="media align-items-center p-25">
-                        <img
-                          class="d-block rounded-circle mr-50"
-                          [src]="item.avatar"
-                          height="24"
-                          width="24"
-                          [alt]="item.name"
-                        />
-                        <div class="media-body">
-                          <p class="mb-0">{{ item.name }}</p>
-                        </div>
-                      </div>
-                    </ng-template>
-                    <ng-template ng-label-tmp let-item="item" let-clear="clear">
-                      <div class="media align-items-center p-25">
-                        <img
-                          class="d-block rounded-circle mr-50"
-                          [src]="item.avatar"
-                          height="24"
-                          width="24"
-                          [alt]="item.name"
-                        />
-                        <div class="media-body">
-                          <p class="mb-0">{{ item.name }}</p>
-                        </div>
-                        <span class="ng-value-icon right" aria-hidden="true">×</span>
-                      </div>
-                    </ng-template>
-                  </ng-select>
+                  <input type="text" id="c" class="form-control" placeholder="Para" name="to" [(ngModel)]="to" />
                 </div>
               </div>
               
             </div>
             
-            <div class="compose-mail-form-field">
+            <div class="compose-mail-form-field mb-2">
               <label for="emailSubject">Asunto: </label>
-              <input type="text" id="emailSubject" class="form-control" placeholder="Subject" name="emailSubject" />
+              <input type="text" id="emailSubject" class="form-control" placeholder="Asunto" name="emailSubject" [(ngModel)]="emailSubject" />
             </div>
-            <div class="form-group">
+            <div class="form-group" style="height: 100px;">
               <quill-editor
                 name="addDescription"
                 customToolbarPosition="'bottom'"
                 class="border-bottom-0"
-                placeholder="Message"
+                placeholder="Mensaje"
+                [(ngModel)]="text"
               >
                 <div quill-editor-toolbar>
                   <div class="desc-toolbar border-top-0">
@@ -91,52 +53,73 @@
               </quill-editor>
             </div>
             <div class="compose-footer-wrapper">
-              <div class="btn-wrapper d-flex align-items-center">
-                <div class="btn-group dropup mr-1" ngbDropdown>
-                  <button type="button" class="btn btn-primary" (click)="closeCompose()" rippleEffect>Enviar</button>
-                </div>
-                <!-- add attachment -->
-                <div class="email-attachement">
-                  <label for="file-input">
-                    <i data-feather="paperclip" width="17" height="17" class="ml-50"></i>
-                  </label>
 
-                  <input id="file-input" type="file" class="d-none" />
+              <div class="row">
+                
+                <div class="col">
+                  <div class="btn-wrapper d-flex align-items-center">
+                    
+                    <!-- add attachment <div class="btn-group dropup mr-1" ngbDropdown>
+                      <button type="button" class="btn btn-primary" (click)="closeCompose()" rippleEffect>Enviar</button>
+                    </div>
+                  
+                  <div class="email-attachement">
+                      <label for="file-input">
+                        <i data-feather="paperclip" width="17" height="17" class="ml-50"></i>
+                      </label>
+    
+                      <input id="file-input" type="file" class="d-none" />
+                    </div>
+                  -->
+                    
+                  </div>
+                  
                 </div>
-              </div>
-              <div class="footer-action d-flex align-items-center">
-                <div ngbDropdown>
-                  <a ngbDropdownToggle class="hide-arrow">
-                    <i
-                      class="cursor-pointer mr-50"
-                      data-feather="more-vertical"
-                      [size]="18"
-                      role="button"
-                      id="composeActions"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                    </i>
-                  </a>
-                  <div ngbDropdownMenu aria-labelledby="composeActions">
-                    <a ngbDropdownItem href="javascript:void(0);">
-                      <span class="align-middle">Add Label</span>
-                    </a>
-                    <a ngbDropdownItem href="javascript:void(0);">
-                      <span class="align-middle">Plain text mode</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a ngbDropdownItem href="javascript:void(0);">
-                      <span class="align-middle">Print</span>
-                    </a>
-                    <a ngbDropdownItem href="javascript:void(0);">
-                      <span class="align-middle">Check Spelling</span>
-                    </a>
+                <div class="col">
+                  <div class="footer-action d-flex align-items-center mr-2" style="float: right;">
+                    <div ngbDropdown>
+                      <a ngbDropdownToggle class="hide-arrow">
+                        <i
+                          class="cursor-pointer mr-50"
+                          data-feather="more-vertical"
+                          [size]="18"
+                          role="button"
+                          id="composeActions"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                        </i>
+                      </a>
+                      <div ngbDropdownMenu aria-labelledby="composeActions">
+                        <a ngbDropdownItem href="javascript:void(0);">
+                          <span class="align-middle">Add Label</span>
+                        </a>
+                        <a ngbDropdownItem href="javascript:void(0);">
+                          <span class="align-middle">Plain text mode</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a ngbDropdownItem href="javascript:void(0);">
+                          <span class="align-middle">Print</span>
+                        </a>
+                        <a ngbDropdownItem href="javascript:void(0);">
+                          <span class="align-middle">Check Spelling</span>
+                        </a>
+                      </div>
+                    </div>
+                    <button type="reset" class="btn p-0" (click)="closeCompose()">
+                      <i data-feather="trash" [size]="18" class="cursor-pointer" data-dismiss="modal"></i>
+                    </button>
                   </div>
                 </div>
-                <button type="reset" class="btn p-0" (click)="closeCompose()">
-                  <i data-feather="trash" [size]="18" class="cursor-pointer" data-dismiss="modal"></i>
+              </div>
+
+            </div>
+            <div class="row mt-2">
+              <div class="col">
+                <button type="button" class="btn btn-primary" (click)="shendMail()" rippleEffect>
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                  Enviar
                 </button>
               </div>
             </div>
