@@ -124,6 +124,7 @@
 
       
   </div>
+  <input type="submit" name="" id="" value="prueba" #formButton style="display: none;">
 </form>
   <div class="row">
     <div class="col-6">
@@ -224,7 +225,7 @@
     <button type="button" class="btn btn-outline-primary " style="float: right;" (click)="goBack()">
       Cancelar
     </button>
-    <button type="button" class="btn btn-primary mr-1" (click)="submitPlan()" style="float: right;">
+    <button type="button" class="btn btn-primary mr-1" (click)="formButton.click()" style="float: right;">
       <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
       Aceptar
     </button>

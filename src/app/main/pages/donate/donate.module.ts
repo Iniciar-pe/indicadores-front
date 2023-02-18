@@ -20,6 +20,7 @@ import { QuillModule } from 'ngx-quill';
 import { CorePipesModule } from '@core/pipes/pipes.module';
 import { CoreSidebarModule } from '@core/components';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { TooltipsModule } from 'app/main/components/tooltips/tooltips.module';
 
 
 const routes: Routes = [
@@ -47,7 +48,8 @@ const routes: Routes = [
     QuillModule.forRoot(),
     CorePipesModule,
     CoreSidebarModule,
-    PerfectScrollbarModule
+    PerfectScrollbarModule,
+    TooltipsModule
   ],
   providers: [DonateService, EmailService],
 })

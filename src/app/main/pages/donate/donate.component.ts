@@ -18,6 +18,7 @@ import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.s
 })
 export class DonateComponent implements OnInit {
 
+  @ViewChild('methodIsOpen') methodIsOpen;
   public rows: Donate[];
   public contentHeader: object;
   public basicSelectedOption: number = 5;
@@ -55,16 +56,17 @@ export class DonateComponent implements OnInit {
   }
 
   copyText(row) {
+
+    this.methodIsOpen.isOpen();
     const val = `
-    <p>Estimado(a):</p>
+Estimado(a):
 
-    Tenemos el gusto de invitarte a utilizar Dr Rate para
-    tus indicadores financieros
+Tenemos el gusto de invitarte a utilizar Dr Rate para
+tus indicadores financieros
 
-    ingrese aqui ${this.ruta + row.token}
+ingrese aqui ${this.ruta + row.token}
 
-    Sabemos que le sera de gran utilidad
-    `;
+Sabemos que le sera de gran utilidad`;
     const selBox = document.createElement('textarea');
       selBox.style.position = 'fixed';
       selBox.style.left = '0';
@@ -76,6 +78,10 @@ export class DonateComponent implements OnInit {
       selBox.select();
       document.execCommand('copy');
       document.body.removeChild(selBox);
+
+      setTimeout(() => {
+        this.methodIsOpen.close();
+      }, 1000);
 
     }
 

@@ -11,7 +11,7 @@
         <section id="ngx-datatable-kitchen-sink">
           <div class="row mb-2">
             <div class="col-12 mb-50" style="text-align: right;">
-              <button class="btn btn-info ml-1" rippleEffect >
+              <button class="btn btn-info ml-1" rippleEffect [routerLink]="'/apps/comercio/lista'">
                 <i data-feather="plus" class="mr-0 mr-sm-1"></i
                 ><span class="d-none d-sm-inline-block">Comprar más licencias</span>
               </button>
@@ -81,10 +81,17 @@
             <ngx-datatable-column name="Acciones"  [sortable]="false">
               <ng-template let-row="row" ngx-datatable-cell-template>
                 <div class="d-flex align-items-center" *ngIf="row.status != '3',">
-                  <a class="nav-link nav-link-style btn" style="display: flex;" (click)="copyText(row)">
+                  <a 
+                    class="nav-link nav-link-style btn" 
+                    style="display: flex;" 
+                    (click)="copyText(row)"
+                    #methodIsOpen="ngbTooltip"
+                    triggers="click"
+                    ngbTooltip="Copiado">
                     <i [data-feather]="'send'" [size]="18" class="mr-50"></i>
                     <span style="text-align: left;">Copiar <br>invitación</span>
                   </a>
+                
                   <a 
                     class="nav-link nav-link-style btn" 
                     style="display: flex;"

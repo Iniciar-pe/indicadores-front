@@ -156,6 +156,10 @@ export class DistributionEditComponent implements OnInit {
   }
 
   submitPlan() {
+    this.submitted = true;
+    if (this.form.invalid) {
+      return;
+    }
     this.loading = true;
     const data = {
       user: this.distribution.id,
