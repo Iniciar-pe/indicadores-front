@@ -26,9 +26,16 @@ export class DistributionEditComponent implements OnInit {
   public loadingModal = false;
   public loading = false;
   public type;
+  public businessType = '';
+  public father = '';
+  public submittedModal = false;
 
   get f() {
     return this.form.controls;
+  }
+
+  get listB() {
+    return this.business.filter(item => item.type === '2');
   }
 
   constructor(
@@ -73,6 +80,7 @@ export class DistributionEditComponent implements OnInit {
   }
 
   modalOpenSLCIM(modalSLCIM, type: number,  item: Business = null) {
+    this.submittedModal = false;
     this.type = type;
     if (item) {
       this.ruc = item.ruc;
@@ -86,14 +94,32 @@ export class DistributionEditComponent implements OnInit {
   }
 
   addBusiness() {
+    this.submittedModal = true;
+
+    if (this.ruc === '') {
+      return false;
+    }
+
+    if (this.name === '') {
+      return false;
+    }
+
+    if (this.typeBusiness === '2' && this.ruc === '') {
+      return false;
+    }
+
+    if (this.typeBusiness === '2' && this.ruc === '') {
+      return false;
+    }
+
     this.loadingModal = true;
     const data = {
       id: this.id,
       business: this.name,
       ruc: '' + this.ruc,
       status: 'A',
-      type: '1',
-      index: '0',
+      type: this.businessType !== '' ?  this.businessType : '1',
+      index: this.father !== '' ? this.father : '0',
     };
 
     if (this.type === 0) {
@@ -130,6 +156,10 @@ export class DistributionEditComponent implements OnInit {
   }
 
   submitPlan() {
+    this.submitted = true;
+    if (this.form.invalid) {
+      return;
+    }
     this.loading = true;
     const data = {
       user: this.distribution.id,

@@ -81,7 +81,7 @@ export const menu: CoreMenu[] = [
             translate: 'MENU.LICENCIAS.UX.DONE',
             type: 'item',
             icon: 'circle',
-            url: '#'
+            url: 'admin/donar'
           },
         ]
       },

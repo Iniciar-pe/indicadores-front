@@ -27,7 +27,7 @@ export class DistributionService {
     if (type === '2') {
       type = type + ',3';
     }
-    return this._httpClient.get<any>(`${environment.apiUrl}/api/business/get-business?type=${type}`);
+    return this._httpClient.get<any>(`${environment.apiUrl}/api/business/get-business-type?type=${type}`);
   }
 
   getGroup() {

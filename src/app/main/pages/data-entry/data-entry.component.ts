@@ -177,7 +177,7 @@ export class DataEntryComponent implements OnInit {
           isActive: response?.default.filter(e => e.business === res.id).length > 0,
         };
       });
-      this.business = this.businesslist.filter(e => e.id === response?.default.filter(i => i.default === 'S')[0].business)[0];
+      this.business = this.businesslist?.filter(e => e.id === response?.default?.filter(i => i.default === 'S')[0]?.business)[0];
       this.getEntryData();
     });
   }

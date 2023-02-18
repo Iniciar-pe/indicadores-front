@@ -151,7 +151,7 @@ export class EcommerceCheckoutComponent implements OnInit {
       this._cartService.finallyCart();
       this.iPay = false;
       this.pago.linear = true;
-      this.checkoutStepper.to
+      // this.checkoutStepper.to
     }, err => {
       this.pago.loading = false;
       this._cartService.finallyCart();
