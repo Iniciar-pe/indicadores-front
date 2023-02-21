@@ -31,6 +31,7 @@ export class UserEditComponent implements OnInit {
   private tempData = [];
   public ColumnMode = ColumnMode;
   public rows: any;
+  public listUser = [];
   @ViewChild(DatatableComponent) table: DatatableComponent;
   
   constructor(private _userService: UserService) {
@@ -42,7 +43,6 @@ export class UserEditComponent implements OnInit {
     this.back.emit(false);
   }
 
-  
   filterUpdate(event) {
     const val = event.target.value.toLowerCase();
 
@@ -91,7 +91,7 @@ export class UserEditComponent implements OnInit {
             confirmButton: 'btn btn-success'
           },
         });
-      }, 900)
+      }, 900);
       
     }, err => this.messageError())
   }
@@ -114,6 +114,7 @@ export class UserEditComponent implements OnInit {
       ? '¿Está seguro de activar el usuario?'
       : '¿Está seguro de desactivar el usuario?';
     this.getUserList();
-    
   }
+
+
 }

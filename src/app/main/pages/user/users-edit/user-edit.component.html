@@ -7,11 +7,11 @@
         <!-- User Card & Plan Starts -->
       <div class="row">
         <!-- User Card starts-->
-        <div class="col-xl-8 col-lg-8 col-md-7">
+        <div class="col-xl-12 col-lg-12 col-md-12">
           <div class="card user-card">
             <div class="card-body">
               <div class="row">
-                <div class="col-xl-6 col-lg-12 d-flex flex-column justify-content-between border-container-lg">
+                <div class="col-xl-4 col-lg-12 d-flex flex-column justify-content-between border-container-lg">
                   <div class="user-avatar-section">
                     <div class="d-flex justify-content-start">
                       <!--*ngIf="data.avatar.length > 0; else customAvatar"-->
@@ -36,98 +36,133 @@
                       <div class="d-flex flex-column ml-1">
                         <div class="user-info mb-1">
                           <h4 class="mb-0">{{ user.name }} {{ user.lastName }}</h4>
-                          <span class="card-text">{{ user.email }}</span>
                         </div>
                         <div class="d-flex flex-wrap">
                           <div class="badge badge-pill badge-glow badge-primary" style="width: 150px;" *ngIf="user.status == 'A'">Activo</div>
                           <div class="badge badge-pill badge-glow badge-warning" style="width: 150px;" *ngIf="user.status == 'I'">Inactivo</div>
+                        </div>
+                        <br>
+                        <div class="d-flex mb-0">
+                          <h6 class="mr-1 mb-0">
+                            <div class="badge badge-pill badge-light-warning">Inactivo</div>
+                          </h6>
+                          <div class="custom-control custom-switch">
+                            <input
+                              type="checkbox"
+                              [(ngModel)]="statusUser"
+                              class="custom-control-input"
+                              id="priceSwitch"
+                              name="priceSwitch"
+                              [swal]="{
+                                title: titleMessage,
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#7367F0',
+                                cancelButtonColor: '#E42728',
+                                confirmButtonText: 'Si, aceptar',
+                                cancelButtonText: 'Cancelar',
+                                customClass: {
+                                  confirmButton: 'btn btn-primary',
+                                  cancelButton: 'btn btn-danger ml-1'
+                                }
+                              }"
+                              (confirm)="userActivate()"
+                            />
+                            <label class="custom-control-label" for="priceSwitch"></label>
+                          </div>
+                          <h6 class="ml-50 mb-0">
+                            <div class="badge badge-pill badge-light-success">Activo</div>
+                          </h6>
                         </div>
                       </div>
                     </div>
                   </div>
                   
                 </div>
-                <div class="col-xl-6 col-lg-12 mt-2 mt-xl-0">
+                <div class="col-xl-8 col-lg-12 mt-2 mt-xl-0">
                   <div class="user-info-wrapper">
-                    <div class="d-flex flex-wrap">
-                      <div class="user-info-title">
-                        <i data-feather="user" class="mr-1"></i>
-                        <span class="card-text user-info-title font-weight-bold mb-0">{{ user.name }}</span>
-                      </div>
-                      <p class="card-text mb-0">{{ user.lastName }}</p>
-                    </div>
                     
-                    <div class="d-flex flex-wrap my-50">
-                      <div class="user-info-title">
-                        <i data-feather="star" class="mr-1"></i>
-                        <span class="card-text user-info-title font-weight-bold mb-0">Plan</span>
-                      </div>
-                      <p class="card-text mb-0">{{ user.description }}</p>
-                    </div>
-                    <div class="d-flex flex-wrap my-50">
-                      <div class="user-info-title">
-                        <i data-feather="flag" class="mr-1"></i>
-                        <span class="card-text user-info-title font-weight-bold mb-0">Licencias</span>
-                      </div>
-                      <p class="card-text mb-0">{{ user.countLicense }}</p>
-                    </div>
-                    <div class="d-flex flex-wrap">
-                      <div class="user-info-title">
-                        <i data-feather="calendar" class="mr-1"></i>
-                        <span class="card-text user-info-title font-weight-bold mb-0">Fecha Inicio</span>
-                      </div>
-                      <p class="card-text mb-0"> {{ history?.start | date: 'dd/MM/yyyy' }} </p>
-                    </div>
-                    <div class="d-flex flex-wrap">
-                      <div class="user-info-title">
-                        <i data-feather="calendar" class="mr-1"></i>
-                        <span class="card-text user-info-title font-weight-bold mb-0">Fecha Fin</span>
-                      </div>
-                      <p class="card-text mb-0">{{ history?.end | date: 'dd/MM/yyyy' }}</p>
-                    </div>
+                    <ul ngbNav #nav="ngbNav" class="nav nav-pills">
+                      <li ngbNavItem>
+                        <a ngbNavLink>Empresa Individuales</a>
+                        <ng-template ngbNavContent>
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th style="text-transform: none;">Grupo de compra</th>
+                                <th style="text-transform: none;">Cantidad </th>
+                                <th style="text-transform: none;">Vencimiento</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <ng-container *ngFor="let item of history; let i = index">
+                                <tr *ngIf="item.plan == '4'" >
+                                  <td>Grupo de compra {{ i }}</td>
+                                  <td>{{ item.cant }}</td>
+                                  <td>{{ item.end | date: 'dd/MM/yyyy' }}</td>
+                                </tr>
+                              </ng-container>
+                              
+                            </tbody>
+                          </table>
+                        </ng-template>
+                      </li>
+                      <li ngbNavItem>
+                        <a ngbNavLink>Empresa con sucursales</a>
+                        <ng-template ngbNavContent>
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th style="text-transform: none;">Grupo de compra</th>
+                                <th style="text-transform: none;">Cantidad </th>
+                                <th style="text-transform: none;">Vencimiento</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <ng-container *ngFor="let item of history; let i = index">
+                                <tr *ngIf="item.plan == '5'" >
+                                  <td>Grupo de compra {{ i }}</td>
+                                  <td>{{ item.cant }}</td>
+                                  <td>{{ item.end | date: 'dd/MM/yyyy' }}</td>
+                                </tr>
+                              </ng-container>
+                            </tbody>
+                          </table>
+                        </ng-template>
+                      </li>
+                      <li ngbNavItem>
+                        <a ngbNavLink>Para donar</a>
+                        <ng-template ngbNavContent>
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th style="text-transform: none;">Grupo de compra</th>
+                                <th style="text-transform: none;">Cantidad </th>
+                                <th style="text-transform: none;">Vencimiento</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <ng-container *ngFor="let item of history; let i = index">
+                                <tr *ngIf="item.plan == '6'" >
+                                  <td>Grupo de compra {{ i }}</td>
+                                  <td>{{ item.cant }}</td>
+                                  <td>{{ item.end | date: 'dd/MM/yyyy' }}</td>
+                                </tr>
+                              </ng-container>
+                            </tbody>
+                          </table>
+                        </ng-template>
+                      </li>
+                    </ul>
+                    <div [ngbNavOutlet]="nav" class="mt-1"></div>
+  
+                    
+                  
                   </div>
                 </div>
               </div>
               
-              <div class="row">
-                <div class="col-12">
-                  <div class="form-group">
-                    <div class="d-flex mb-0">
-                      <h6 class="mr-1 mb-0">
-                        <div class="badge badge-pill badge-light-warning">Inactivo</div>
-                      </h6>
-                      <div class="custom-control custom-switch">
-                        <input
-                          type="checkbox"
-                          [(ngModel)]="statusUser"
-                          class="custom-control-input"
-                          id="priceSwitch"
-                          name="priceSwitch"
-                          [swal]="{
-                            title: titleMessage,
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#7367F0',
-                            cancelButtonColor: '#E42728',
-                            confirmButtonText: 'Si, aceptar',
-                            cancelButtonText: 'Cancelar',
-                            customClass: {
-                              confirmButton: 'btn btn-primary',
-                              cancelButton: 'btn btn-danger ml-1'
-                            }
-                          }"
-                          (confirm)="userActivate()"
-                        />
-                        <label class="custom-control-label" for="priceSwitch"></label>
-                      </div>
-                      <h6 class="ml-50 mb-0">
-                        <div class="badge badge-pill badge-light-success">Activo</div>
-                      </h6>
-                    </div>
-                    
-                  </div>
-                </div>
-              </div>
+         
               <div>
           
               </div>
@@ -136,38 +171,6 @@
         </div>
         <!-- /User Card Ends-->
 
-        <!-- Plan Card starts-->
-        <div class="col-xl-3 col-lg-4 col-md-5">
-          <div class="card plan-card border-primary">
-            <div class="card-header d-flex justify-content-between align-items-center pt-75 pb-1">
-              <div class="d-flex align-items-center  text-right ">
-                <i data-feather="info" class="font-medium-3"></i>
-                <h4 class="mb-0 ml-75"><b>Plan contratado</b> </h4>
-                
-              </div>
-              <div class="d-flex align-items-center  text-right ">
-                <div class="badge badge-light-primary text-right">{{ user.description }}</div>
-              </div>
-            </div>
-            <div class="card-body">
-              
-              <ul class="list-unstyled my-1">
-                <li>
-                  <span class="align-middle" *ngIf="userCount != '1';else templateUser">{{ userCount }} Usuarios Asignados</span>
-                  <span class="align-middle" #templateUser>{{ userCount }} Usuario Asignado</span>
-                </li>
-                <li class="my-25">
-                  <span class="align-middle" *ngIf="userBusiness != '1';else templateBusiness">{{ userBusiness }} Empresas</span>
-                  <span class="align-middle" #templateBusiness>{{ userBusiness }} Empresa</span>
-                </li>
-                <li class="my-25">
-                  <span class="align-middle">{{ sinAsignate }} Sin asignar</span>
-                </li>
-              </ul>
-              <button class="btn btn-primary text-center btn-block" rippleEffect routerLink="/admin/planes">Ver Planes</button>
-            </div>
-          </div>
-        </div>
         <!-- /Plan CardEnds -->
       </div>
   

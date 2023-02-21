@@ -28,6 +28,9 @@ export class UserRequest {
 }
 
 export class HistoryUser {
+  cant: number;
   start: string;
   end: string;
+  plan: number;
 }
+

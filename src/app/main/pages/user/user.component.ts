@@ -134,7 +134,6 @@ export class UserComponent implements OnInit {
  
   ngOnInit() {
     this.getPlan();
-    
     // content header
     this.contentHeader = {
       headerTitle: 'Indicadores',
@@ -160,4 +159,6 @@ export class UserComponent implements OnInit {
       }
     };
   }
+
+  
 }

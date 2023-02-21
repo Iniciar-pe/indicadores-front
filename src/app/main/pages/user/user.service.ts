@@ -35,8 +35,6 @@ export class UserService {
       return this._http.put<any>(`${environment.apiUrl}/api/plan/edit`, plan);
     }
 
-    
-    
     deletePlan(plan: any) {
       return this._http.post<any>(`${environment.apiUrl}/api/plan/delete`, plan);
     }
