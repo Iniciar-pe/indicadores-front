@@ -16,8 +16,8 @@ export class DistributionEditComponent implements OnInit {
   @Input() distribution: DistributionModel;
   @Input() typeBusiness: string;
   @Output() back = new EventEmitter<any>();
+  @Input() group: Group[];
   public business: Business[];
-  public group: Group[];
   public id = 0;
   public ruc = '';
   public name = '';
@@ -48,7 +48,6 @@ export class DistributionEditComponent implements OnInit {
   ngOnInit() {
     this.formControl();
     this.getBusiness();
-    this.getGroup();
   }
 
   getBusiness() {
@@ -60,12 +59,6 @@ export class DistributionEditComponent implements OnInit {
     }, err => {
       this.loadingModal = false;
       this.modalService.dismissAll();
-    });
-  }
-
-  getGroup() {
-    this.distributionService.getGroup().subscribe(response => {
-      this.group = response.group;
     });
   }
 
@@ -86,6 +79,11 @@ export class DistributionEditComponent implements OnInit {
       this.ruc = item.ruc;
       this.name = item.name;
       this.id = item.id;
+    } else {
+      this.ruc = '';
+      this.name = '';
+      this.id = null;
+      this.father = '';
     }
     this.modalService.open(modalSLCIM, {
       scrollable: true,
@@ -156,10 +154,48 @@ export class DistributionEditComponent implements OnInit {
   }
 
   submitPlan() {
+    if (!this.distribution.group) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Debe agregar un grupo de compra',
+        confirmButtonText: 'Aceptar',
+        customClass: {
+          confirmButton: 'btn btn-danger'
+        },
+      });
+      return;
+    }
+
+    const isActive = this.business.filter(item => item.isActive == true);
+    if (isActive.length <= 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Debe seleccionar mínimo una empresa',
+        confirmButtonText: 'Aceptar',
+        customClass: {
+          confirmButton: 'btn btn-danger'
+        },
+      });
+      return;
+    }
+
+    const newGroup = this.group.filter(item => item.id == this.distribution.group);
+    if (newGroup[0].cant == newGroup[0].number) {
+      Swal.fire({
+        icon: 'error',
+        title: 'No tiene licencia para poder asignar un usuario',
+        confirmButtonText: 'Aceptar',
+        customClass: {
+          confirmButton: 'btn btn-danger'
+        },
+      });
+    }
+
     this.submitted = true;
     if (this.form.invalid) {
       return;
     }
+
     this.loading = true;
     const data = {
       user: this.distribution.id,

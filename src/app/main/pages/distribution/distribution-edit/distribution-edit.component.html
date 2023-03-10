@@ -203,12 +203,14 @@
                     name="group" 
                     [value]="item.id" 
                     id="group{{item.id}}" 
-                    [(ngModel)]="distribution.group">
+                    [(ngModel)]="distribution.group"
+                    [disabled]="item.cant == item.number"
+                    >
                   <label class="form-check-label" for="group{{item.id}}">
-                    Grupo de compra {{ i }} (vencimiento {{ item.end | date: 'dd/MM/yyyy' }})
+                    Grupo de compra {{ i + 1 }} (vencimiento {{ item.end | date: 'dd/MM/yyyy' }})
                   </label>
                   <br>
-                    <span>{{ item.cant }} restantes de {{ item.number }}</span>
+                    <span>{{ item.number - item.cant }} restantes de {{ item.number }}</span>
                 </div>
                 
               </div>

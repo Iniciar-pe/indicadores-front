@@ -9,7 +9,7 @@ export class AccountSettingsService {
 
     options = {
       headers: new HttpHeaders({
-        'Accept': 'aplication/json'
+        'Accept': 'aplication/json',
       })
     }
     

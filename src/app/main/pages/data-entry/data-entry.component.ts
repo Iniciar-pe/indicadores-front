@@ -85,9 +85,10 @@ export class DataEntryComponent implements OnInit {
       if (option) {
         this.dataEntry = response;
       }
-      this.criterionResponse = response.criterion;
-      this.criterion = response.criterion.id;
+
       if (response.criterion) {
+        this.criterionResponse = response.criterion;
+        this.criterion = response.criterion?.id;
         this.data.period = response.criterion?.period;
         this.data.month = response.criterion?.startMonth;
         this.data.year = response.criterion?.startYear;

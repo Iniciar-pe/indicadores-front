@@ -30,8 +30,8 @@ export class DistributionService {
     return this._httpClient.get<any>(`${environment.apiUrl}/api/business/get-business-type?type=${type}`);
   }
 
-  getGroup() {
-    return this._httpClient.get<any>(`${environment.apiUrl}/api/licenses/get-group`);
+  getGroup(type) {
+    return this._httpClient.get<any>(`${environment.apiUrl}/api/licenses/get-group?type=${type}`);
   }
 
   addBusiness(data: any) {
