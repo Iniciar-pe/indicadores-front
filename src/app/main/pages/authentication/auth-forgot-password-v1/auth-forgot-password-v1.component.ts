@@ -1,16 +1,18 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { takeUntil } from 'rxjs/operators';
+import { first, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 import { CoreConfigService } from '@core/services/config.service';
+import { LoginSocialService } from '../login-social.service';
+import Swal from 'sweetalert2';
+import { AuthenticationService } from 'app/auth/service';
 
 @Component({
   selector: 'app-auth-forgot-password-v1',
   templateUrl: './auth-forgot-password-v1.component.html',
   styleUrls: ['./auth-forgot-password-v1.component.scss'],
-  encapsulation: ViewEncapsulation.None
 })
 export class AuthForgotPasswordV1Component implements OnInit {
   // Public
@@ -18,8 +20,8 @@ export class AuthForgotPasswordV1Component implements OnInit {
   public coreConfig: any;
   public forgotPasswordForm: FormGroup;
   public submitted = false;
+  public loading = false;
 
-  // Private
   private _unsubscribeAll: Subject<any>;
 
   /**
@@ -29,7 +31,11 @@ export class AuthForgotPasswordV1Component implements OnInit {
    * @param {FormBuilder} _formBuilder
    *
    */
-  constructor(private _coreConfigService: CoreConfigService, private _formBuilder: FormBuilder) {
+  constructor(
+    private _coreConfigService: CoreConfigService,
+    private _formBuilder: FormBuilder,
+    private _authenticationService: AuthenticationService,
+    ) {
     this._unsubscribeAll = new Subject();
 
     // Configure the layout
@@ -65,10 +71,34 @@ export class AuthForgotPasswordV1Component implements OnInit {
     if (this.forgotPasswordForm.invalid) {
       return;
     }
-  }
+    this.loading = true;
+    const data = {
+      email: this.f.email.value,
+    };
 
-  // Lifecycle Hooks
-  // -----------------------------------------------------------------------------------------------------
+    this._authenticationService.sendPasswordResetLink(data)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe(response => {
+      this.loading = false;
+      Swal.fire({
+        icon: 'success',
+        title: 'Correo enviado correctamente',
+        text: 'Revise su correo ' + this.f.email.value,
+        confirmButtonText: 'Aceptar',
+      });
+    }, err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Se ha producido un error',
+        text: 'intente dentro de unos minutos.',
+        confirmButtonText: 'Aceptar',
+        customClass: {
+          confirmButton: 'btn btn-danger'
+        },
+      });
+      this.loading = false;
+    });
+  }
 
   /**
    * On init
@@ -79,7 +109,7 @@ export class AuthForgotPasswordV1Component implements OnInit {
     });
 
     // Subscribe to config changes
-    this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
+    this._coreConfigService.config.pipe(first()).subscribe(config => {
       this.coreConfig = config;
     });
   }

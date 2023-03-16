@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 import { AuthenticationService } from 'app/auth/service';
+import { environment } from 'environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
@@ -21,6 +22,14 @@ export class AuthGuard implements CanActivate {
         return false;
       }
       return true;
+    }
+    const routeActivity = window.location.href;
+    console.log(routeActivity);
+    if (routeActivity.includes('/admin/nuevo-password')) {
+      const token = routeActivity.split('token=');
+      
+      this._router.navigate(['/admin/nuevo-password'], { queryParams: { token: token[1] }});
+      return false;
     }
 
     this._router.navigate(['/admin/login'], { queryParams: { returnUrl: state.url } });

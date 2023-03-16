@@ -159,6 +159,14 @@ export class AuthenticationService {
     return err;
   }
 
+  sendPasswordResetLink(data) {
+    return this._http.post<any>(`${environment.apiUrl}/api/auth/send-password`, data);
+  }
+
+  sendPassword(data) {
+    return this._http.post<any>(`${environment.apiUrl}/api/auth/change-password`, data);
+  }
+
 }
 
 

@@ -152,7 +152,7 @@ export const menu: CoreMenu[] = [
         icon: 'activity',
         url: 'admin/indicadores'
       },
-      {
+      /**{
         id: 'plan',
         title: 'Planes',
         translate: 'MENU.CONFIGURATION.PLAN',
@@ -167,7 +167,7 @@ export const menu: CoreMenu[] = [
         type: 'item',
         icon: 'columns',
         url: 'admin/tabla'
-      },
+      }, */
     ]
   },
   // Charts & Maps

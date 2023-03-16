@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-
+import { AuthGuard } from 'app/auth/helpers/auth.guards';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { CoreCommonModule } from '@core/common.module';
@@ -17,23 +17,28 @@ import { ResponseComponent } from './response.component';
 const routes: Routes = [
   {
     path: 'login',
-    component: AuthLoginV1Component
+    component: AuthLoginV1Component,
+  
   },
   {
     path: 'registro',
-    component: AuthRegisterV2Component
+    component: AuthRegisterV2Component,
+   
   },
   {
-    path: 'authentication/reset-password-v1',
-    component: AuthResetPasswordV1Component
+    path: 'nuevo-password',
+    component: AuthResetPasswordV1Component,
+   
   },
   {
     path: 'recuperar',
-    component: AuthForgotPasswordV1Component
+    component: AuthForgotPasswordV1Component,
+   
   },
   {
     path: 'response',
-    component: ResponseComponent
+    component: ResponseComponent,
+
   }
 ];
 

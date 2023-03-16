@@ -31,9 +31,13 @@ export class NavbarCartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
     this.ruta = environment.apiUrl;
-    this.products = this._cartService.products;
+    this._cartService.$products.subscribe(item => {
+      console.log(item);
+      this.products = item;
+    })
+    // this.products = this._cartService.products;
     /**
      * // Get Products
     this._ecommerceService.getProducts();
