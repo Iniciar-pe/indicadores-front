@@ -216,7 +216,17 @@ export class DistributionEditComponent implements OnInit {
       this.distributionService.add(data).subscribe(response => {
         this.goBack();
         this.loading = false;
-      }, err => this.loading = false);
+      }, err => {
+        this.loading = false;
+        Swal.fire({
+          icon: 'error',
+          title: 'El email ya se encuentra registrado',
+          confirmButtonText: 'Aceptar',
+          customClass: {
+            confirmButton: 'btn btn-danger'
+          },
+        });
+      });
     }
 
   }
