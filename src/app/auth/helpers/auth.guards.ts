@@ -24,10 +24,8 @@ export class AuthGuard implements CanActivate {
       return true;
     }
     const routeActivity = window.location.href;
-    console.log(routeActivity);
     if (routeActivity.includes('/admin/nuevo-password')) {
       const token = routeActivity.split('token=');
-      
       this._router.navigate(['/admin/nuevo-password'], { queryParams: { token: token[1] }});
       return false;
     }

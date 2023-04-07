@@ -39,7 +39,6 @@ export class ResponseComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.code = params['code'] || null;
       this.state = params['state'] || null;
-      console.log(this.code);
     });
 
     this._coreConfigService.config = {

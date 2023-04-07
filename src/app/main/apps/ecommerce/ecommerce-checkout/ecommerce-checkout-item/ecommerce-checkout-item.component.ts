@@ -59,7 +59,6 @@ export class EcommerceCheckoutItemComponent implements OnInit {
       .filter(val => val.id === this.product.selectedPeriod)[0].number;
 
     this._cartService.calculatePeriod(this.product, (this.product.selectedPeriod === 1), numberPeriod);
-    
   }
 
   countChange(value) {

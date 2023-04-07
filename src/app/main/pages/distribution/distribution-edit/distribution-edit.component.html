@@ -310,7 +310,7 @@
               <option value="">Seleccione</option>
               <option [value]="item.id" *ngFor="let item of listB">{{ item.name }}</option>
             </select>
-            <div *ngIf="submittedModal && father == ''" style="color: red;">
+            <div *ngIf="submittedModal && father == '' &&businessType == '3'" style="color: red;">
               <div >El campo es requerido</div>
             </div>
           </div>

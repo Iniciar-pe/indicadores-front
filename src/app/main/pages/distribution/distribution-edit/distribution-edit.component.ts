@@ -35,7 +35,7 @@ export class DistributionEditComponent implements OnInit {
   }
 
   get listB() {
-    return this.business.filter(item => item.type === '2');
+    return this.business?.filter(item => item.type === '2');
   }
 
   constructor(

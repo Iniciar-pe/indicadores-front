@@ -115,7 +115,6 @@ export class AuthRegisterV2Component implements OnInit {
 
     this._authenticationService.register(user).pipe(first()).subscribe(
       data => {
-        console.log(data);
         this.login();
       },
       error => {
