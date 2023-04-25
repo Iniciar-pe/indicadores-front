@@ -107,7 +107,11 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       this._accountSettingsService.uploadImage(data).subscribe(e => {
         this.loading = false;
         this.avatarImage = environment.apiUrl + e.avatar;
-      }, err => this.messageError());
+        this.getUSer();
+      }, err => {
+        console.log(err);
+        this.messageError();
+      });
     }
   }
 

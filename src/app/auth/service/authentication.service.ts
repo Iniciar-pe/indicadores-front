@@ -40,8 +40,16 @@ export class AuthenticationService {
   /**
    *  Confirms if user is client
    */
-  get isClient() {
-    return this.currentUser && this.currentUserSubject.value.role === Role.Client;
+  get isFree() {
+    return this.currentUser && this.currentUserSubject.value.role === Role.Free;
+  }
+
+  get isOwner() {
+    return this.currentUser && this.currentUserSubject.value.role === Role.Owner;
+  }
+
+  get isAnalyst() {
+    return this.currentUser && this.currentUserSubject.value.role === Role.Analyst;
   }
 
   /**

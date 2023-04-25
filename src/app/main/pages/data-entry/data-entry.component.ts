@@ -96,6 +96,7 @@ export class DataEntryComponent implements OnInit {
         this.data.nameCurrency = response.criterion?.nameCurrency;
         this.existCriterion = false;
       }
+      
       this.childRef.getValues(response.criterion?.id);
       this.setPeriod();
       this.addDataQyery();
@@ -125,7 +126,7 @@ export class DataEntryComponent implements OnInit {
   }
 
   addDataQyery(option = false, opcion = 0) {
-    if (this.businessType !== '3') {
+    //if (this.businessType !== '3') {
       this.loading = option;
       this.data.business = String(this.business.id);
       this.data.startMonth = moment(this.datePeriod.startMonth).format('YYYY-MM-DD');
@@ -144,12 +145,12 @@ export class DataEntryComponent implements OnInit {
       }, err => {
         this.loading = option;
       });
-    } else {
+    /*} else {
       if (option) {
         this.horizontalWizardStepper.next();
       }
       // this.childRef.getValues(this.data);
-    }
+    }*/
   }
 
   next() {
@@ -269,7 +270,7 @@ export class DataEntryComponent implements OnInit {
     } else {
       Swal.fire({
         icon: 'error',
-        title: 'Ongreso de valores no completado',
+        title: 'Ingreso de valores no completado',
         confirmButtonText: 'Aceptar',
         customClass: {
           confirmButton: 'btn btn-danger'
@@ -281,15 +282,15 @@ export class DataEntryComponent implements OnInit {
   validateValues() {
     const data =  this.childRef.rows.filter(item => {
       if (item.previousEdit !== 'I' && item.currentEdit !== 'I') {
-        if (Number(item.previousPeriod.replace(',', '')) > 0 && Number(item.currentPeriod.replace(',', '')) > 0) {
+        if (Number(item.previousPeriod.replace(/,/g, '')) > 0 && Number(item.currentPeriod.replace(/,/g, '')) > 0) {
           return item;
         }
       } else if (item.previousEdit !== 'I' && item.currentEdit === 'I') {
-        if (Number(item.previousPeriod.replace(',', '')) > 0) {
+        if (Number(item.previousPeriod.replace(/,/g, '')) > 0) {
           return item;
         }
       } else if (item.previousEdit === 'I' && item.currentEdit !== 'I') {
-        if (Number(item.currentPeriod.replace(',', '')) > 0) {
+        if (Number(item.currentPeriod.replace(/,/g, '')) > 0) {
           return item;
         }
       }
