@@ -21,4 +21,5 @@ export interface Group {
     cant: number;
     number: number;
     plan: number;
+    period: number;
 }

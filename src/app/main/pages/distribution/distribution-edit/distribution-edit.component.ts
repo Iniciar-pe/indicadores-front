@@ -5,6 +5,7 @@ import { Business } from '../../data-entry/data-entry.model';
 import { DistributionModel, Group } from '../distribution.model';
 import { DistributionService } from '../distribution.service';
 import Swal from 'sweetalert2';
+import moment from 'moment';
 
 @Component({
   selector: 'app-distribution-edit',
@@ -197,15 +198,19 @@ export class DistributionEditComponent implements OnInit {
     }
 
     this.loading = true;
+
+    const group = this.group.filter(item => item.id === this.distribution.group)[0];
     const data = {
       user: this.distribution.id,
       email: this.f.email.value,
       lastName: this.f.lastName.value,
       name: this.f.name.value,
-      plan: this.group.filter(item => item.id === this.distribution.group)[0].plan,
+      plan: group?.plan,
       password: this.f.password.value,
       group: this.distribution.group,
       detail: JSON.stringify(this.business.filter(item => item.isActive === true)),
+      date: moment().format('YYYY-MM-DD'),
+      dateEnd: moment().add(group?.period == 1 ? 6 : 12, 'months')
     };
     if (this.distribution.id) {
       this.distributionService.editLicenses(data).subscribe(response => {

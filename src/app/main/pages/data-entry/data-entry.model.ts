@@ -51,6 +51,8 @@ export interface Business {
   default: string;
   isActive: boolean;
   user: number;
+  date: string;
+  dateEnd: string;
 }
 
 export interface Criterion {

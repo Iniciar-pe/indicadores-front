@@ -7,6 +7,7 @@ import moment from 'moment';
 import Swal from 'sweetalert2';
 import { EntryOfValuesService } from 'app/main/components/entry-of-values/entry-of-values.service';
 import { Router } from '@angular/router';
+import { AuthenticationService } from 'app/auth/service/authentication.service';
 
 @Component({
   selector: 'app-user',
@@ -51,6 +52,7 @@ export class DataEntryComponent implements OnInit {
     private modalService: NgbModal,
     private _router: Router,
     private _entryOfValuesService: EntryOfValuesService,
+    private _authenticationService: AuthenticationService,
     ) {
 
   }
@@ -176,6 +178,8 @@ export class DataEntryComponent implements OnInit {
           ruc: res.ruc,
           type: res.type,
           user: res.user,
+          date: res.date,
+          dateEnd: res.dateEnd,
           isActive: response?.default.filter(e => e.business === res.id).length > 0,
         };
       });
@@ -199,6 +203,7 @@ export class DataEntryComponent implements OnInit {
 
   setBusiness(event) {
     this.business = event;
+    console.log(this.business);
     this.getEntryData(false);
   }
 
@@ -255,6 +260,54 @@ export class DataEntryComponent implements OnInit {
   }
 
   runProcess() {
+
+    const date = Date.now();
+    const dateEnd = Date.parse(this.business.dateEnd);
+    console.log(date, dateEnd, this.business.dateEnd);
+    console.log(date >= dateEnd)
+    if (date >= dateEnd) {
+
+      if (this._authenticationService.isAnalyst) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Su licencia para '+ this.business.name +' ha vencido, favor gestionar la renovación.',
+          confirmButtonText: 'Aceptar',
+          customClass: {
+            confirmButton: 'btn btn-danger'
+          },
+        });
+      }
+
+      if (this._authenticationService.isOwner) {
+
+        Swal.fire({
+          title: 'Su licencia para '+ this.business.name +' ha vencido, favor gestionar la renovación.',
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+          customClass: {
+            confirmButton: 'btn btn-danger'
+          },
+        }).then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            this._router.navigate(['/apps/comercio/lista']);
+          } 
+        })
+
+        
+        /*Swal.fire({
+          icon: 'error',
+          title: 'Su licencia para '+ this.business.name +' ha vencido, favor gestionar la renovación.',
+          confirmButtonText: 'Aceptar',
+          customClass: {
+            confirmButton: 'btn btn-danger'
+          },
+        });*/
+      }
+      
+      return false;
+    }
+
     if (this.validateValues()) {
       this.loadingRun = true;
       const data = {
