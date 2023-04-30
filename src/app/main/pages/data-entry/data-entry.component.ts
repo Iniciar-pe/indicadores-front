@@ -263,8 +263,7 @@ export class DataEntryComponent implements OnInit {
 
     const date = Date.now();
     const dateEnd = Date.parse(this.business.dateEnd);
-    console.log(date, dateEnd, this.business.dateEnd);
-    console.log(date >= dateEnd)
+    
     if (date >= dateEnd) {
 
       if (this._authenticationService.isAnalyst) {

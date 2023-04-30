@@ -3,6 +3,9 @@ import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { Business, DatePeriod } from '../data-entry/data-entry.model';
 import { DataEntryService } from '../data-entry/data-entry.service';
 import { RatioService } from '../ratio/ratio.service';
+import { AuthenticationService } from 'app/auth/service/authentication.service';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user',
@@ -16,10 +19,13 @@ export class AbstractComponent implements OnInit {
   public businesslist: any[] = [];
   public business: Business;
   public datePeriod: DatePeriod;
+  public loading
 
   constructor(
     private _dataEntryService: DataEntryService,
     private _ratiosService: RatioService,
+    private _authenticationService: AuthenticationService,
+    private _router: Router,
     ) {
 
   }
@@ -55,6 +61,8 @@ export class AbstractComponent implements OnInit {
           ruc: res.ruc,
           type: res.type,
           user: res.user,
+          date: res.date,
+          dateEnd: res.dateEnd,
           isActive: response?.default.filter(e => e.business === res.id).length > 0,
         };
       });
@@ -82,6 +90,52 @@ export class AbstractComponent implements OnInit {
       };
 
     });
+  }
+
+
+  runProcess() {
+
+    this.loading = true;
+    const date = Date.now();
+    const dateEnd = Date.parse(this.business.dateEnd);
+    console.log(date, dateEnd, this.business.dateEnd);
+    console.log(date >= dateEnd)
+    if (date >= dateEnd) {
+
+      if (this._authenticationService.isAnalyst) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Su licencia para '+ this.business.name +' ha vencido, favor gestionar la renovación.',
+          confirmButtonText: 'Aceptar',
+          customClass: {
+            confirmButton: 'btn btn-danger'
+          },
+        });
+      }
+
+      if (this._authenticationService.isOwner) {
+
+        Swal.fire({
+          title: 'Su licencia para '+ this.business.name +' ha vencido, favor gestionar la renovación.',
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+          customClass: {
+            confirmButton: 'btn btn-danger'
+          },
+        }).then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            this._router.navigate(['/apps/comercio/lista']);
+          } 
+        })
+
+      }
+      
+      return false;
+    }
+
+    this.loading = false;
+
   }
 
 }
