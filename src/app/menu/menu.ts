@@ -168,7 +168,7 @@ export const menu: CoreMenu[] = [
     ]
   },
   // Charts & Maps
-  {
+  /**{
     id: 'goto',
     type: 'section',
     title: 'Salir',
@@ -183,10 +183,10 @@ export const menu: CoreMenu[] = [
         icon: 'log-out',
         type: 'item',
         role: ['Admin', 'Free', 'Owner', 'Analyst'],
-        url: '#'
+        url: '/'
       }
     ]
-  },
+  }, */
 
 ];
 

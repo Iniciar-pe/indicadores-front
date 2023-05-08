@@ -180,6 +180,9 @@ export class DataEntryComponent implements OnInit {
           user: res.user,
           date: res.date,
           dateEnd: res.dateEnd,
+          status: res.status,
+          numberOrder: res.numberOrder,
+          order: res.order,
           isActive: response?.default.filter(e => e.business === res.id).length > 0,
         };
       });
@@ -263,7 +266,32 @@ export class DataEntryComponent implements OnInit {
 
     const date = Date.now();
     const dateEnd = Date.parse(this.business.dateEnd);
-    
+    console.log(this.business);
+
+    if (this.business.order == '0') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Su licencia para el pedido de compra '+this.business.numberOrder+' se encuentra en estado “Pendiente de pago”, favor gestionar la activación',
+        confirmButtonText: 'Aceptar',
+        customClass: {
+          confirmButton: 'btn btn-danger'
+        },
+      });
+      return false;
+    }
+
+    if (this.business.status == 'I') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Su licencia para el pedido de compra '+this.business.numberOrder+' se encuentra en estado “Pendiente de pago”, favor gestionar la activación',
+        confirmButtonText: 'Aceptar',
+        customClass: {
+          confirmButton: 'btn btn-danger'
+        },
+      });
+      return false;
+    }
+  
     if (date >= dateEnd) {
 
       if (this._authenticationService.isAnalyst) {

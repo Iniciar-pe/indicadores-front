@@ -180,7 +180,7 @@ export class DistributionEditComponent implements OnInit {
       return;
     }
 
-    const newGroup = this.group.filter(item => item.id == this.distribution.group);
+    /*const newGroup = this.group.filter(item => item.id == this.distribution.group);
     if (newGroup[0].cant == newGroup[0].number) {
       Swal.fire({
         icon: 'error',
@@ -190,7 +190,8 @@ export class DistributionEditComponent implements OnInit {
           confirmButton: 'btn btn-danger'
         },
       });
-    }
+      return;
+    }*/
 
     this.submitted = true;
     if (this.form.invalid) {
@@ -208,6 +209,7 @@ export class DistributionEditComponent implements OnInit {
       plan: group?.plan,
       password: this.f.password.value,
       group: this.distribution.group,
+      status: this.f.status.value ? 'A' : 'I',
       detail: JSON.stringify(this.business.filter(item => item.isActive === true)),
       date: moment().format('YYYY-MM-DD'),
       dateEnd: moment().add(group?.period == 1 ? 6 : 12, 'months')
@@ -261,4 +263,8 @@ export class DistributionEditComponent implements OnInit {
 
   }
 
+  closeGroup() {
+    this.distribution.group = null;
+  }
+  
 }

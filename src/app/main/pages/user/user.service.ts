@@ -38,5 +38,9 @@ export class UserService {
     deletePlan(plan: any) {
       return this._http.post<any>(`${environment.apiUrl}/api/plan/delete`, plan);
     }
+
+    updateHistory(data: any) {
+      return this._http.post<any>(`${environment.apiUrl}/api/auth/update-history`, data);
+    }
   
 }

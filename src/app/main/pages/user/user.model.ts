@@ -20,6 +20,7 @@ export class UserAssigned {
   avatar: string;
   user: string;
   business: string;
+  type: string;
 }
 
 export class UserRequest {
@@ -32,5 +33,7 @@ export class HistoryUser {
   start: string;
   end: string;
   plan: number;
+  status: boolean;
+  order: boolean;
 }
 

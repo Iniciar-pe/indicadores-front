@@ -57,17 +57,31 @@ export class UserEditComponent implements OnInit {
     this.table.offset = 0;
   }
 
-  getUserList() {
+  getUserList(type: number) {
     const user = {
       id: this.user.id
     }
     this._userService.getUserAll(user).subscribe(item => {
-      this.rows = item.user as UserAssigned;
+      this.rows = item.user.filter(e => {
+        if (type == 1) {
+          if (e.type == type) {
+            return e;
+          }
+        } else {
+          if (e.type != 1) {
+            return e;
+          }
+        }
+        
+      }) as UserAssigned;
       this.tempData = this.rows;
       this.userBusiness = item.userBusiness;
       this.userCount = item.userCount;
       this.sinAsignate = Number(this.user.countLicense) - Number(this.userCount);
-      this.history = item.history  as HistoryUser;
+      this.history = item.history.map(e => {
+        e.order = e.order == '1' ? true : false;
+        return e;
+      })  as HistoryUser;
     })
   }
 
@@ -113,8 +127,29 @@ export class UserEditComponent implements OnInit {
     this.titleMessage = this.user.status == 'I' 
       ? '¿Está seguro de activar el usuario?'
       : '¿Está seguro de desactivar el usuario?';
-    this.getUserList();
+    this.getUserList(1);
   }
 
+  updateUser(item) {
+    item.order = item.order ? '0' : '1';
+    this._userService.updateHistory(item).subscribe(value => {
+      
+        Swal.fire({
+          icon: 'success',
+          title: value.message,
+          confirmButtonText: 'Aceptar',
+          customClass: {
+            confirmButton: 'btn btn-success'
+          },
+        });
+        console.log(item.order);
+        item.order = item.order == '1';
+      
+    }, err => this.messageError())
+    
+  }
+
+
+  
 
 }

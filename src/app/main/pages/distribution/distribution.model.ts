@@ -11,6 +11,7 @@ export interface DistributionModel {
     user: string;
     lastName: string;
     group: number;
+    statusLicence: string;
 }
 
 export interface Group {

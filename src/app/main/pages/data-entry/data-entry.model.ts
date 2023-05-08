@@ -53,6 +53,9 @@ export interface Business {
   user: number;
   date: string;
   dateEnd: string;
+  status: string;
+  numberOrder: string;
+  order: string;
 }
 
 export interface Criterion {
