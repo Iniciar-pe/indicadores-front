@@ -1,5 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, ElementRef, EventEmitter, HostListener, Inject, OnInit, Output, ViewChild } from '@angular/core';
+import { AuthenticationService } from 'app/auth/service/authentication.service';
 
 import { SearchService } from 'app/layout/components/navbar/navbar-search/search.service';
 
@@ -40,12 +41,19 @@ export class NavbarBookmarkComponent implements OnInit {
     }
   }
 
+  get isOwner() {
+    return this._authenticationService.isOwner;
+  }
   /**
    *
    * @param document
    * @param _searchService
    */
-  constructor(@Inject(DOCUMENT) private document, public _searchService: SearchService) {
+  constructor(
+    @Inject(DOCUMENT) private document, 
+    public _searchService: SearchService,
+    private _authenticationService: AuthenticationService
+    ) {
     this.modalForm = new EventEmitter<any>();
   }
 

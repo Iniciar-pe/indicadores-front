@@ -98,7 +98,7 @@
                             <tbody>
                               <ng-container *ngFor="let item of history; let i = index">
                                 <tr *ngIf="item.plan == '4'" >
-                                  <td>Grupo de compra {{ i + 1 }}</td>
+                                  <td>Grupo de compra {{ item.orden }}</td>
                                   <td>{{ item.cant }}</td>
                                   <td>{{ item.end | date: 'dd/MM/yyyy' }}</td>
                                   <td>
@@ -157,7 +157,7 @@
                             <tbody>
                               <ng-container *ngFor="let item of history; let i = index">
                                 <tr *ngIf="item.plan == '5'" >
-                                  <td>Grupo de compra {{ i + 1 }}</td>
+                                  <td>Grupo de compra {{ item.orden }}</td>
                                   <td>{{ item.cant }}</td>
                                   <td>{{ item.end | date: 'dd/MM/yyyy' }}</td>
                                   <td>
@@ -214,7 +214,7 @@
                             <tbody>
                               <ng-container *ngFor="let item of history; let i = index">
                                 <tr *ngIf="item.plan == '6'" >
-                                  <td>Grupo de compra {{ i }}</td>
+                                  <td>Grupo de compra {{ item.orden }}</td>
                                   <td>{{ item.cant }}</td>
                                   <td>{{ item.end | date: 'dd/MM/yyyy' }}</td>
                                 </tr>
@@ -309,7 +309,7 @@
                     </ng-template>
                     <div class="cell-line-height">
                       <p class="font-medium-1 font-weight-bold line-height-1 mb-25">
-                        {{ row.name }} {{ user.lastName }}
+                        {{ row.name }} {{ row.lastName }}
                       </p>
                       
                     </div>

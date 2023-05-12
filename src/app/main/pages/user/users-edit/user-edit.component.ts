@@ -59,14 +59,20 @@ export class UserEditComponent implements OnInit {
 
   getUserList(type: number) {
     const user = {
-      id: this.user.id
+      id: this.user.id,
+      type: type 
     }
+
+    this.rows = [];
+
     this._userService.getUserAll(user).subscribe(item => {
       this.rows = item.user.filter(e => {
         if (type == 1) {
           if (e.type == type) {
             return e;
           }
+        } else if (type == 3) {
+          return e;
         } else {
           if (e.type != 1) {
             return e;

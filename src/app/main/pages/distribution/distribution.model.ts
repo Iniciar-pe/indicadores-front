@@ -23,4 +23,5 @@ export interface Group {
     number: number;
     plan: number;
     period: number;
+    orde: number;
 }

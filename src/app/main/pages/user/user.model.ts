@@ -35,5 +35,6 @@ export class HistoryUser {
   plan: number;
   status: boolean;
   order: boolean;
+  orden: number;
 }
 

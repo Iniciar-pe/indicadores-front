@@ -66,6 +66,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
   }
 
+  get isOwner() {
+    return this._authenticationService.isOwner;
+  }
+
   // Private
   private _unsubscribeAll: Subject<any>;
 

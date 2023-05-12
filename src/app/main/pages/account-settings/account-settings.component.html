@@ -379,7 +379,8 @@
               </ng-template>
             </li>
             
-            <li class="nav-item" ngbNavItem>
+            <li class="nav-item" ngbNavItem
+            *ngIf="isOwner">
               <a
                 ngbNavLink
                 class="nav-link d-flex py-75"

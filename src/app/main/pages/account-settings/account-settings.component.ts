@@ -69,6 +69,10 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   public orders = [];
   private _unsubscribeAll: Subject<any>;
 
+  get isOwner() {
+    return this._authenticationService.isOwner;
+  }
+  
   constructor(
     private _accountSettingsService: AccountSettingsService,
     private _formBuilder: FormBuilder,

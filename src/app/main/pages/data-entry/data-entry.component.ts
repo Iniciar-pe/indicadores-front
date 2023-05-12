@@ -360,7 +360,7 @@ export class DataEntryComponent implements OnInit {
   }
 
   validateValues() {
-    const data =  this.childRef.rows.filter(item => {
+    const data =  this.childRef.rows?.filter(item => {
       if (item.previousEdit !== 'I' && item.currentEdit !== 'I') {
         if (Number(item.previousPeriod.replace(/,/g, '')) > 0 && Number(item.currentPeriod.replace(/,/g, '')) > 0) {
           return item;

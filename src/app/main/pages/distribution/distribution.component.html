@@ -140,16 +140,16 @@
             </ngx-datatable-column>
 
             <ngx-datatable-column name="Licencia" prop="statusLicence" [width]="15">
-              <ng-template let-status="value" ngx-datatable-cell-template>
+              <ng-template let-row="row" let-status="value" ngx-datatable-cell-template>
                 <div 
                   class="badge badge-pill"
                   [ngClass]="{
-                    'badge-light-success': 'A' == statusLicence,
-                    'badge-light-warning': statusLicence != 'A'
+                    'badge-light-success': 'A' == row.statusLicence,
+                    'badge-light-warning': row.statusLicence != 'A'
                   }"
                 >
                   {{
-                    statusLicence == 'A'
+                    row.statusLicence == 'A'
                       ? 'Activo'
                       : 'Inactivo'
                   }}

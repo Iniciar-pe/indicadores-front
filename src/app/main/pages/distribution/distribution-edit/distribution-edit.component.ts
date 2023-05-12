@@ -155,7 +155,10 @@ export class DistributionEditComponent implements OnInit {
   }
 
   submitPlan() {
-    if (!this.distribution.group) {
+
+    const isActive = this.business.filter(item => item.isActive == true);
+
+    if (isActive.length > 0 && this.distribution.group == 0) {
       Swal.fire({
         icon: 'error',
         title: 'Debe agregar un grupo de compra',
@@ -167,8 +170,8 @@ export class DistributionEditComponent implements OnInit {
       return;
     }
 
-    const isActive = this.business.filter(item => item.isActive == true);
-    if (isActive.length <= 0) {
+    
+    if (this.distribution.group != 0 && isActive.length <= 0) {
       Swal.fire({
         icon: 'error',
         title: 'Debe seleccionar mínimo una empresa',
