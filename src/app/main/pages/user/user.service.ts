@@ -42,5 +42,9 @@ export class UserService {
     updateHistory(data: any) {
       return this._http.post<any>(`${environment.apiUrl}/api/auth/update-history`, data);
     }
+
+    updateDonate(data: any) {
+      return this._http.post<any>(`${environment.apiUrl}/api/auth/update-donate`, data);
+    }
   
 }

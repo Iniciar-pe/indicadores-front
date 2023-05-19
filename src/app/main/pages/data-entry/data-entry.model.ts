@@ -56,6 +56,7 @@ export interface Business {
   status: string;
   numberOrder: string;
   order: string;
+  orden: string;
 }
 
 export interface Criterion {

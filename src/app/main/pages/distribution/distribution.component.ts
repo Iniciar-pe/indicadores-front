@@ -68,6 +68,7 @@ export class DistributionComponent implements OnInit {
   distritbutionNew() {
     this.dsitributionEdit = true;
     this.distribution = {} as DistributionModel;
+    this.distribution.status = 'A';
   }
 
   goBack() {

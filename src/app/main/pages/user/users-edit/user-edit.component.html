@@ -209,6 +209,7 @@
                                 <th style="text-transform: none;">Grupo de compra</th>
                                 <th style="text-transform: none;">Cantidad </th>
                                 <th style="text-transform: none;">Vencimiento</th>
+                                <th>Opciones</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -217,6 +218,40 @@
                                   <td>Grupo de compra {{ item.orden }}</td>
                                   <td>{{ item.cant }}</td>
                                   <td>{{ item.end | date: 'dd/MM/yyyy' }}</td>
+                                  <td>
+                                    <div class="d-flex mb-0">
+                                      <h6 class="mr-1 mb-0">
+                                        <div class="badge badge-pill badge-light-warning">Pendiente</div>
+                                      </h6>
+                                      <div class="custom-control custom-switch">
+                                        <input
+                                          type="checkbox"
+                                          [(ngModel)]="item.order"
+                                          class="custom-control-input"
+                                          id="price{{ i + 1 }}"
+                                          name="price{{ i + 1 }}"
+                                          [swal]="{
+                                            title: '¿Esta seguro de cambiar el estado del grupo de compra?',
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#7367F0',
+                                            cancelButtonColor: '#E42728',
+                                            confirmButtonText: 'Si, aceptar',
+                                            cancelButtonText: 'Cancelar',
+                                            customClass: {
+                                              confirmButton: 'btn btn-primary',
+                                              cancelButton: 'btn btn-danger ml-1'
+                                            }
+                                          }"
+                                          (confirm)="updateUserDonate(item)"
+                                        />
+                                        <label class="custom-control-label" for="price{{ i + 1 }}"></label>
+                                      </div>
+                                      <h6 class="ml-50 mb-0">
+                                        <div class="badge badge-pill badge-light-success">Pagado</div>
+                                      </h6>
+                                    </div>
+                                  </td>
                                 </tr>
                               </ng-container>
                             </tbody>

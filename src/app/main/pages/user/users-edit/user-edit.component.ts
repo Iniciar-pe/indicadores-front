@@ -155,7 +155,23 @@ export class UserEditComponent implements OnInit {
     
   }
 
-
+  updateUserDonate(item) {
+    item.order = item.order ? '0' : '1';
+    this._userService.updateDonate(item).subscribe(value => {
+      
+        Swal.fire({
+          icon: 'success',
+          title: value.message,
+          confirmButtonText: 'Aceptar',
+          customClass: {
+            confirmButton: 'btn btn-success'
+          },
+        });
+        console.log(item.order);
+        item.order = item.order == '1';
+      
+    }, err => this.messageError())
+  }
   
 
 }

@@ -183,6 +183,7 @@ export class DataEntryComponent implements OnInit {
           status: res.status,
           numberOrder: res.numberOrder,
           order: res.order,
+          orden: res.orden,
           isActive: response?.default.filter(e => e.business === res.id).length > 0,
         };
       });
@@ -271,7 +272,7 @@ export class DataEntryComponent implements OnInit {
     if (this.business.order == '0') {
       Swal.fire({
         icon: 'error',
-        title: 'Su licencia para el pedido de compra '+this.business.numberOrder+' se encuentra en estado “Pendiente de pago”, favor gestionar la activación',
+        title: 'Su licencia para el grupo de compra '+this.business.orden+' se encuentra en estado “Pendiente de pago”, favor gestionar la activación',
         confirmButtonText: 'Aceptar',
         customClass: {
           confirmButton: 'btn btn-danger'
@@ -280,17 +281,17 @@ export class DataEntryComponent implements OnInit {
       return false;
     }
 
-    if (this.business.status == 'I') {
+    /*if (this.business.status == 'I') {
       Swal.fire({
         icon: 'error',
-        title: 'Su licencia para el pedido de compra '+this.business.numberOrder+' se encuentra en estado “Pendiente de pago”, favor gestionar la activación',
+        title: 'Su licencia para el grupo de compra '+this.business.orden+' se encuentra en estado “Pendiente de pago”, favor gestionar la activación',
         confirmButtonText: 'Aceptar',
         customClass: {
           confirmButton: 'btn btn-danger'
         },
       });
       return false;
-    }
+    } */
   
     if (date >= dateEnd) {
 
