@@ -6,6 +6,8 @@ import { RatioService } from '../ratio/ratio.service';
 import { AuthenticationService } from 'app/auth/service/authentication.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { AbstractService } from './abstract.service';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-user',
@@ -23,6 +25,7 @@ export class AbstractComponent implements OnInit {
 
   constructor(
     private _dataEntryService: DataEntryService,
+    private _abstractService: AbstractService,
     private _ratiosService: RatioService,
     private _authenticationService: AuthenticationService,
     private _router: Router,
@@ -146,8 +149,34 @@ export class AbstractComponent implements OnInit {
       return false;
     }
 
-    this.loading = false;
+    this._abstractService.runProcess()
+      .subscribe((response: HttpResponse<Blob>) => {
+        let filename: string = this.getFileName(response)
+        let binaryData = [];
+        binaryData.push(response.body);
+        let downloadLink = document.createElement('a');
+        downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, { type: 'blob' }));
+        downloadLink.setAttribute('download', filename);
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        this.loading = false;
+    }, err => {
+      this.loading = false;
+    });
 
+  }
+
+  getFileName(response: HttpResponse<Blob>) {
+    let filename: string;
+    try {
+      const contentDisposition: string = response.headers.get('content-disposition');
+      const r = /(?:filename=")(.+)(?:;")/
+      filename = r.exec(contentDisposition)[1];
+    }
+    catch (e) {
+      filename = 'myfile.docx'
+    }
+    return filename
   }
 
 }
