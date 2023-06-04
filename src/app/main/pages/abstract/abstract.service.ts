@@ -7,8 +7,8 @@ export class AbstractService {
 
     constructor(private _http: HttpClient) {}
 
-    runProcess() {
-        return this._http.get<Blob>(`${environment.apiUrl}/api/word/get`, { observe: 'response', responseType: 'blob' as 'json' });
+    runProcess(id) {
+        return this._http.get<Blob>(`${environment.apiUrl}/api/word/get?e=${id}`, { observe: 'response', responseType: 'blob' as 'json' });
     }
 
 }

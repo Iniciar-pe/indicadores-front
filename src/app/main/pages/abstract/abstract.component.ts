@@ -149,7 +149,7 @@ export class AbstractComponent implements OnInit {
       return false;
     }
 
-    this._abstractService.runProcess()
+    this._abstractService.runProcess(this.business.id)
       .subscribe((response: HttpResponse<Blob>) => {
         let filename: string = this.getFileName(response)
         let binaryData = [];
@@ -174,7 +174,7 @@ export class AbstractComponent implements OnInit {
       filename = r.exec(contentDisposition)[1];
     }
     catch (e) {
-      filename = 'myfile.docx'
+      filename = 'resumen-ejecutivo-analisis.docx'
     }
     return filename
   }
