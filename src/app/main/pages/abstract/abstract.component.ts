@@ -174,7 +174,7 @@ export class AbstractComponent implements OnInit {
       filename = r.exec(contentDisposition)[1];
     }
     catch (e) {
-      filename = 'resumen-ejecutivo-analisis.docx'
+      filename = 'resumen-ejecutivo-analisis.pdf'
     }
     return filename
   }
