@@ -18,6 +18,7 @@ export class DistributionEditComponent implements OnInit {
   @Input() typeBusiness: string;
   @Output() back = new EventEmitter<any>();
   @Input() group: Group[];
+  @Input() typeFather: string;
   public business: Business[];
   public id = 0;
   public ruc = '';
@@ -210,6 +211,7 @@ export class DistributionEditComponent implements OnInit {
       lastName: this.f.lastName.value,
       name: this.f.name.value,
       plan: group?.plan,
+      typePlan: this.typeFather == '1' ? 4 : 5,
       password: this.f.password.value,
       group: this.distribution.group,
       status: this.f.status.value ? 'A' : 'I',

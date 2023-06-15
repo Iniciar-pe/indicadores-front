@@ -104,7 +104,7 @@ export class AbstractComponent implements OnInit {
     const date = Date.now();
     const dateEnd = Date.parse(this.business.dateEnd);
 
-    if (this.business.status == 'I') {
+    /*if (this.business.status == 'I') {
       Swal.fire({
         icon: 'error',
         title: 'Su licencia para el pedido de compra '+this.business.numberOrder+' se encuentra en estado “Pendiente de pago”, favor gestionar la activación',
@@ -113,7 +113,7 @@ export class AbstractComponent implements OnInit {
           confirmButton: 'btn btn-danger'
         },
       });
-    }
+    }*/
     
     if (date >= dateEnd) {
 
