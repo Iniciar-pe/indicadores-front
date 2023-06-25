@@ -9,19 +9,19 @@ export class NameRatio implements PipeTransform {
     const periodArray = [
       {
         id: 1,
-        name: 'Mes',
+        name: 'mes',
       },
       {
         id: 2,
-        name: 'Trimestre',
+        name: 'trimestre',
       },
       {
         id: 3,
-        name: 'Semestre',
+        name: 'semestre',
       },
       {
         id: 4,
-        name: 'Año',
+        name: 'año',
       },
     ];
     const name = periodArray.filter(e => e.id === Number(period))[0]?.name;

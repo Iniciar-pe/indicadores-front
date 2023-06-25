@@ -267,9 +267,9 @@ export class DataEntryComponent implements OnInit {
 
     const date = Date.now();
     const dateEnd = Date.parse(this.business.dateEnd);
-    console.log(this.business);
 
     if (this.business.order == '0') {
+      /*
       Swal.fire({
         icon: 'error',
         title: 'Su licencia para el grupo de compra '+this.business.orden+' se encuentra en estado “Pendiente de pago”, favor gestionar la activación',
@@ -279,6 +279,7 @@ export class DataEntryComponent implements OnInit {
         },
       });
       return false;
+      */
     }
 
     /*if (this.business.status == 'I') {
@@ -295,7 +296,7 @@ export class DataEntryComponent implements OnInit {
   
     if (date >= dateEnd) {
 
-      if (this._authenticationService.isAnalyst) {
+     /** if (this._authenticationService.isAnalyst) {
         Swal.fire({
           icon: 'error',
           title: 'Su licencia para '+ this.business.name +' ha vencido, favor gestionar la renovación.',
@@ -316,14 +317,18 @@ export class DataEntryComponent implements OnInit {
             confirmButton: 'btn btn-danger'
           },
         }).then((result) => {
-          /* Read more about isConfirmed, isDenied below */
+          
           if (result.isConfirmed) {
             this._router.navigate(['/apps/comercio/lista']);
           } 
         })
 
         
-        /*Swal.fire({
+        
+      }
+      
+      return false; */
+      /*Swal.fire({
           icon: 'error',
           title: 'Su licencia para '+ this.business.name +' ha vencido, favor gestionar la renovación.',
           confirmButtonText: 'Aceptar',
@@ -331,9 +336,6 @@ export class DataEntryComponent implements OnInit {
             confirmButton: 'btn btn-danger'
           },
         });*/
-      }
-      
-      return false;
     }
 
     if (this.validateValues()) {
