@@ -223,7 +223,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
    });
 
     this.contentHeader = {
-      headerTitle: 'Mi Cuenta',
+      headerTitle: 'Mi cuenta',
       actionButton: true,
       breadcrumb: {
         type: '',
@@ -239,7 +239,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
             link: '/'
           },
           {
-            name: 'Mi Cuenta',
+            name: 'Mi cuenta',
             isLink: false
           }
         ]

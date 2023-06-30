@@ -152,15 +152,16 @@
                   </ngx-datatable-column>
     
     
-                  <ngx-datatable-column name="Resultados" prop="result" [width]="350">
+                  <ngx-datatable-column name="Resultados" prop="result" [width]="20">
                     <ng-template let-column="column" ngx-datatable-header-template> 
                       <div class="container">
-                        <p style="    text-align: left  ;
-                    font-size: 12px;
+                        <p style="text-align: center;
+                    font-size: 14px;
                     color: #44b7ff;
                     background: whitesmoke;">
                     <b>V</b>
-                    <b class="title">ariación Absoluto del {{ datePeriod?.period | namePeriod }} Final respecto a {{ datePeriod?.period | namePeriod }} inicial ({{ symbol }})</b>  
+                    <b class="title">ariación Absoluto del <br>{{ datePeriod?.period | namePeriod }} 
+                      Final respecto a {{ datePeriod?.period | namePeriod }} <br>inicial ({{ symbol }})</b>  
                   </p>
                       </div>
                     </ng-template>
@@ -178,7 +179,7 @@
                     </ng-template>
                   </ngx-datatable-column>
     
-                  <ngx-datatable-column name="Opcion" [width]="5" [sortable]="false">
+                  <ngx-datatable-column name="Opcion" [width]="5" [sortable]="false" [width]="20">
                     <ng-template let-column="column" ngx-datatable-header-template> 
                       <div class="container">
                         <p 

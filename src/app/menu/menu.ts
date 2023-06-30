@@ -11,7 +11,7 @@ export const menu: CoreMenu[] = [
     children: [
       {
         id: 'bill',
-        title: 'Mi Cuenta',
+        title: 'Mi cuenta',
         translate: 'MENU.PERFIL.BILL',
         type: 'item',
         icon: 'user',
@@ -47,7 +47,7 @@ export const menu: CoreMenu[] = [
         children: [
           {
             id: 'components-alerts',
-            title: 'Empresa Individuales',
+            title: 'Empresa individuales',
             translate: 'MENU.LICENCIAS.UX.BUSINESS_I',
             type: 'item',
             icon: 'circle',
@@ -65,7 +65,7 @@ export const menu: CoreMenu[] = [
           },
           {
             id: 'components-avatar',
-            title: 'Para Donar',
+            title: 'Para donar',
             translate: 'MENU.LICENCIAS.UX.DONE',
             type: 'item',
             icon: 'circle',
