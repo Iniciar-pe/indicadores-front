@@ -57,10 +57,10 @@ export class EcommerceComponent implements OnInit {
   // Private
   private $barColor = '#f3f3f3';
   private $trackBgColor = '#EBEBEB';
-  private $textMutedColor = '#b9b9c3';
+  private $textMutedColor = '#000000';
   private $budgetStrokeColor2 = '#dcdae3';
   private $goalStrokeColor2 = '#51e5a8';
-  private $textHeadingColor = '#5e5873';
+  private $textHeadingColor = '#000000';
   private $strokeColor = '#ebe9f1';
   private $earningsStrokeColor2 = '#28c76f66';
   private $earningsStrokeColor3 = '#28c76f33';
