@@ -40,6 +40,7 @@ export class DataEntryComponent implements OnInit {
     month: '01',
     currency: '1',
     year: '2022',
+    symbol: '',
   };
 
 
@@ -72,7 +73,7 @@ export class DataEntryComponent implements OnInit {
         type: '',
         links: [
           {
-            name: 'Sigue los pasos',
+            name: 'Siga los pasos',
             isLink: true,
             link: '/'
           }
@@ -96,6 +97,7 @@ export class DataEntryComponent implements OnInit {
         this.data.year = response.criterion?.startYear;
         this.data.currency = response.criterion?.currency;
         this.data.nameCurrency = response.criterion?.nameCurrency;
+        this.data.symbol = response.criterion?.symbol;
         this.existCriterion = false;
       }
       
@@ -365,15 +367,15 @@ export class DataEntryComponent implements OnInit {
   validateValues() {
     const data =  this.childRef.rows?.filter(item => {
       if (item.previousEdit !== 'I' && item.currentEdit !== 'I') {
-        if (Number(item.previousPeriod.replace(/,/g, '')) > 0 && Number(item.currentPeriod.replace(/,/g, '')) > 0) {
+        if (Number(item.previousPeriod.replace(/,/g, '')) >= 0 && Number(item.currentPeriod.replace(/,/g, '')) >= 0) {
           return item;
         }
       } else if (item.previousEdit !== 'I' && item.currentEdit === 'I') {
-        if (Number(item.previousPeriod.replace(/,/g, '')) > 0) {
+        if (Number(item.previousPeriod.replace(/,/g, '')) >= 0) {
           return item;
         }
       } else if (item.previousEdit === 'I' && item.currentEdit !== 'I') {
-        if (Number(item.currentPeriod.replace(/,/g, '')) > 0) {
+        if (Number(item.currentPeriod.replace(/,/g, '')) >= 0) {
           return item;
         }
       }

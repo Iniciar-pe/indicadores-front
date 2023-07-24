@@ -34,6 +34,7 @@ export interface RequestDataEntry {
   endMonthPeriod?: string;
   countDays?: string;
   nameCurrency?: string;
+  symbol?: string;
 }
 
 export interface RequestBusiness {
@@ -72,6 +73,7 @@ export interface Criterion {
   startYear: string;
   startYearPeriod: string;
   nameCurrency: string;
+  symbol: string;
 }
 
 export interface ValuesRequest {
