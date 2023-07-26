@@ -163,7 +163,6 @@ export class AuthenticationService {
    }
 
    promiseError(err: HttpErrorResponse): HttpErrorResponse {
-    console.log(err)
     return err;
   }
 

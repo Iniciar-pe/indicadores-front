@@ -34,7 +34,6 @@ export class NavbarCartComponent implements OnInit {
 
     this.ruta = environment.apiUrl;
     this._cartService.$products.subscribe(item => {
-      console.log(item);
       this.products = item;
     })
     // this.products = this._cartService.products;

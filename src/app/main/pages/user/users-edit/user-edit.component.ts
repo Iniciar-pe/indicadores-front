@@ -148,7 +148,7 @@ export class UserEditComponent implements OnInit {
             confirmButton: 'btn btn-success'
           },
         });
-        console.log(item.order);
+       
         item.order = item.order == '1';
       
     }, err => this.messageError())
@@ -167,7 +167,7 @@ export class UserEditComponent implements OnInit {
             confirmButton: 'btn btn-success'
           },
         });
-        console.log(item.order);
+        
         item.order = item.order == '1';
       
     }, err => this.messageError())

@@ -209,7 +209,6 @@ export class DataEntryComponent implements OnInit {
 
   setBusiness(event) {
     this.business = event;
-    console.log(this.business);
     this.getEntryData(false);
   }
 
@@ -261,6 +260,7 @@ export class DataEntryComponent implements OnInit {
   }
 
   changePeriod() {
+    this.data.symbol = this.dataEntry?.currency.filter(e => e.id == Number(this.data.currency))[0].symbol;
     this.setPeriod();
     this.addDataQyery();
   }

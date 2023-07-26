@@ -126,8 +126,6 @@ export class TableComponent implements OnInit {
    * @param selected
    */
   onSelect({ selected }) {
-    console.log('Select Event', selected, this.selected);
-
     this.selected.splice(0, this.selected.length);
     this.selected.push(...selected);
   }
