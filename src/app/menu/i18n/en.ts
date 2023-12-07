@@ -4,7 +4,7 @@ export const locale = {
     MENU: {
       PERFIL: {
         SECTION: 'Perfil',
-        BILL: 'Mi Cuenta',
+        BILL: 'Mi cuenta',
         BUSINESS: 'Empresas',
         LICENSE: 'Licencias'
       },
@@ -31,9 +31,6 @@ export const locale = {
         SECTION: 'Configuración',
         USERS: 'Usuarios',
         INDICATORS: 'Indicadores',
-        TEMPLATE: 'Plantillas',
-        TABLE: 'Tablas',
-        PLAN: 'Planes'
       },
       GOTO: {
         SECTION: 'Salir',

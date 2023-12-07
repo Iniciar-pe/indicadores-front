@@ -95,21 +95,26 @@
                 </ng-template>
                 <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
                   <div class="container">
+                    
                     <center>
-                      <input 
+                      <div class="input-group input-group-merge">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">{{ symbol }}</span>
+                        </div>
+                        <input 
                         type="text" 
                         style="text-align:center;"
                         *ngIf="row.previousEdit != 'A'" 
                         value="No llenar" 
                         readonly
                         [tabIndex]="(rowIndex + rowIndex) + 1"
-                        class="form-control form-control-sm text-data"
+                        class="form-control text-data"
                       >
                       <input
                         [readonly]="businessType === '2'"
                         style="text-align:right;font-weight: 600;"
                         autofocus
-                        class="form-control form-control-sm text-data"
+                        class="form-control text-data"
                         (blur)="inlineEditingUpdateAge($event, 'previousPeriod', rowIndex, row)"
                         (keyup.enter)="inlineEditingUpdateAge($event, 'previousPeriod', rowIndex, row)"
                         *ngIf="row.previousEdit == 'A'"
@@ -120,7 +125,8 @@
                         [value]="row.previousPeriod"
                         [tabIndex]="(rowIndex + rowIndex) + 1"
                       />
-                     
+                        <!--<input type="text" class="form-control" placeholder="100" aria-label="Amount (to the nearest dollar)" />-->
+                      </div>
                     </center>
                   </div>
                   
@@ -140,12 +146,16 @@
                 <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
                   <div class="container">
                     <center>
-                      <input 
+                      <div class="input-group input-group-merge">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">{{ symbol }}</span>
+                        </div>
+                        <input 
                         style="text-align:center;"
                         type="text" 
                         *ngIf="row.currentEdit != 'A'" 
                         value="No llenar" 
-                        class="form-control form-control-sm text-data"
+                        class="form-control text-data"
                         readonly
                         [tabIndex]="(rowIndex + rowIndex) + 2"
                       >
@@ -154,7 +164,7 @@
                         [readonly]="businessType === '2'"
                         style="text-align:right;font-weight: 600;"
                         autofocus
-                        class="form-control form-control-sm text-data"
+                        class="form-control text-data"
                         (blur)="inlineEditingUpdateSalary($event, 'currentPeriod', rowIndex, row)"
                         (keyup.enter)="inlineEditingUpdateSalary($event, 'currentPeriod', rowIndex, row)"
                         *ngIf="row.currentEdit == 'A'"
@@ -165,6 +175,7 @@
                         [value]="row.currentPeriod"
                         [tabIndex]="(rowIndex + rowIndex) + 2"
                       />
+                      </div>
                     </center>
                   </div>
                   

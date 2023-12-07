@@ -43,7 +43,7 @@ export class AnalyticsComponent implements OnInit {
   private $strok_color = '#b9c3cd';
   private $label_color = '#e7eef7';
   private $white = '#fff';
-  private $textHeadingColor = '#5e5873';
+  private $textHeadingColor = '#000000';
 
   /**
    * Constructor

@@ -124,14 +124,14 @@ export class CardAnalyticsComponent implements OnInit, OnDestroy {
   private $purple = '#df87f2';
   private $white = '#fff';
 
-  private $textHeadingColor = '#5e5873';
+  private $textHeadingColor = '#000000';
   private $strokeColor = '#ebe9f1';
   private $labelColor = '#e7eef7';
   private $avgSessionStrokeColor2 = '#ebf0f7';
   private $budgetStrokeColor2 = '#dcdae3';
   private $goalStrokeColor2 = '#51e5a8';
   private $revenueStrokeColor2 = '#d0ccff';
-  private $textMutedColor = '#b9b9c3';
+  private $textMutedColor = '#000000';
   private $salesStrokeColor2 = '#df87f2';
   private $earningsStrokeColor2 = '#28c76f66';
   private $earningsStrokeColor3 = '#28c76f33';

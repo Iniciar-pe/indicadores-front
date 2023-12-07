@@ -81,6 +81,8 @@ export class EcommerceCheckoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    
     this.pago.initCulqi();
     this._authenticationService.currentUser.subscribe(x => (this.currentUser = x));
 

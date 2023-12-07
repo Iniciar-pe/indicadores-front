@@ -1,40 +1,23 @@
 import { CoreMenu } from '@core/types';
 
 export const menu: CoreMenu[] = [
-
   {
     id: 'perfil',
     type: 'section',
     title: 'Perfil',
     translate: 'MENU.PERFIL.SECTION',
     icon: 'package',
+    role: ['Admin', 'Free', 'Owner', 'Analyst'],
     children: [
       {
         id: 'bill',
-        title: 'Mi Cuenta',
+        title: 'Mi cuenta',
         translate: 'MENU.PERFIL.BILL',
         type: 'item',
         icon: 'user',
-        url: 'admin/cuenta'
+        url: 'admin/cuenta',
+        role: ['Admin', 'Free', 'Owner', 'Analyst'],
       },
-      /**
-       * {
-        id: 'license',
-        title: 'Licencias',
-        translate: 'MENU.PERFIL.LICENSE',
-        type: 'item',
-        icon: 'check-circle',
-        url: 'admin/licencia'
-      },
-      {
-        id: 'business',
-        title: 'Empresas',
-        translate: 'MENU.PERFIL.BUSINESS',
-        type: 'item',
-        icon: 'layers',
-        url: 'admin/empresa'
-      },
-       */
     ]
   },
   {
@@ -43,6 +26,7 @@ export const menu: CoreMenu[] = [
     title: 'Licencias',
     translate: 'MENU.LICENCIAS.SECTION',
     icon: 'package',
+    role: ['Admin', 'Free', 'Owner', 'Analyst'],
     children: [
       {
         id: 'shopping',
@@ -50,6 +34,7 @@ export const menu: CoreMenu[] = [
         translate: 'MENU.LICENCIAS.SHOPPING',
         type: 'item',
         icon: 'bookmark',
+        role: ['Admin', 'Free', 'Owner'],
         url: 'apps/comercio/lista'
       },
       {
@@ -58,13 +43,15 @@ export const menu: CoreMenu[] = [
         translate: 'MENU.LICENCIAS.DISTRIBUTION',
         type: 'collapsible',
         icon: 'layout',
+        role: ['Admin', 'Owner'],
         children: [
           {
             id: 'components-alerts',
-            title: 'Empresa Individuales',
+            title: 'Empresa individuales',
             translate: 'MENU.LICENCIAS.UX.BUSINESS_I',
             type: 'item',
             icon: 'circle',
+            role: ['Admin', 'Owner'],
             url: 'admin/distribution-individual'
           },
           {
@@ -73,14 +60,16 @@ export const menu: CoreMenu[] = [
             translate: 'MENU.LICENCIAS.UX.BUSINESS_S',
             type: 'item',
             icon: 'circle',
+            role: ['Admin', 'Owner'],
             url: 'admin/distribution-sucursal'
           },
           {
             id: 'components-avatar',
-            title: 'Para Donar',
+            title: 'Para donar',
             translate: 'MENU.LICENCIAS.UX.DONE',
             type: 'item',
             icon: 'circle',
+            role: ['Admin', 'Owner'],
             url: 'admin/donar'
           },
         ]
@@ -93,6 +82,7 @@ export const menu: CoreMenu[] = [
     title: 'Ingreso de datos',
     icon: '',
     translate: 'MENU.DATA.SECTION',
+    role: ['Admin', 'Free', 'Owner', 'Analyst'],
     url: 'admin/entrada-de-datos'
   },
   {
@@ -100,6 +90,7 @@ export const menu: CoreMenu[] = [
     type: 'section',
     title: 'Resultados',
     translate: 'MENU.INDICATOR.SECTION',
+    role: ['Admin', 'Free', 'Owner', 'Analyst'],
     icon: 'layers',
     children: [
       {
@@ -108,6 +99,7 @@ export const menu: CoreMenu[] = [
         translate: 'MENU.INDICATOR.INDICATORS',
         type: 'item',
         icon: 'database',
+        role: ['Admin', 'Free', 'Owner', 'Analyst'],
         url: 'admin/ratios'
       },
       {
@@ -116,6 +108,7 @@ export const menu: CoreMenu[] = [
         translate: 'MENU.INDICATOR.DASHBOARD',
         type: 'item',
         icon: 'dollar-sign',
+        role: ['Admin', 'Free', 'Owner', 'Analyst'],
         url: 'admin/flujo'
       },
       {
@@ -124,6 +117,7 @@ export const menu: CoreMenu[] = [
         translate: 'MENU.INDICATOR.ABSTRACT',
         type: 'item',
         icon: 'sun',
+        role: ['Admin', 'Free', 'Owner', 'Analyst'],
         url: 'admin/resumen'
       },
     ]
@@ -135,6 +129,7 @@ export const menu: CoreMenu[] = [
     title: 'Configuración',
     translate: 'MENU.CONFIGURATION.SECTION',
     icon: 'file-text',
+    role: ['Admin'],
     children: [
       {
         id: 'users',
@@ -142,6 +137,7 @@ export const menu: CoreMenu[] = [
         translate: 'MENU.CONFIGURATION.USERS',
         type: 'item',
         icon: 'users',
+        role: ['Admin'],
         url: 'admin/usuarios'
       },
       {
@@ -150,9 +146,10 @@ export const menu: CoreMenu[] = [
         translate: 'MENU.CONFIGURATION.INDICATORS',
         type: 'item',
         icon: 'activity',
+        role: ['Admin'],
         url: 'admin/indicadores'
       },
-      {
+      /**{
         id: 'plan',
         title: 'Planes',
         translate: 'MENU.CONFIGURATION.PLAN',
@@ -167,16 +164,17 @@ export const menu: CoreMenu[] = [
         type: 'item',
         icon: 'columns',
         url: 'admin/tabla'
-      },
+      }, */
     ]
   },
   // Charts & Maps
-  {
+  /**{
     id: 'goto',
     type: 'section',
     title: 'Salir',
     translate: 'MENU.GOTO.SECTION',
     icon: 'log-out',
+    role: ['Admin', 'Free', 'Owner', 'Analyst'],
     children: [
       {
         id: 'goto',
@@ -184,10 +182,11 @@ export const menu: CoreMenu[] = [
         translate: 'MENU.GOTO.GOTO',
         icon: 'log-out',
         type: 'item',
-        url: '#'
+        role: ['Admin', 'Free', 'Owner', 'Analyst'],
+        url: '/'
       }
     ]
-  },
+  }, */
 
 ];
 

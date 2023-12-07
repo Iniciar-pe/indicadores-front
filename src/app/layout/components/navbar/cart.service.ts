@@ -3,12 +3,14 @@ import { Router } from '@angular/router';
 import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
 import { Cart, Plan } from './ecommerce.model';
 import moment from 'moment';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
 
+  public $products: BehaviorSubject<Cart[]> = new BehaviorSubject<Cart[]>([]);
   public _products: Cart[] = [];
 
   constructor(
@@ -17,6 +19,7 @@ export class CartService {
 
     if (localStorage.getItem('carts')) {
       this._products = JSON.parse(localStorage.getItem('carts'));
+      this.$products.next(this._products);
     }
 
     if (this._products.filter(item => item.isInCart).length <= 0) {
@@ -75,6 +78,7 @@ export class CartService {
         return item;
       });
     }
+    this.$products.next(this._products);
     localStorage.setItem('carts', JSON.stringify(this._products));
   }
 
@@ -84,6 +88,7 @@ export class CartService {
     const now = moment();
     product.date = now.format('YYYY-MM-DD');
     product.dateEnd = now.add(numberPeriod, 'month').format('YYYY-MM-DD');
+    this.$products.next(this._products);
     localStorage.setItem('carts', JSON.stringify(this._products));
   }
 
@@ -126,6 +131,7 @@ export class CartService {
       }
       return item;
     });
+    this.$products.next(this._products);
     localStorage.setItem('carts', JSON.stringify(this._products));
   }
 
@@ -140,6 +146,7 @@ export class CartService {
     if (this._products.filter(item => item.isInCart === true).length <= 0) {
       this._router.navigate(['/apps/comercio/lista']);
     }
+    this.$products.next(this._products);
     localStorage.setItem('carts', JSON.stringify(this._products));
   }
 
@@ -151,6 +158,7 @@ export class CartService {
     this._products.map(item => {
       item.isInCart = false;
     });
+    this.$products.next(this._products);
     localStorage.setItem('carts', JSON.stringify(this._products));
   }
 

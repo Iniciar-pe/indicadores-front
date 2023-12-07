@@ -12,7 +12,7 @@
             <app-content-header [contentHeader]="contentHeader"></app-content-header>
           </div>
           <div class="col-lg-3 col-4">
-            <button type="button" class="btn btn-outline-primary" style="float: right;" rippleEffect (click)="modalOpenSLCIM(modalSLCIM)">Glosario de términos</button>
+            <button type="button" class="btn btn-outline-info" style="float: right;" rippleEffect (click)="modalOpenSLCIM(modalSLCIM)">Glosario de términos</button>
           </div>
         </div>
 
@@ -165,6 +165,7 @@
                           [business]="business"
                           [currency]="data.currency"
                           [nameCurrency]="data.nameCurrency"
+                          [symbol]="data.symbol"
                         ></entry-of-values>
                       
                     

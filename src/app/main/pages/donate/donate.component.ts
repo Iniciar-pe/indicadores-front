@@ -36,7 +36,7 @@ export class DonateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.ruta = environment.front + '/#/admin/registro?url=';
+    this.ruta = environment.front + '/admin/registro?url=';
     this.getList();
     // content header
     this.contentHeader = {

@@ -30,7 +30,6 @@ export class TabDirective implements OnInit{
   ngOnInit(){
     this.tabService.selectedInput
       .subscribe((i) => {
-        console.log(i, this.index);
         if (i === this.index){
           this.el.nativeElement.focus();
         }

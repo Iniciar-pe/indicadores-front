@@ -39,7 +39,6 @@ export class ResponseComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.code = params['code'] || null;
       this.state = params['state'] || null;
-      console.log(this.code);
     });
 
     this._coreConfigService.config = {
@@ -72,7 +71,6 @@ export class ResponseComponent implements OnInit {
 
       const obj1 = JSON.stringify(data).replace('~', 'Email');
       const email = JSON.parse(obj1).handleEmail.emailAddress;
-      console.log(email);
       this.loginService(email, '', '');
     });
   }
@@ -89,13 +87,12 @@ export class ResponseComponent implements OnInit {
       .pipe(first())
       .subscribe(
       data => {
-        if( data?.action === '2') {
+        if (data?.action === '2') {
           this.loginSocial.userResponse = user;
           this._router.navigate(['/admin/registro']);
         } else {
-          this._router.navigate([this.returnUrl]);
+          //this._router.navigate([this.returnUrl]);
         }
-        
       },
       error => {
         console.log(error);

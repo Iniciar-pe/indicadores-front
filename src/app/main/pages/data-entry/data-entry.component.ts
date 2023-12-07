@@ -7,6 +7,7 @@ import moment from 'moment';
 import Swal from 'sweetalert2';
 import { EntryOfValuesService } from 'app/main/components/entry-of-values/entry-of-values.service';
 import { Router } from '@angular/router';
+import { AuthenticationService } from 'app/auth/service/authentication.service';
 
 @Component({
   selector: 'app-user',
@@ -39,6 +40,7 @@ export class DataEntryComponent implements OnInit {
     month: '01',
     currency: '1',
     year: '2022',
+    symbol: '',
   };
 
 
@@ -51,6 +53,7 @@ export class DataEntryComponent implements OnInit {
     private modalService: NgbModal,
     private _router: Router,
     private _entryOfValuesService: EntryOfValuesService,
+    private _authenticationService: AuthenticationService,
     ) {
 
   }
@@ -70,7 +73,7 @@ export class DataEntryComponent implements OnInit {
         type: '',
         links: [
           {
-            name: 'Sigue los pasos',
+            name: 'Siga los pasos',
             isLink: true,
             link: '/'
           }
@@ -85,16 +88,19 @@ export class DataEntryComponent implements OnInit {
       if (option) {
         this.dataEntry = response;
       }
-      this.criterionResponse = response.criterion;
-      this.criterion = response.criterion.id;
+
       if (response.criterion) {
+        this.criterionResponse = response.criterion;
+        this.criterion = response.criterion?.id;
         this.data.period = response.criterion?.period;
         this.data.month = response.criterion?.startMonth;
         this.data.year = response.criterion?.startYear;
         this.data.currency = response.criterion?.currency;
         this.data.nameCurrency = response.criterion?.nameCurrency;
+        this.data.symbol = response.criterion?.symbol;
         this.existCriterion = false;
       }
+      
       this.childRef.getValues(response.criterion?.id);
       this.setPeriod();
       this.addDataQyery();
@@ -124,7 +130,7 @@ export class DataEntryComponent implements OnInit {
   }
 
   addDataQyery(option = false, opcion = 0) {
-    if (this.businessType !== '3') {
+    //if (this.businessType !== '3') {
       this.loading = option;
       this.data.business = String(this.business.id);
       this.data.startMonth = moment(this.datePeriod.startMonth).format('YYYY-MM-DD');
@@ -143,12 +149,12 @@ export class DataEntryComponent implements OnInit {
       }, err => {
         this.loading = option;
       });
-    } else {
+    /*} else {
       if (option) {
         this.horizontalWizardStepper.next();
       }
       // this.childRef.getValues(this.data);
-    }
+    }*/
   }
 
   next() {
@@ -174,6 +180,12 @@ export class DataEntryComponent implements OnInit {
           ruc: res.ruc,
           type: res.type,
           user: res.user,
+          date: res.date,
+          dateEnd: res.dateEnd,
+          status: res.status,
+          numberOrder: res.numberOrder,
+          order: res.order,
+          orden: res.orden,
           isActive: response?.default.filter(e => e.business === res.id).length > 0,
         };
       });
@@ -248,11 +260,86 @@ export class DataEntryComponent implements OnInit {
   }
 
   changePeriod() {
+    this.data.symbol = this.dataEntry?.currency.filter(e => e.id == Number(this.data.currency))[0].symbol;
     this.setPeriod();
     this.addDataQyery();
   }
 
   runProcess() {
+
+    const date = Date.now();
+    const dateEnd = Date.parse(this.business.dateEnd);
+
+    if (this.business.order == '0') {
+      /*
+      Swal.fire({
+        icon: 'error',
+        title: 'Su licencia para el grupo de compra '+this.business.orden+' se encuentra en estado “Pendiente de pago”, favor gestionar la activación',
+        confirmButtonText: 'Aceptar',
+        customClass: {
+          confirmButton: 'btn btn-danger'
+        },
+      });
+      return false;
+      */
+    }
+
+    /*if (this.business.status == 'I') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Su licencia para el grupo de compra '+this.business.orden+' se encuentra en estado “Pendiente de pago”, favor gestionar la activación',
+        confirmButtonText: 'Aceptar',
+        customClass: {
+          confirmButton: 'btn btn-danger'
+        },
+      });
+      return false;
+    } */
+  
+    if (date >= dateEnd) {
+
+     /** if (this._authenticationService.isAnalyst) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Su licencia para '+ this.business.name +' ha vencido, favor gestionar la renovación.',
+          confirmButtonText: 'Aceptar',
+          customClass: {
+            confirmButton: 'btn btn-danger'
+          },
+        });
+      }
+
+      if (this._authenticationService.isOwner) {
+
+        Swal.fire({
+          title: 'Su licencia para '+ this.business.name +' ha vencido, favor gestionar la renovación.',
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+          customClass: {
+            confirmButton: 'btn btn-danger'
+          },
+        }).then((result) => {
+          
+          if (result.isConfirmed) {
+            this._router.navigate(['/apps/comercio/lista']);
+          } 
+        })
+
+        
+        
+      }
+      
+      return false; */
+      /*Swal.fire({
+          icon: 'error',
+          title: 'Su licencia para '+ this.business.name +' ha vencido, favor gestionar la renovación.',
+          confirmButtonText: 'Aceptar',
+          customClass: {
+            confirmButton: 'btn btn-danger'
+          },
+        });*/
+    }
+
     if (this.validateValues()) {
       this.loadingRun = true;
       const data = {
@@ -268,7 +355,7 @@ export class DataEntryComponent implements OnInit {
     } else {
       Swal.fire({
         icon: 'error',
-        title: 'Ongreso de valores no completado',
+        title: 'Ingreso de valores no completado',
         confirmButtonText: 'Aceptar',
         customClass: {
           confirmButton: 'btn btn-danger'
@@ -278,17 +365,17 @@ export class DataEntryComponent implements OnInit {
   }
 
   validateValues() {
-    const data =  this.childRef.rows.filter(item => {
+    const data =  this.childRef.rows?.filter(item => {
       if (item.previousEdit !== 'I' && item.currentEdit !== 'I') {
-        if (Number(item.previousPeriod.replace(',', '')) > 0 && Number(item.currentPeriod.replace(',', '')) > 0) {
+        if (Number(item.previousPeriod.replace(/,/g, '')) >= 0 && Number(item.currentPeriod.replace(/,/g, '')) >= 0) {
           return item;
         }
       } else if (item.previousEdit !== 'I' && item.currentEdit === 'I') {
-        if (Number(item.previousPeriod.replace(',', '')) > 0) {
+        if (Number(item.previousPeriod.replace(/,/g, '')) >= 0) {
           return item;
         }
       } else if (item.previousEdit === 'I' && item.currentEdit !== 'I') {
-        if (Number(item.currentPeriod.replace(',', '')) > 0) {
+        if (Number(item.currentPeriod.replace(/,/g, '')) >= 0) {
           return item;
         }
       }

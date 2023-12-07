@@ -115,7 +115,6 @@ export class AuthRegisterV2Component implements OnInit {
 
     this._authenticationService.register(user).pipe(first()).subscribe(
       data => {
-        console.log(data);
         this.login();
       },
       error => {
@@ -143,7 +142,7 @@ export class AuthRegisterV2Component implements OnInit {
 
   addValidators() {
     if(this.f.businessExist.value){
-      this.f.ruc.validator = <any>Validators.compose([Validators.required, Validators.min(20000000000), Validators.max(29999999999)]);
+      this.f.ruc.validator = <any>Validators.compose([Validators.required, Validators.min(10000000000), Validators.max(29999999999)]);
       this.f.business.validator = <any>Validators.compose([Validators.required, Validators.maxLength(80)]);               
     } else {                
       this.f.ruc.clearValidators();  

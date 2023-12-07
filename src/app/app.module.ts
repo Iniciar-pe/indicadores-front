@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { FakeDbService } from '@fake-db/fake-db.service';
 
@@ -20,7 +20,6 @@ import { CardSnippetModule } from '@core/components/card-snippet/card-snippet.mo
 
 import { coreConfig } from 'app/app-config';
 import { AuthGuard } from 'app/auth/helpers/auth.guards';
-import { fakeBackendProvider } from 'app/auth/helpers'; // used to create fake backend
 import { JwtInterceptor, ErrorInterceptor } from 'app/auth/helpers';
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
@@ -96,12 +95,6 @@ const appRoutes: Routes = [
       delay: 0,
       passThruUnknownUrl: true
     }),
-    RouterModule.forRoot(appRoutes, {
-      useHash: false,
-      scrollPositionRestoration: 'enabled', // Add options right here
-      relativeLinkResolution: 'legacy',
-      anchorScrolling: 'disabled',
-    }),
     NgbModule,
     ToastrModule.forRoot(),
     TranslateModule.forRoot(),
@@ -114,15 +107,20 @@ const appRoutes: Routes = [
     LayoutModule,
     ContentHeaderModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth())
+    provideAuth(() => getAuth()),
+    RouterModule.forRoot(appRoutes, {
+      useHash: true,
+      scrollPositionRestoration: 'enabled', // Add options right here
+      relativeLinkResolution: 'legacy',
+      anchorScrolling: 'disabled',
+    }),
   ],
 
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    {provide: LocationStrategy, useClass: HashLocationStrategy}
+    {provide: LocationStrategy, useClass: PathLocationStrategy}
     // ! IMPORTANT: Provider used to create fake backend, comment while using real API
-    
   ],
   entryComponents: [BasicCustomContextMenuComponent, AnimatedCustomContextMenuComponent],
   bootstrap: [AppComponent]

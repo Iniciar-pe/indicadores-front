@@ -11,7 +11,7 @@ import { AuthGuard } from 'app/auth/helpers/auth.guards';
 import { AbstractComponent } from './abstract.component';
 import { AbstractService } from './abstract.service';
 import { HeaderBusinessModule } from 'app/main/components/header-business/header-business.module';
-
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 const routes: Routes = [
   {
@@ -29,7 +29,8 @@ const routes: Routes = [
     TranslateModule,
     CoreCommonModule,
     ContentHeaderModule,
-    HeaderBusinessModule
+    HeaderBusinessModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [AbstractService],
 })

@@ -23,10 +23,28 @@
                   <img src="assets/images/logo/result.png" alt="" style="display:block;margin:auto;width: 50%;">
               </div>
               <div class="colsm-12 col-lg-5 result-button" >
-                <button type="button" class="btn btn-primary" rippleEffect >
-                  <i data-feather="sun" class="align-middle ml-sm-25 ml-0"></i>
-                  Ver resumen ejecutivo
-                </button>
+                <button 
+                              type="button" 
+                              class="btn btn-primary" 
+                              rippleEffect 
+                              [swal]="{
+                                title: '¿Está seguro de procesar resumen ejecutivo?',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#7367F0',
+                                cancelButtonColor: '#E42728',
+                                confirmButtonText: 'Aceptar',
+                                cancelButtonText: 'Cancelar',
+                                customClass: {
+                                  confirmButton: 'btn btn-primary',
+                                  cancelButton: 'btn btn-danger ml-1'
+                                }
+                              }"
+                              (confirm)="runProcess()">
+                              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                              <i data-feather="sun" class="align-middle ml-sm-25 ml-0"></i>
+                              Ver resumen ejecutivo
+                            </button>
               </div>
             </div>
           </div>

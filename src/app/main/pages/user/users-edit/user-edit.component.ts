@@ -31,6 +31,7 @@ export class UserEditComponent implements OnInit {
   private tempData = [];
   public ColumnMode = ColumnMode;
   public rows: any;
+  public listUser = [];
   @ViewChild(DatatableComponent) table: DatatableComponent;
   
   constructor(private _userService: UserService) {
@@ -42,7 +43,6 @@ export class UserEditComponent implements OnInit {
     this.back.emit(false);
   }
 
-  
   filterUpdate(event) {
     const val = event.target.value.toLowerCase();
 
@@ -57,17 +57,37 @@ export class UserEditComponent implements OnInit {
     this.table.offset = 0;
   }
 
-  getUserList() {
+  getUserList(type: number) {
     const user = {
-      id: this.user.id
+      id: this.user.id,
+      type: type 
     }
+
+    this.rows = [];
+
     this._userService.getUserAll(user).subscribe(item => {
-      this.rows = item.user as UserAssigned;
+      this.rows = item.user.filter(e => {
+        if (type == 1) {
+          if (e.type == type) {
+            return e;
+          }
+        } else if (type == 3) {
+          return e;
+        } else {
+          if (e.type != 1) {
+            return e;
+          }
+        }
+        
+      }) as UserAssigned;
       this.tempData = this.rows;
       this.userBusiness = item.userBusiness;
       this.userCount = item.userCount;
       this.sinAsignate = Number(this.user.countLicense) - Number(this.userCount);
-      this.history = item.history  as HistoryUser;
+      this.history = item.history.map(e => {
+        e.order = e.order == '1' ? true : false;
+        return e;
+      })  as HistoryUser;
     })
   }
 
@@ -91,7 +111,7 @@ export class UserEditComponent implements OnInit {
             confirmButton: 'btn btn-success'
           },
         });
-      }, 900)
+      }, 900);
       
     }, err => this.messageError())
   }
@@ -113,7 +133,45 @@ export class UserEditComponent implements OnInit {
     this.titleMessage = this.user.status == 'I' 
       ? '¿Está seguro de activar el usuario?'
       : '¿Está seguro de desactivar el usuario?';
-    this.getUserList();
+    this.getUserList(1);
+  }
+
+  updateUser(item) {
+    item.order = item.order ? '0' : '1';
+    this._userService.updateHistory(item).subscribe(value => {
+      
+        Swal.fire({
+          icon: 'success',
+          title: value.message,
+          confirmButtonText: 'Aceptar',
+          customClass: {
+            confirmButton: 'btn btn-success'
+          },
+        });
+       
+        item.order = item.order == '1';
+      
+    }, err => this.messageError())
     
   }
+
+  updateUserDonate(item) {
+    item.order = item.order ? '0' : '1';
+    this._userService.updateDonate(item).subscribe(value => {
+      
+        Swal.fire({
+          icon: 'success',
+          title: value.message,
+          confirmButtonText: 'Aceptar',
+          customClass: {
+            confirmButton: 'btn btn-success'
+          },
+        });
+        
+        item.order = item.order == '1';
+      
+    }, err => this.messageError())
+  }
+  
+
 }

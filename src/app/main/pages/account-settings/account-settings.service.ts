@@ -9,7 +9,7 @@ export class AccountSettingsService {
 
     options = {
       headers: new HttpHeaders({
-        'Accept': 'aplication/json'
+        'Accept': 'aplication/json',
       })
     }
     
@@ -42,7 +42,7 @@ export class AccountSettingsService {
     }
 
     uploadImage(file: any) {
-      return this._http.post<any>(`${environment.apiUrl}/api/auth/upload-image`, file, this.options);
+      return this._http.post<any>(`${environment.apiUrl}/api/auth/upload-image`, file);
     }
 
     getOders() {

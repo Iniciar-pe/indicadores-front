@@ -41,7 +41,6 @@ export class EcommerceComponent implements OnInit {
   public data: any;
   public currentUser: User;
   public isAdmin: boolean;
-  public isClient: boolean;
   public statisticsBar;
   public statisticsLine;
   public revenueReportChartoptions;
@@ -58,10 +57,10 @@ export class EcommerceComponent implements OnInit {
   // Private
   private $barColor = '#f3f3f3';
   private $trackBgColor = '#EBEBEB';
-  private $textMutedColor = '#b9b9c3';
+  private $textMutedColor = '#000000';
   private $budgetStrokeColor2 = '#dcdae3';
   private $goalStrokeColor2 = '#51e5a8';
-  private $textHeadingColor = '#5e5873';
+  private $textHeadingColor = '#000000';
   private $strokeColor = '#ebe9f1';
   private $earningsStrokeColor2 = '#28c76f66';
   private $earningsStrokeColor3 = '#28c76f33';
@@ -93,7 +92,6 @@ export class EcommerceComponent implements OnInit {
   ) {
     this._authenticationService.currentUser.subscribe(x => (this.currentUser = x));
     this.isAdmin = this._authenticationService.isAdmin;
-    this.isClient = this._authenticationService.isClient;
     this._unsubscribeAll = new Subject();
     this._coreTranslationService.translate(english, french, german, portuguese);
     // Statistics Bar Chart

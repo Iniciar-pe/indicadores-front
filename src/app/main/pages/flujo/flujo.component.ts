@@ -65,7 +65,7 @@ export class FlujoComponent implements OnInit {
 
     // content header
     this.contentHeader = {
-      headerTitle: 'Ratios Financieros',
+      headerTitle: 'Ratios financieros',
       actionButton: true,
       breadcrumb: {
         type: '',

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 
 import { ColumnMode } from '@swimlane/ngx-datatable';
 import { DistributionService } from './distribution.service';
-import { DistributionModel } from './distribution.model';
+import { DistributionModel, Group } from './distribution.model';
 import { AuthenticationService } from 'app/auth/service';
 import { User } from 'app/auth/models';
 import { ActivatedRoute } from '@angular/router';
@@ -20,10 +20,15 @@ export class DistributionComponent implements OnInit {
   public tempData: DistributionModel[];
   public contentHeader: object;
   public dsitributionEdit = false;
-  public basicSelectedOption: number = 5;
+  public basicSelectedOption = 5;
   public ColumnMode = ColumnMode;
   public currentUser: User;
+  public group: Group[];
   public type;
+
+  get isList() {
+    return this.rows?.length > 0 || this.group?.length > 0;
+  }
 
   constructor(
     private distributionService: DistributionService,
@@ -36,6 +41,7 @@ export class DistributionComponent implements OnInit {
 
   ngOnInit() {
     this.getList();
+    this.getGroup();
     // content header
     this.contentHeader = {
       headerTitle: this.type === '1' ? 'Empresa individual' : 'Empresa con sucursales',
@@ -48,7 +54,6 @@ export class DistributionComponent implements OnInit {
   }
 
   getList() {
-    
     this.distributionService.get(this.type).subscribe(response => {
       this.rows = response.license as DistributionModel[];
       this.tempData = this.rows;
@@ -63,11 +68,19 @@ export class DistributionComponent implements OnInit {
   distritbutionNew() {
     this.dsitributionEdit = true;
     this.distribution = {} as DistributionModel;
+    this.distribution.status = 'A';
   }
 
   goBack() {
     this.getList();
+    this.getGroup();
     this.dsitributionEdit = false;
+  }
+
+  getGroup() {
+    this.distributionService.getGroup(this.type).subscribe(response => {
+      this.group = response.group;
+    });
   }
 
 

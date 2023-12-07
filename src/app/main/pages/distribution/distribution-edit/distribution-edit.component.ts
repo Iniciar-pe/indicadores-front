@@ -5,6 +5,7 @@ import { Business } from '../../data-entry/data-entry.model';
 import { DistributionModel, Group } from '../distribution.model';
 import { DistributionService } from '../distribution.service';
 import Swal from 'sweetalert2';
+import moment from 'moment';
 
 @Component({
   selector: 'app-distribution-edit',
@@ -16,8 +17,9 @@ export class DistributionEditComponent implements OnInit {
   @Input() distribution: DistributionModel;
   @Input() typeBusiness: string;
   @Output() back = new EventEmitter<any>();
+  @Input() group: Group[];
+  @Input() typeFather: string;
   public business: Business[];
-  public group: Group[];
   public id = 0;
   public ruc = '';
   public name = '';
@@ -35,7 +37,7 @@ export class DistributionEditComponent implements OnInit {
   }
 
   get listB() {
-    return this.business.filter(item => item.type === '2');
+    return this.business?.filter(item => item.type === '2');
   }
 
   constructor(
@@ -48,7 +50,6 @@ export class DistributionEditComponent implements OnInit {
   ngOnInit() {
     this.formControl();
     this.getBusiness();
-    this.getGroup();
   }
 
   getBusiness() {
@@ -60,12 +61,6 @@ export class DistributionEditComponent implements OnInit {
     }, err => {
       this.loadingModal = false;
       this.modalService.dismissAll();
-    });
-  }
-
-  getGroup() {
-    this.distributionService.getGroup().subscribe(response => {
-      this.group = response.group;
     });
   }
 
@@ -86,6 +81,11 @@ export class DistributionEditComponent implements OnInit {
       this.ruc = item.ruc;
       this.name = item.name;
       this.id = item.id;
+    } else {
+      this.ruc = '';
+      this.name = '';
+      this.id = null;
+      this.father = '';
     }
     this.modalService.open(modalSLCIM, {
       scrollable: true,
@@ -156,20 +156,68 @@ export class DistributionEditComponent implements OnInit {
   }
 
   submitPlan() {
+
+    const isActive = this.business.filter(item => item.isActive == true);
+
+    if (isActive.length > 0 && this.distribution.group == 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Debe agregar un grupo de compra',
+        confirmButtonText: 'Aceptar',
+        customClass: {
+          confirmButton: 'btn btn-danger'
+        },
+      });
+      return;
+    }
+
+    
+    if (this.distribution.group != 0 && isActive.length <= 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Debe seleccionar mínimo una empresa',
+        confirmButtonText: 'Aceptar',
+        customClass: {
+          confirmButton: 'btn btn-danger'
+        },
+      });
+      return;
+    }
+
+    /*const newGroup = this.group.filter(item => item.id == this.distribution.group);
+    if (newGroup[0].cant == newGroup[0].number) {
+      Swal.fire({
+        icon: 'error',
+        title: 'No tiene licencia para poder asignar un usuario',
+        confirmButtonText: 'Aceptar',
+        customClass: {
+          confirmButton: 'btn btn-danger'
+        },
+      });
+      return;
+    }*/
+
     this.submitted = true;
     if (this.form.invalid) {
       return;
     }
+
     this.loading = true;
+
+    const group = this.group.filter(item => item.id === this.distribution.group)[0];
     const data = {
       user: this.distribution.id,
       email: this.f.email.value,
       lastName: this.f.lastName.value,
       name: this.f.name.value,
-      plan: this.group.filter(item => item.id === this.distribution.group)[0].plan,
+      plan: group?.plan,
+      typePlan: this.typeFather == '1' ? 4 : 5,
       password: this.f.password.value,
       group: this.distribution.group,
+      status: this.f.status.value ? 'A' : 'I',
       detail: JSON.stringify(this.business.filter(item => item.isActive === true)),
+      date: moment().format('YYYY-MM-DD'),
+      dateEnd: moment().add(group?.period == 1 ? 6 : 12, 'months')
     };
     if (this.distribution.id) {
       this.distributionService.editLicenses(data).subscribe(response => {
@@ -180,7 +228,17 @@ export class DistributionEditComponent implements OnInit {
       this.distributionService.add(data).subscribe(response => {
         this.goBack();
         this.loading = false;
-      }, err => this.loading = false);
+      }, err => {
+        this.loading = false;
+        Swal.fire({
+          icon: 'error',
+          title: 'El email ya se encuentra registrado',
+          confirmButtonText: 'Aceptar',
+          customClass: {
+            confirmButton: 'btn btn-danger'
+          },
+        });
+      });
     }
 
   }
@@ -210,4 +268,8 @@ export class DistributionEditComponent implements OnInit {
 
   }
 
+  closeGroup() {
+    this.distribution.group = null;
+  }
+  
 }

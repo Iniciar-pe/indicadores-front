@@ -131,7 +131,7 @@
                         </div>
                         <div class="col-12 col-sm-6">
                           <div class="form-group">
-                            <label for="account-birth-date">Fecha Nacimiento</label>
+                            <label for="account-birth-date">Fecha nacimiento</label>
                             <input
                               id="account-birth-date"
                               name="account-birth-date"
@@ -191,7 +191,7 @@
                         </div>
                         <div class="col-12 col-sm-4">
                           <div class="form-group">
-                            <label for="account-ubi_codigo">Código Postal</label>
+                            <label for="account-ubi_codigo">Código postal</label>
                             <input
                               class="form-control"
                               formControlName="ubi_codigo"
@@ -199,7 +199,7 @@
                               name="ubi_codigo"
                               [ngClass]="{ 'is-invalid': submitted && f.ubi_codigo.errors }"
                               type="text"
-                              placeholder="Ingrese Código Postal"
+                              placeholder="Ingrese Código postal"
                               maxlength = "11"
                             />
                           </div>
@@ -379,7 +379,8 @@
               </ng-template>
             </li>
             
-            <li class="nav-item" ngbNavItem>
+            <li class="nav-item" ngbNavItem
+            *ngIf="isOwner">
               <a
                 ngbNavLink
                 class="nav-link d-flex py-75"
@@ -389,37 +390,44 @@
                 aria-expanded="false"
               >
                 <i data-feather="tag" class="font-medium-3 mr-1"></i>
-                <span class="font-weight-bold">Mis Compras</span>
+                <span class="font-weight-bold">Mis compras</span>
               </a>
               <ng-template ngbNavContent>
 
                 <div class="card">
                   <div class="card-body">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th style="text-transform: none;">#Pedido</th>
-                          <th style="text-align: center;text-transform: none;">Fecha</th>
-                          <th style="text-align: center;text-transform: none;">Tipo de licencia</th>
-                          <th style="text-align: center;text-transform: none;">Cantidad</th>
-                          <th style="text-align: center;text-transform: none;">Precio(s/)</th>
-                          <th style="text-align: center;text-transform: none;">Estado</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let item of orders" >
-                            <td style="text-align: center;">{{ item.pedido }}</td>
-                            <td style="text-align: center;">{{ item.date | date: 'dd/MM/yyyy' }}</td>
-                            <td style="text-align: center;">{{ item.license }}</td>
-                            <td style="text-align: center;">{{ item.amount }}</td>
-                            <td style="text-align: center;">{{ item.total | currency:'S/' }}</td>
-                            <td style="text-align: center;">
-                              <span class="badge badge-pill badge-light-success mr-1" *ngIf="item.status == '1'">Pagado</span>
-                              <span class="badge badge-pill badge-light-danger mr-1" *ngIf="item.status != '1'">Pendiente</span>
-                            </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                    <div class="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th style="text-transform: none;">#Pedido</th>
+                            <th style="text-align: center;text-transform: none;">Tipo de licencia</th>
+                            <th style="text-align: center;text-transform: none;">Inicio</th>
+                            <th style="text-align: center;text-transform: none;">Fin</th>
+                            <th style="text-align: center;text-transform: none;">Periodo</th>
+                            <th style="text-align: center;text-transform: none;">Cantidad</th>
+                            <th style="text-align: center;text-transform: none;">Precio(S/)</th>
+                            <th style="text-align: center;text-transform: none;">Estado</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of orders" >
+                              <td style="text-align: center;">{{ item.pedido }}</td>
+                              <td style="text-align: center;">{{ item.license }}</td>
+                              <td style="text-align: center;">{{ item.date | date: 'dd/MM/yyyy' }}</td>
+                              <td style="text-align: center;">{{ item.dateEnd | date: 'dd/MM/yyyy' }}</td>
+                              <td style="text-align: center;">{{ item.period == '1' ? 'Semestral' : 'Anual' }}</td>
+                              <td style="text-align: center;">{{ item.amount }}</td>
+                              <td style="text-align: center;">{{ item.total | currency:'S/' }}</td>
+                              <td style="text-align: center;">
+                                <span class="badge badge-pill badge-light-success mr-1" *ngIf="item.status == '1'">Pagado</span>
+                                <span class="badge badge-pill badge-light-danger mr-1" *ngIf="item.status != '1'">Pendiente</span>
+                              </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    
                   </div>
                 </div>
                 

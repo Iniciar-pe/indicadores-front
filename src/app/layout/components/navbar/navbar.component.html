@@ -32,7 +32,7 @@
   </div>
   <ul class="nav navbar-nav align-items-center ml-auto">
     <!-- Language selection -->
-    <li ngbDropdown class="nav-item dropdown dropdown-language">
+    <!--<li ngbDropdown class="nav-item dropdown dropdown-language">
       <a class="nav-link dropdown-toggle" id="dropdown-flag" ngbDropdownToggle>
         <i class="flag-icon flag-icon-{{ languageOptions[_translateService.currentLang].flag }}"></i
         ><span class="selected-language">{{ languageOptions[_translateService.currentLang].title }}</span></a
@@ -42,7 +42,7 @@
           <i class="flag-icon flag-icon-{{ languageOptions[lang].flag }}"></i> {{ languageOptions[lang].title }}
         </a>
       </div>
-    </li>
+    </li>-->
     <!--/ Language selection -->
  <!-- Toggle skin -->
  <li class="nav-item d-none d-lg-block">
@@ -93,10 +93,11 @@
       </a>
       <div ngbDropdownMenu aria-labelledby="navbarUserDropdown" class="dropdown-menu dropdown-menu-right">
         <a ngbDropdownItem [routerLink]="['/admin/cuenta']"
-          ><span [data-feather]="'user'" [class]="'mr-50'"></span> Mi Cuenta</a
+          ><span [data-feather]="'user'" [class]="'mr-50'"></span> Mi cuenta</a
         >
         <div class="dropdown-divider"></div>
-        <a ngbDropdownItem [routerLink]="['/pages/account-settings']"
+        <a ngbDropdownItem [routerLink]="['/apps/comercio/lista']"
+        *ngIf="isOwner"
           ><span [data-feather]="'box'" [class]="'mr-50'"></span> + Licencias</a
         ><a ngbDropdownItem (click)="logout()"><span [data-feather]="'power'" [class]="'mr-50'"></span> Cerrar Sección</a>
       </div>

@@ -125,7 +125,6 @@ export class AuthLoginV1Component implements OnInit {
 
   loginFB() {
     this.loginSocialService.loginFaceBook().then(response => {
-      console.log(response);
       this.loginService(response.user.email, response.user.email, response.user.displayName)
     });
   }
@@ -148,8 +147,6 @@ export class AuthLoginV1Component implements OnInit {
         } else {
           this._router.navigate(['/admin/entrada-de-datos']);
         }
-        // 
-        console.log('data', data);
       },
       error => {
         console.log(error);

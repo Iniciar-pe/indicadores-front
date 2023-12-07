@@ -11,6 +11,7 @@ export interface DistributionModel {
     user: string;
     lastName: string;
     group: number;
+    statusLicence: string;
 }
 
 export interface Group {
@@ -21,4 +22,6 @@ export interface Group {
     cant: number;
     number: number;
     plan: number;
+    period: number;
+    orde: number;
 }

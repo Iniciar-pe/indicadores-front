@@ -34,14 +34,22 @@ export class AuthenticationService {
    *  Confirms if user is admin
    */
   get isAdmin() {
-    return this.currentUser && this.currentUserSubject.value.role === Role.Admin;
+    return this.currentUser && this.currentUserSubject.value?.role === Role.Admin;
   }
 
   /**
    *  Confirms if user is client
    */
-  get isClient() {
-    return this.currentUser && this.currentUserSubject.value.role === Role.Client;
+  get isFree() {
+    return this.currentUser && this.currentUserSubject.value?.role === Role.Free;
+  }
+
+  get isOwner() {
+    return this.currentUser && this.currentUserSubject.value?.role === Role.Owner;
+  }
+
+  get isAnalyst() {
+    return this.currentUser && this.currentUserSubject.value?.role === Role.Analyst;
   }
 
   /**
@@ -155,8 +163,15 @@ export class AuthenticationService {
    }
 
    promiseError(err: HttpErrorResponse): HttpErrorResponse {
-    console.log(err)
     return err;
+  }
+
+  sendPasswordResetLink(data) {
+    return this._http.post<any>(`${environment.apiUrl}/api/auth/send-password`, data);
+  }
+
+  sendPassword(data) {
+    return this._http.post<any>(`${environment.apiUrl}/api/auth/change-password`, data);
   }
 
 }

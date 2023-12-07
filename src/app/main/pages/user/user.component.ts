@@ -86,8 +86,6 @@ export class UserComponent implements OnInit {
   }
 
   onSelect({ selected }) {
-    console.log('Select Event', selected, this.selected);
-
     this.selected.splice(0, this.selected.length);
     this.selected.push(...selected);
   }
@@ -134,7 +132,6 @@ export class UserComponent implements OnInit {
  
   ngOnInit() {
     this.getPlan();
-    
     // content header
     this.contentHeader = {
       headerTitle: 'Indicadores',
@@ -160,4 +157,6 @@ export class UserComponent implements OnInit {
       }
     };
   }
+
+  
 }

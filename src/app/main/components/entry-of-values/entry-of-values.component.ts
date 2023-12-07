@@ -21,7 +21,7 @@ export class EntryOfValuesComponent implements OnInit {
   public editingSalary = {};
   public rows: any;
   public ColumnMode = ColumnMode;
-  public selected = 5;
+  public selected = 50;
   public money: string;
   public criterion: string;
   @Output() next = new EventEmitter<boolean>();
@@ -29,6 +29,7 @@ export class EntryOfValuesComponent implements OnInit {
   @Input('business') business;
   @Input('currency') currency;
   @Input('nameCurrency') nameCurrency;
+  @Input('symbol') symbol;
   
   constructor(
     private _entryOfValuesService: EntryOfValuesService,
@@ -44,14 +45,14 @@ export class EntryOfValuesComponent implements OnInit {
 
   inlineEditingUpdateAge(event, cell, rowIndex, row) {
     this.editingAge[rowIndex + '-' + cell] = false;
-    this.rows[rowIndex][cell] = event.target.value;
+    this.rows[rowIndex][cell] = event.target.value == '' ? '0.00' : event.target.value;
     this.rows = [...this.rows];
     this.addValues(row);
   }
 
   inlineEditingUpdateSalary(event, cell, rowIndex, row) {
     this.editingSalary[rowIndex + '-' + cell] = false;
-    this.rows[rowIndex][cell] = event.target.value;
+    this.rows[rowIndex][cell] = event.target.value == '' ? '0.00' : event.target.value;
     this.rows = [...this.rows];
     this.addValues(row);
   }
@@ -59,7 +60,7 @@ export class EntryOfValuesComponent implements OnInit {
 
   inlineEditingUpdateStatus(event, cell, rowIndex) {
     this.editingStatus[rowIndex + '-' + cell] = false;
-    this.rows[rowIndex][cell] = event.target.value;
+    this.rows[rowIndex][cell] = event.target.value == '' ? '0.00' : event.target.value;
     this.rows = [...this.rows];
   }
 

@@ -69,6 +69,10 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   public orders = [];
   private _unsubscribeAll: Subject<any>;
 
+  get isOwner() {
+    return this._authenticationService.isOwner;
+  }
+  
   constructor(
     private _accountSettingsService: AccountSettingsService,
     private _formBuilder: FormBuilder,
@@ -107,7 +111,11 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       this._accountSettingsService.uploadImage(data).subscribe(e => {
         this.loading = false;
         this.avatarImage = environment.apiUrl + e.avatar;
-      }, err => this.messageError());
+        this.getUSer();
+      }, err => {
+        console.log(err);
+        this.messageError();
+      });
     }
   }
 
@@ -215,7 +223,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
    });
 
     this.contentHeader = {
-      headerTitle: 'Mi Cuenta',
+      headerTitle: 'Mi cuenta',
       actionButton: true,
       breadcrumb: {
         type: '',
@@ -231,7 +239,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
             link: '/'
           },
           {
-            name: 'Mi Cuenta',
+            name: 'Mi cuenta',
             isLink: false
           }
         ]

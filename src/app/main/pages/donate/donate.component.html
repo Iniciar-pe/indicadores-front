@@ -53,7 +53,7 @@
                       'text-warning': row.status == '1'
                     }"
                     >
-                    {{  row.status == '1' ? 'Por asignar' : row.status == '2' ? 'Pendiente' : row.name }}
+                    {{  row.status == '1' ? 'Por asignar' : row.status == '2' ? 'Pendiente' : row.name + ' ' + row.lastName }}
                     </p>
                   </div>
                 </div>

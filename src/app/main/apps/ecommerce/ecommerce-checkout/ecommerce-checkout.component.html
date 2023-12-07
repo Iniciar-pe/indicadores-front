@@ -71,14 +71,14 @@
                   
                   
                   <div class="price-details">
-                    <h6 class="price-title">Detalles de la Compra</h6>
+                    <h6 class="price-title">Detalles de la compra</h6>
                     <ul class="list-unstyled">
                       <ng-container *ngFor="let product of products">
                         <li class="price-detail"  *ngIf="product.isInCart === true">
                           <div class="detail-title">
                             <p>{{ product.name }}
                               <br>
-                              <b>{{ product.mount }} lincencia{{ product.mount > 1 ? 's' : '' }} {{ product.periodText }}</b>
+                              <b style="text-transform: lowercase;">{{ product.mount }} licencia{{ product.mount > 1 ? 's' : '' }} {{ product.periodText }}</b>
                             </p>
                             
                           </div>
@@ -266,14 +266,14 @@
                 <div class="card-body">
                   
                   <div class="price-details">
-                    <h6 class="price-title">Detalles de la Compra</h6>
+                    <h6 class="price-title">Detalles de la compra</h6>
                     <ul class="list-unstyled">
                       <ng-container *ngFor="let product of products">
                         <li class="price-detail"  *ngIf="product.isInCart === true">
                           <div class="detail-title">
                             <p>{{ product.name }}
                               <br>
-                              <b>{{ product.mount }} lincencia{{ product.mount > 1 ? 's' : '' }} {{ product.periodText }}</b>
+                              <b style="text-transform: lowercase;">{{ product.mount }} licencia{{ product.mount > 1 ? 's' : '' }} {{ product.periodText }}</b>
                             </p>
                             
                           </div>
@@ -329,7 +329,7 @@
                     <li class="py-50">
                       <div class="custom-control custom-radio">
                         <input type="radio" id="customColorRadio3" name="paymentOptions" [(ngModel)]="card" value="2" class="custom-control-input" />
-                        <label class="custom-control-label" for="customColorRadio3"> Transferencia Bancaria </label>
+                        <label class="custom-control-label" for="customColorRadio3"> Transferencia bancaria </label>
                       </div>
                       <div class="ml-2 mt-2">
                         <p>Consultoria Villajuana  SAC <br>
@@ -418,14 +418,14 @@
                 <div class="card-body">
       
                   <div class="price-details" >
-                    <h6 class="price-title" *ngIf="productsCart">Detalles de la Compra</h6>
+                    <h6 class="price-title" *ngIf="productsCart">Detalles de la compra</h6>
                     <ul class="list-unstyled" *ngIf="productsCart">
                       <ng-container *ngFor="let product of products">
                         <li class="price-detail"  *ngIf="product.isInCart === true">
                           <div class="detail-title">
                             <p>{{ product.name }}
                               <br>
-                              <b>{{ product.mount }} lincencia{{ product.mount > 1 ? 's' : '' }} {{ product.periodText }}</b>
+                              <b style="text-transform: lowercase;">{{ product.mount }} licencia{{ product.mount > 1 ? 's' : '' }} {{ product.periodText }}</b>
                             </p>
                             
                           </div>

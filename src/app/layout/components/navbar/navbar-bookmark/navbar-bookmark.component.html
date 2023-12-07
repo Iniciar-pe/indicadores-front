@@ -1,7 +1,7 @@
 <!-- Bookmarked Icons -->
 <ul class="nav navbar-nav bookmark-icons">
   <ng-container >
-    <li class="nav-item d-none d-lg-block" (click)="formModal()">
+    <li *ngIf="isOwner" class="nav-item d-none d-lg-block" [routerLink]="'/apps/comercio/lista'">
       <a class="nav-link"  placement="bottom" ngbTooltip="+ Licencias">
         <span data-feather="box" [class]="'ficon'"></span>
       </a>

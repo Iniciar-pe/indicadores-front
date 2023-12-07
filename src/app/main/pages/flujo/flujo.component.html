@@ -12,7 +12,7 @@
           <app-content-header [contentHeader]="contentHeader"></app-content-header>
         </div>
         <div class="col-lg-3 col-4">
-          <button type="button" class="btn btn-outline-primary" style="float: right;" rippleEffect (click)="modalOpenSLCIM(modalSLCIM)">Glosario de términos</button>
+          <button type="button" class="btn btn-outline-info" style="float: right;" rippleEffect (click)="modalOpenSLCIM(modalSLCIM)">Glosario de términos</button>
         </div>
       </div>
 
@@ -30,7 +30,8 @@
             <div class="col-sm-12 col-md-3 col-lg-3">
               <div class="card-left card" style="box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%) !important; ">
                 <div class="card-header d-flex flex-column align-items-start">
-                  <div class="avatar bg-light-primary">
+                  <div class="avatar bg-light-primary" placement="top"
+                  ngbTooltip="Cantidad de dias">
                     <div class="avatar-content">
                       <img src="assets/images/icons/icono-celeste.png" alt="" width="35">
                     </div>
@@ -43,7 +44,8 @@
             <div class="col-sm-12 col-md-3 col-lg-3 separator-card" >
               <div class="card-rigth card" style="box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%) !important; ">
                 <div class="card-header d-flex flex-column align-items-start">
-                  <div class="avatar bg-light-success">
+                  <div class="avatar bg-light-success" placement="top"
+                  ngbTooltip="Simbolo de la moneda">
                     <div class="avatar-content">
                       <img src="assets/images/icons/icono-verde.png" alt="" width="35">
                     </div>
@@ -96,7 +98,7 @@
                     </div>
                   </div>
 
-                  <div class="col-12">
+                 <!-- <div class="col-12">
                     <p style="    text-align: center;
                     font-size: 14px;
                     color: #44b7ff;
@@ -104,7 +106,7 @@
                     padding: 1rem;">
                     <b>Variación Absoluto del {{ datePeriod?.period | namePeriod }} Final respecto a {{ datePeriod?.period | namePeriod }} inicial ({{ symbol }})</b>  
                   </p>
-                  </div>
+                  </div>-->
 
                 </div>
 
@@ -112,7 +114,7 @@
 
                 <ngx-datatable
                 class="bootstrap core-bootstrap"
-                [headerHeight]="0"
+                
                 [rowHeight]="58"
                 [limit]="basicSelectedOption"
                 [columnMode]="ColumnMode.force"
@@ -121,6 +123,14 @@
                 [scrollbarH]="true"
                 >
                   <ngx-datatable-column name="Indicadores" prop="name" [width]="280">
+                    <ng-template let-column="column" ngx-datatable-header-template> 
+                      <div class="container">
+                        <p 
+                          style="text-align: center;"
+                          class="font-medium-1 font-weight-bold line-height-1 mb-25"
+                        ><b style="text-transform: capitalize;"></b></p>
+                      </div>
+                    </ng-template>
                     <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
                       <div class="d-flex align-items-center">
                         
@@ -144,7 +154,19 @@
                   </ngx-datatable-column>
     
     
-                  <ngx-datatable-column name="Resultados" prop="result" [width]="200">
+                  <ngx-datatable-column name="Resultados" prop="result" [width]="20">
+                    <ng-template let-column="column" ngx-datatable-header-template> 
+                      <div class="container">
+                        <p style="text-align: center;
+                    font-size: 14px;
+                    color: #44b7ff;
+                    background: whitesmoke;">
+                    <b>V</b>
+                    <b class="title">ariación Absoluto del <br>{{ datePeriod?.period | namePeriod }} 
+                      Final respecto a {{ datePeriod?.period | namePeriod }} <br>inicial ({{ symbol }})</b>  
+                  </p>
+                      </div>
+                    </ng-template>
                     <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
                       <div class="container" *ngIf="row.validate == 'O'">
                             <p class="font-medium-1 font-weight-bold line-height-1" style="text-align: center;">
@@ -159,7 +181,15 @@
                     </ng-template>
                   </ngx-datatable-column>
     
-                  <ngx-datatable-column name="Opcion" [width]="100" [sortable]="false">
+                  <ngx-datatable-column name="Opcion" [width]="5" [sortable]="false" [width]="20">
+                    <ng-template let-column="column" ngx-datatable-header-template> 
+                      <div class="container">
+                        <p 
+                          style="text-align: center;"
+                          class="font-medium-1 font-weight-bold line-height-1 mb-25"
+                        ><b style="text-transform: capitalize;"></b></p>
+                      </div>
+                    </ng-template>
                     <ng-template ngx-datatable-cell-template let-row="row">
                       <div class="d-flex align-items-center">
                         <div ngbDropdown container="body">
